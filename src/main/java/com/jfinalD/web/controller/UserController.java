@@ -1,4 +1,4 @@
-package com.tanlsh.jfinal.demo.controller;
+package com.jfinalD.web.controller;
 
 import com.jfinal.core.Controller;
 

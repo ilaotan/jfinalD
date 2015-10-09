@@ -1,4 +1,4 @@
-package com.tanlsh.jfinal.demo.config;
+package com.jfinalD.web.config;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,17 +14,26 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
+import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
-import com.tanlsh.jfinal.demo.controller.HelloController;
-import com.tanlsh.jfinal.demo.interceptor.GlobalInterceptor;
-import com.tanlsh.jfinal.demo.model.User;
-import com.tanlsh.jfinal.demo.route.AdminRoutes;
+import com.jfinalD.ext.shiro.ShiroInterceptor;
+import com.jfinalD.ext.shiro.ShiroPlugin;
+import com.jfinalD.web.controller.HelloController;
+import com.jfinalD.web.interceptor.GlobalInterceptor;
+import com.jfinalD.web.model.Res;
+import com.jfinalD.web.model.Role;
+import com.jfinalD.web.model.User;
+import com.jfinalD.web.route.AdminRoutes;
 
-public class DemoConfig extends JFinalConfig {
-
+public class MyConfig extends JFinalConfig {
+	
+	/**
+     * 供Shiro插件使用。
+     */
+    Routes routes;
+	
 	@Override
 	public void configConstant(Constants constant) {
-		// TODO Auto-generated method stub
 		loadPropertyFile("jdbc.properties");
 		constant.setDevMode(getPropertyToBoolean("devMode", false));
 		constant.setUrlParaSeparator("-");//设置参数分隔符
@@ -33,11 +42,14 @@ public class DemoConfig extends JFinalConfig {
 		constant.setError404View("/WEB-INF/pages/404.html");
 		constant.setError500View("/WEB-INF/pages/500.html");
 		constant.setBaseViewPath("/WEB-INF/pages/");
+		// for shiro
+		constant.setError401View("/WEB-INF/pages/401.html");//没有身份验证时
+		constant.setError403View("/WEB-INF/pages/403.html");//美欧权限时
+		
 	}
 
 	@Override
 	public void configHandler(Handlers me) {
-		// TODO Auto-generated method stub
 		//访问路径是/druid/index.html
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
@@ -54,13 +66,16 @@ public class DemoConfig extends JFinalConfig {
 	 */
 	@Override
 	public void configInterceptor(Interceptors me) {
+		//添加shiro的全局变量
+		me.add(new ShiroInterceptor());
+		
 		me.add(new GlobalInterceptor());
+		
 //		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
 	}
 
 	@Override
 	public void configPlugin(Plugins me) {
-		// TODO Auto-generated method stub
 		// DruidPlugin
 		DruidPlugin dp = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall = new WallFilter();
@@ -72,14 +87,25 @@ public class DemoConfig extends JFinalConfig {
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
 		//数据库表与bean映射
-		arp.addMapping("user", "user_id",User.class);	//
+		arp.addMapping("system_user",User.class);	//
+		arp.addMapping("system_res",Res.class);	//
+		arp.addMapping("system_role",Role.class);	//
 		me.add(arp);
-			
+		
+		//加载Shiro插件
+		//me.add(new ShiroPlugin(routes));
+		ShiroPlugin shiroPlugin = new ShiroPlugin(this.routes);
+		shiroPlugin.setLoginUrl("/login.do");
+		shiroPlugin.setSuccessUrl("/index.do");
+		shiroPlugin.setUnauthorizedUrl("/login.do");
+		me.add(shiroPlugin);
+		
+		me.add(new EhCachePlugin());
 	}
 
 	@Override
 	public void configRoute(Routes me) {
-		// TODO Auto-generated method stub
+		this.routes = me;
 		me.add("/hello",HelloController.class);
 		me.add(new AdminRoutes()); // 具体的控制由AdminRoutes分发
 		
@@ -87,14 +113,18 @@ public class DemoConfig extends JFinalConfig {
 
 	@Override
 	public void afterJFinalStart() {
-		// TODO Auto-generated method stub
 		super.afterJFinalStart();
 	}
 
 	@Override
 	public void beforeJFinalStop() {
-		// TODO Auto-generated method stub
 		super.beforeJFinalStop();
+	}
+	
+	//判断是哪种环境
+	private boolean isDevMode(){
+		String osName = System.getProperty("os.name");
+		return osName.indexOf("Windows") != -1;
 	}
 
 }

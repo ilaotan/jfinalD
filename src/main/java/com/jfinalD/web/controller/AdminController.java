@@ -1,4 +1,6 @@
-package com.tanlsh.jfinal.demo.controller;
+package com.jfinalD.web.controller;
+
+import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import com.jfinal.core.Controller;
 

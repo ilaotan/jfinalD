@@ -1,4 +1,4 @@
-package com.tanlsh.jfinal.demo.controller;
+package com.jfinalD.web.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,9 +11,9 @@ import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
-import com.tanlsh.jfinal.demo.interceptor.ActionInterceptor;
-import com.tanlsh.jfinal.demo.interceptor.ControllerInterceptor;
-import com.tanlsh.jfinal.demo.model.User;
+import com.jfinalD.web.interceptor.ActionInterceptor;
+import com.jfinalD.web.interceptor.ControllerInterceptor;
+import com.jfinalD.web.model.User;
 @Before(ControllerInterceptor.class)
 public class HelloController extends Controller {
 	@Before(ActionInterceptor.class)

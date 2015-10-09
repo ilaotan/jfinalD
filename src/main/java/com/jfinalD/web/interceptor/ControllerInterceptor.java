@@ -1,4 +1,4 @@
-package com.tanlsh.jfinal.demo.interceptor;
+package com.jfinalD.web.interceptor;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;

@@ -1,8 +1,8 @@
-package com.tanlsh.jfinal.demo.route;
+package com.jfinalD.web.route;
 
 import com.jfinal.config.Routes;
-import com.tanlsh.jfinal.demo.controller.AdminController;
-import com.tanlsh.jfinal.demo.controller.UserController;
+import com.jfinalD.web.controller.AdminController;
+import com.jfinalD.web.controller.UserController;
 
 public class AdminRoutes extends Routes {
 
