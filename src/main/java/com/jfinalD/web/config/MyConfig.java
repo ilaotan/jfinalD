@@ -18,7 +18,7 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.jfinalD.ext.shiro.ShiroInterceptor;
 import com.jfinalD.ext.shiro.ShiroPlugin;
-import com.jfinalD.web.controller.HelloController;
+import com.jfinalD.web.controller.IndexController;
 import com.jfinalD.web.interceptor.GlobalInterceptor;
 import com.jfinalD.web.model.Res;
 import com.jfinalD.web.model.Role;
@@ -35,19 +35,29 @@ public class MyConfig extends JFinalConfig {
 	@Override
 	public void configConstant(Constants constant) {
 		loadPropertyFile("jdbc.properties");
-		constant.setDevMode(getPropertyToBoolean("devMode", false));
+		constant.setDevMode(getPropertyToBoolean("devMode", true));
 		constant.setUrlParaSeparator("-");//设置参数分隔符
 		
-		constant.setViewType(ViewType.JSP); // 设置视图类型为Jsp，否则默认为FreeMarker
+//		constant.setViewType(ViewType.JSP); // 设置视图类型为Jsp，否则默认为FreeMarker
 		constant.setError404View("/WEB-INF/pages/404.html");
 		constant.setError500View("/WEB-INF/pages/500.html");
-		constant.setBaseViewPath("/WEB-INF/pages/");
 		// for shiro
 		constant.setError401View("/WEB-INF/pages/401.html");//没有身份验证时
 		constant.setError403View("/WEB-INF/pages/403.html");//美欧权限时
 		
 	}
 
+	@Override
+	public void configRoute(Routes me) {
+		//给shiro用的
+		this.routes = me;
+		
+		me.add("/",IndexController.class,"ftl");
+		me.add(new AdminRoutes()); // 具体的控制由AdminRoutes分发
+		
+	}
+
+	
 	@Override
 	public void configHandler(Handlers me) {
 		//访问路径是/druid/index.html
@@ -100,16 +110,9 @@ public class MyConfig extends JFinalConfig {
 		shiroPlugin.setUnauthorizedUrl("/login.do");
 		me.add(shiroPlugin);
 		
-		me.add(new EhCachePlugin());
+//		me.add(new EhCachePlugin());
 	}
 
-	@Override
-	public void configRoute(Routes me) {
-		this.routes = me;
-		me.add("/hello",HelloController.class);
-		me.add(new AdminRoutes()); // 具体的控制由AdminRoutes分发
-		
-	}
 
 	@Override
 	public void afterJFinalStart() {

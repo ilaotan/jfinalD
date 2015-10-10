@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2014 陕西威尔伯乐信息技术有限公司
- * @Package com.wellbole.web.core.realm  
- * @Title: ShiroDbRealm.java  
- * @Description: 基于db实现的shiro realm   
- * @author 李飞 (lifei@wellbole.com)    
- * @date 2014年9月8日  下午10:10:38  
- * @since V1.0.0 
- *
- * Modification History:
- * Date         Author      Version     Description
- * -------------------------------------------------------------
- * 2014年9月8日      李飞                       V1.0.0        新建文件   
- */
 package com.jfinalD.web.core.shiro;
 
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +9,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -34,19 +21,18 @@ import com.jfinalD.web.model.Res;
 import com.jfinalD.web.model.Role;
 import com.jfinalD.web.model.User;
 
-/**  
- * @ClassName: ShiroDbRealm  
- * @Description: 基于db实现的shiro realm 
- * @author 李飞 (lifei@wellbole.com)   
- * @date 2014年9月8日 下午10:10:38
- * @since V1.0.0  
- */
 public class ShiroDbRealm extends AuthorizingRealm {
     
     public ShiroDbRealm(){
         setAuthenticationTokenClass(CaptchaUsernamePasswordToken.class);
     }
 
+	@Override
+	public void setCacheManager(CacheManager cacheManager){
+		super.setCacheManager(cacheManager);
+		ShiroCache.setCacheManager(cacheManager);
+	}
+    
 //    /* 
 //	 * tanliansheng
 //	 * 2015年1月15日09:04:34

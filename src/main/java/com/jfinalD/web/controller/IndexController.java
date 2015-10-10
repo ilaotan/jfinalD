@@ -1,6 +1,7 @@
 package com.jfinalD.web.controller;
 
 import java.sql.SQLException;
+
 import java.util.List;
 
 import com.jfinal.aop.Before;
@@ -13,22 +14,28 @@ import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinalD.web.interceptor.ActionInterceptor;
 import com.jfinalD.web.interceptor.ControllerInterceptor;
+import com.jfinalD.web.model.Res;
+import com.jfinalD.web.model.Role;
 import com.jfinalD.web.model.User;
-@Before(ControllerInterceptor.class)
-public class HelloController extends Controller {
-	@Before(ActionInterceptor.class)
+
+
+public class IndexController extends Controller {
+	
 	public void index(){
-		System.err.println("url传来的"+getPara("name"));//http://localhost:8080/jfinalDemo/hello?name=3232
-		System.err.println("下标方法"+getPara(0));//http://localhost:8080/jfinalDemo/hello/xx1-xx2-xx3
+//		System.err.println("url传来的"+getPara("name"));//http://localhost:8080/jfinalDemo/hello?name=3232
+//		System.err.println("下标方法"+getPara(0));//http://localhost:8080/jfinalDemo/hello/xx1-xx2-xx3
+//		
+//		renderText("你好,老谭");
+//		renderText("你好,老谭2");
 		
-		renderText("你好,老谭");
-		renderText("你好,老谭2");
-		setAttr("aa", "测试一下传值-->a.jsp");
-		render("a.jsp");
+//		User val = User.dao.findByUsername("tanlsh");
+//		List<String> val = Role.dao.findRoleByUserId(1L);
+		List<String> val = Res.dao.getResUrl("admin");
+		setAttr("val",val);
+		render("front/index.html");
 //		renderJsp("a.jsp");
-		return ;
 	}
-	@Clear
+	
 	public void clean() {
 		renderText("清除上级(Controller)拦截器,意思就是这个方法不适用拦截器,仅限本次操作");
 	}
