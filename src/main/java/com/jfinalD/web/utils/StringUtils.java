@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2014-2015 爱维宝贝web端团队   All rights reserved
- *
- * Base on awframework,powered by aiwei web team
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.jfinalD.web.utils;
 
 import java.io.UnsupportedEncodingException;
@@ -18,7 +11,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
- * @author Chenz
  *
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils{

@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2014-2015 爱维宝贝web端团队   All rights reserved
- *
- * Base on awframework,powered by aiwei web team
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.jfinalD.web.core.shiro;
 
 import java.io.IOException;
@@ -24,12 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.jfinalD.web.common.Constants;
 
-/**   
- * @Description: shiro权限拦截器，根据url判断权限
- * @author Chenz
- * @date Nov 13, 2014 1:09:56 PM 
- * @version V1.0   
-*/
 public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizationFilter {
 	
 	private static final Logger log = LoggerFactory.getLogger(SystemPermissionsAuthorizationFilter.class);

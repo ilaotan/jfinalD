@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2014-2015 爱维宝贝web端团队   All rights reserved
- *
- * Base on awframework,powered by aiwei web team
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.jfinalD.web.core.shiro;
 
 import javax.servlet.ServletRequest;
@@ -17,12 +10,6 @@ import org.apache.shiro.web.filter.authc.LogoutFilter;
 import com.jfinal.config.Constants;
 import com.jfinalD.web.utils.StringUtils;
 
-/**
- * user filter 主要为了控制不同类型用户的跳转
- * @author Chenz
- * @date 2014-11-6 16:32:59
- *
- */
 public class SystemLogoutFilter extends LogoutFilter {
 	/**
 	 * 返回URL
