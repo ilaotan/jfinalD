@@ -76,10 +76,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (user.getBoolean("is_locked")) {
             throw new LockedAccountException("该用户已被锁定");
         }
-        return  new SimpleAuthenticationInfo(
-        		new SimpleUser(user.getLong("id"),user.getStr("username"),
-        						user.getStr("description"), user.getStr("type")), 
-        						user.getStr("password"), getName());
+        ShiroUser principal = 
+        		new ShiroUser(user.getLong("id"),user.getStr("username"),user.getStr("description"), user.getStr("type"));
+        AuthenticationInfo authinfo = 
+        		new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
+        return  authinfo;
     }
 
     /**
@@ -87,7 +88,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //User user = (User) principals.fromRealm(getName()).iterator().next();
-    	SimpleUser simpleUser = (SimpleUser) principals.fromRealm(getName()).iterator().next();
+    	ShiroUser simpleUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         if( null == simpleUser){
         	return info;

@@ -14,16 +14,16 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
-import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.render.ViewType;
 import com.jfinalD.ext.shiro.ShiroInterceptor;
 import com.jfinalD.ext.shiro.ShiroPlugin;
+import com.jfinalD.web.controller.IndexAdminController;
 import com.jfinalD.web.controller.IndexController;
+import com.jfinalD.web.controller.LoginController;
+import com.jfinalD.web.handler.ActionExtentionHandler;
 import com.jfinalD.web.interceptor.GlobalInterceptor;
 import com.jfinalD.web.model.Res;
 import com.jfinalD.web.model.Role;
 import com.jfinalD.web.model.User;
-import com.jfinalD.web.route.AdminRoutes;
 
 public class MyConfig extends JFinalConfig {
 	
@@ -34,7 +34,7 @@ public class MyConfig extends JFinalConfig {
 	
 	@Override
 	public void configConstant(Constants constant) {
-		loadPropertyFile("jdbc.properties");
+		loadPropertyFile("config.properties");
 		constant.setDevMode(getPropertyToBoolean("devMode", true));
 		constant.setUrlParaSeparator("-");//设置参数分隔符
 		
@@ -53,37 +53,15 @@ public class MyConfig extends JFinalConfig {
 		this.routes = me;
 		
 		me.add("/",IndexController.class,"ftl");
-		me.add(new AdminRoutes()); // 具体的控制由AdminRoutes分发
+		me.add("/account",LoginController.class,"ftl/account");
 		
+		adminRoute(me);
 	}
-
-	
-	@Override
-	public void configHandler(Handlers me) {
-		//访问路径是/druid/index.html
-		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
-			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
-//				HttpSession hs = request.getSession(false);
-//				return (hs != null && hs.getAttribute("$admin$") != null);
-				return true;
-			}
-		});
-		me.add(dvh);
-	}
-
-	/* 
-	 * 只有全局的拦截器在这里配置
-	 */
-	@Override
-	public void configInterceptor(Interceptors me) {
-		//添加shiro的全局变量
-		me.add(new ShiroInterceptor());
-		
-		me.add(new GlobalInterceptor());
-		
-//		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
-	}
-
+	//后台路由配置
+    public void adminRoute(Routes me) {
+        me.add("/admin", IndexAdminController.class, "ftl/admin");
+    }
+    
 	@Override
 	public void configPlugin(Plugins me) {
 		// DruidPlugin
@@ -105,14 +83,41 @@ public class MyConfig extends JFinalConfig {
 		//加载Shiro插件
 		//me.add(new ShiroPlugin(routes));
 		ShiroPlugin shiroPlugin = new ShiroPlugin(this.routes);
-		shiroPlugin.setLoginUrl("/login.do");
-		shiroPlugin.setSuccessUrl("/index.do");
-		shiroPlugin.setUnauthorizedUrl("/login.do");
+		shiroPlugin.setLoginUrl("/login.jsp2");
+		shiroPlugin.setSuccessUrl("/login.jsp2");
+		shiroPlugin.setUnauthorizedUrl("/login.jsp2");
 		me.add(shiroPlugin);
 		
 //		me.add(new EhCachePlugin());
 	}
+	
+	@Override
+	public void configHandler(Handlers me) {
+		//访问路径是/druid/index.html
+		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
+			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
+//				HttpSession hs = request.getSession(false);
+//				return (hs != null && hs.getAttribute("$admin$") != null);
+				return true;
+			}
+		});
+		me.add(dvh);
+		
+		//处理shiro的?;JSESSIONID             TEST
+		me.add(new ActionExtentionHandler());
+	}
 
+	/* 
+	 * 只有全局的拦截器在这里配置
+	 */
+	@Override
+	public void configInterceptor(Interceptors me) {
+		//添加shiro的全局变量
+		me.add(new ShiroInterceptor());
+		me.add(new GlobalInterceptor());
+		
+//		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
+	}
 
 	@Override
 	public void afterJFinalStart() {
