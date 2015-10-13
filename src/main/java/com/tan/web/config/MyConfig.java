@@ -14,16 +14,13 @@ import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
-import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
+import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.tan.web.controller.IndexAdminController;
 import com.tan.web.handler.ActionExtentionHandler;
 import com.tan.web.interceptor.GlobalInterceptor;
-import com.tan.web.model.Res;
-import com.tan.web.model.Role;
-import com.tan.web.model.User;
 
 public class MyConfig extends JFinalConfig {
 	
@@ -67,34 +64,37 @@ public class MyConfig extends JFinalConfig {
     
 	@Override
 	public void configPlugin(Plugins me) {
-		// DruidPlugin
+		
 		DruidPlugin dp = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall = new WallFilter();
 		wall.setDbType("mysql");
 		dp.addFilter(wall);
 		dp.addFilter(new StatFilter());
 		me.add(dp);
- 
-//		// 配置ActiveRecord插件
-//		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
-//		//数据库表与bean映射
-//		arp.addMapping("system_user",User.class);	//
-//		arp.addMapping("system_res",Res.class);	//
-//		arp.addMapping("system_role",Role.class);	//
-//		me.add(arp);
-		
-		// 配置AutoTableBindPlugin插件
-		AutoTableBindPlugin atbp = new AutoTableBindPlugin(dp);
+		AutoTableBindPlugin atbp = new AutoTableBindPlugin("db1",dp);
 		if (isDevMode()) atbp.setShowSql(true);
 		atbp.autoScan(false);
 		me.add(atbp);
+		
+		//多数据源
+		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+		WallFilter wall2 = new WallFilter();
+		wall2.setDbType("mysql");
+		dp2.addFilter(wall2);
+		dp2.addFilter(new StatFilter());
+		me.add(dp2);
+		AutoTableBindPlugin atbp2 = new AutoTableBindPlugin("db2",dp2);
+		if (isDevMode()) atbp2.setShowSql(true);
+//		atbp2.addScanPackages("com.test.model.ds1");
+		atbp2.autoScan(false);
+		me.add(atbp2);
 		
 		//加载Shiro插件
 		//me.add(new ShiroPlugin(routes));
 		ShiroPlugin shiroPlugin = new ShiroPlugin(this.routes);
 		me.add(shiroPlugin);
 		
-//		me.add(new EhCachePlugin());
+		me.add(new EhCachePlugin());
 	}
 	
 	@Override

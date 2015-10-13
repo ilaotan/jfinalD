@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
-@TableBind(tableName = "system_res")
+@TableBind(tableName = "system_res",configName = "db1")
 public class Res extends Model<Res>{
 	private static final long serialVersionUID = -5747359745192545106L;
 	
