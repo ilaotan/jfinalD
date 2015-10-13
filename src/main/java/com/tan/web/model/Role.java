@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
-@TableBind(tableName = "system_role",configName = "db1")
+@TableBind(tableName = "system_role",configName = "main")
 public class Role extends Model<Role>{
 	private static final long serialVersionUID = -5747359745192545106L;
 	

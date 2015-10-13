@@ -12,13 +12,13 @@ import com.jfinal.plugin.ehcache.CacheName;
 import com.jfinal.plugin.ehcache.EvictInterceptor;
 import com.tan.web.model.Res;
 import com.tan.web.model.Test;
+import com.tan.web.service.TestService;
 
 @ControllerBind(controllerKey="/",viewPath="/ftl/front")
 public class IndexController extends Controller {
 	
 	//@Before({Tx.class,CacheInterceptor.class})//EvictInterceptor.class 清除缓存
 	//@CacheName("myCache")
-	@Before(Tx.class)
 	public void index() throws SQLException{
 //		System.err.println("url传来的"+getPara("name"));//http://localhost:8080/jfinalDemo/hello?name=3232
 //		System.err.println("下标方法"+getPara(0));//http://localhost:8080/jfinalDemo/hello/xx1-xx2-xx3
@@ -32,12 +32,13 @@ public class IndexController extends Controller {
 //		setAttr("val",val);
 		
 		
-		Test test = Test.dao.findByUsername("123");
-		setAttr("val2",test.getStr("name"));
+//		Test test = Test.dao.findByUsername("123");
+//		setAttr("val2",test.getStr("name"));
 
-		Test.dao.testInsert("阿花");
-		throw new SQLException();
-		//render("index.html");
+		TestService ts = enhance(TestService.class);
+		ts.testInsert("小明111");
+		
+		render("index.html");
 //		renderJsp("a.jsp");
 	}
 

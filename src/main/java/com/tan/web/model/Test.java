@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Model;
 
 @TableBind(tableName = "test",configName = "db2")
 public class Test extends Model<Test> {
+	
 	public static final Test dao = new Test();
 	
 	public Test findByUsername(String username){

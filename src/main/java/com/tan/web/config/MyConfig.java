@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
+import com.jfinal.aop.Before;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -14,6 +15,8 @@ import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
+import com.jfinal.plugin.activerecord.tx.Tx;
+import com.jfinal.plugin.activerecord.tx.TxConfig;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
@@ -64,19 +67,53 @@ public class MyConfig extends JFinalConfig {
     
 	@Override
 	public void configPlugin(Plugins me) {
-		
+
+		//这是默认的
+//		DruidPlugin dpOne = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+//		WallFilter wallOne = new WallFilter();
+//		wallOne.setDbType("mysql");
+//		dpOne.addFilter(wallOne);
+//		dpOne.addFilter(new StatFilter());
+//		me.add(dpOne);
+//		ActiveRecordPlugin arpOne = new ActiveRecordPlugin(dpOne);
+//		me.add(arpOne);
+//		if (isDevMode())arpOne.setShowSql(true);
+///////////////////////////
+//		arpOne.addMapping("system_res", Res.class);
+//		arpOne.addMapping("system_role", Role.class);
+//		arpOne.addMapping("system_user", User.class);
+///////////////////////////
+//		
+//		DruidPlugin dpTwo = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+//		WallFilter wallTwo = new WallFilter();
+//		wallTwo.setDbType("mysql");
+//		dpTwo.addFilter(wallTwo);
+//		dpTwo.addFilter(new StatFilter());
+//		me.add(dpTwo);
+//		ActiveRecordPlugin arpTwo = new ActiveRecordPlugin("main2",dpTwo);
+//		me.add(arpTwo);
+//		arpTwo.setTransactionLevel(2);
+//		if (isDevMode())arpTwo.setShowSql(true);
+/////////////////////////////
+//		arpTwo.addMapping("test", Test.class);
+//////////////////////////////
+
+		// 多数据源 只有别名是main的源支持事务回滚
 		DruidPlugin dp = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall = new WallFilter();
 		wall.setDbType("mysql");
 		dp.addFilter(wall);
 		dp.addFilter(new StatFilter());
 		me.add(dp);
-		AutoTableBindPlugin atbp = new AutoTableBindPlugin("db1",dp);
+		//默认的名字就是main
+		AutoTableBindPlugin atbp = new AutoTableBindPlugin("main",dp);
 		if (isDevMode()) atbp.setShowSql(true);
 		atbp.autoScan(false);
 		me.add(atbp);
 		
-		//多数据源
+		/*
+		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
+		 * */
 		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall2 = new WallFilter();
 		wall2.setDbType("mysql");
@@ -85,18 +122,17 @@ public class MyConfig extends JFinalConfig {
 		me.add(dp2);
 		AutoTableBindPlugin atbp2 = new AutoTableBindPlugin("db2",dp2);
 		if (isDevMode()) atbp2.setShowSql(true);
-//		atbp2.addScanPackages("com.test.model.ds1");
 		atbp2.autoScan(false);
 		me.add(atbp2);
 		
 		//加载Shiro插件
-		//me.add(new ShiroPlugin(routes));
-		ShiroPlugin shiroPlugin = new ShiroPlugin(this.routes);
-		me.add(shiroPlugin);
-		
+		me.add(new ShiroPlugin(this.routes));
+		//加载Ecache插件
 		me.add(new EhCachePlugin());
+
+		
 	}
-	
+
 	@Override
 	public void configHandler(Handlers me) {
 		//访问路径是/druid/index.html
