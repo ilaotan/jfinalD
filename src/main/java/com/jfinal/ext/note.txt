@@ -1,6 +1,6 @@
 有些类会覆盖官包里的com.jfinal.ext 故请不要随意修改此包名
 
-
+更多扩展 在https://github.com/b1412/jfinal-ext
 
 
 ilaotan

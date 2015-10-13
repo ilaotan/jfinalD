@@ -3,8 +3,9 @@ package com.tan.web.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
-
+@TableBind(tableName = "system_res")
 public class Res extends Model<Res>{
 	private static final long serialVersionUID = -5747359745192545106L;
 	

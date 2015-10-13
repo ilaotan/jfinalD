@@ -12,6 +12,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
+import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -74,13 +75,19 @@ public class MyConfig extends JFinalConfig {
 		dp.addFilter(new StatFilter());
 		me.add(dp);
  
-		// 配置ActiveRecord插件
-		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
-		//数据库表与bean映射
-		arp.addMapping("system_user",User.class);	//
-		arp.addMapping("system_res",Res.class);	//
-		arp.addMapping("system_role",Role.class);	//
-		me.add(arp);
+//		// 配置ActiveRecord插件
+//		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+//		//数据库表与bean映射
+//		arp.addMapping("system_user",User.class);	//
+//		arp.addMapping("system_res",Res.class);	//
+//		arp.addMapping("system_role",Role.class);	//
+//		me.add(arp);
+		
+		// 配置AutoTableBindPlugin插件
+		AutoTableBindPlugin atbp = new AutoTableBindPlugin(dp);
+		if (isDevMode()) atbp.setShowSql(true);
+		atbp.autoScan(false);
+		me.add(atbp);
 		
 		//加载Shiro插件
 		//me.add(new ShiroPlugin(routes));
