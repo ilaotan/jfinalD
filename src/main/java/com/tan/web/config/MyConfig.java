@@ -2,6 +2,9 @@ package com.tan.web.config;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.aop.Before;
@@ -22,6 +25,7 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.tan.web.controller.IndexAdminController;
+import com.tan.web.core.shiro.ShiroUser;
 import com.tan.web.handler.ActionExtentionHandler;
 import com.tan.web.interceptor.GlobalInterceptor;
 
@@ -113,6 +117,7 @@ public class MyConfig extends JFinalConfig {
 		
 		/*
 		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
+		 * or 使用Db.use(dsName).tx(...)-
 		 * */
 		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall2 = new WallFilter();
@@ -137,15 +142,18 @@ public class MyConfig extends JFinalConfig {
 	public void configHandler(Handlers me) {
 		//访问路径是/druid/index.html
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
+			
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
-//				HttpSession hs = request.getSession(false);
-//				return (hs != null && hs.getAttribute("$admin$") != null);
+				ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+				Subject subject = SecurityUtils.getSubject();
+				 if(subject.isAuthenticated()){
+					 
+				 }
 				return true;
 			}
 		});
 		me.add(dvh);
 		
-		//处理shiro的?;JSESSIONID             TEST
 		me.add(new ActionExtentionHandler());
 	}
 

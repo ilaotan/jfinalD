@@ -75,13 +75,13 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.20</version>
         </dependency>
-        <!-- 加密解密相关 -->
+        <!-- 加密解密相关
         <dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bctsp-jdk16</artifactId>
 			<version>1.46</version>
 			<type>pom.sig</type>
-		</dependency>
+		</dependency> -->
 		<!-- common工具类 -->
 		 <dependency><!-- shiro -->
 			<groupId>commons-logging</groupId>
@@ -115,26 +115,26 @@
 			<version>18.0</version>
 		</dependency>
 		
-<!-- servler 环境  -->
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>2.5</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-	    <groupId>javax.servlet.jsp</groupId>
-	    <artifactId>jsp-api</artifactId>
-	    <version>2.1</version>
-	    <scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-		<type>jar</type>
-	</dependency>
- <!-- servler 环境结束  --> 
+	<!-- servler 环境  -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>2.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<type>jar</type>
+		</dependency>
+	 <!-- servler 环境结束  --> 
     	<dependency>
 	      <groupId>junit</groupId>
 	      <artifactId>junit</artifactId>

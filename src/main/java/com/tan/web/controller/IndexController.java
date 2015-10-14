@@ -28,15 +28,12 @@ public class IndexController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-//		List<String> val = Res.dao.getResUrl("admin");
-//		setAttr("val",val);
+		List<String> val = Res.dao.getResUrl("admin");
+		setAttr("val",val);
 		
-		
-//		Test test = Test.dao.findByUsername("123");
-//		setAttr("val2",test.getStr("name"));
 
-		TestService ts = enhance(TestService.class);
-		ts.testInsert("小明111");
+//		TestService ts = enhance(TestService.class);
+//		ts.testInsert("小明111");
 		
 		render("index.html");
 //		renderJsp("a.jsp");
