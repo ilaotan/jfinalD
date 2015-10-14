@@ -5,7 +5,7 @@
   <artifactId>jfinalD</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>jfinalDemo Maven Webapp</name>
+  <name>jfinalD Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
   	<org.apache.shiro.version>1.2.4</org.apache.shiro.version>
