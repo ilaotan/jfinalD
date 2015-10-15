@@ -7,7 +7,6 @@ import org.apache.shiro.subject.Subject;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
-import com.jfinal.aop.Before;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -16,14 +15,14 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
+import com.jfinal.ext.plugin.shiro.tags.ShiroTags;
 import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
-import com.jfinal.plugin.activerecord.tx.Tx;
-import com.jfinal.plugin.activerecord.tx.TxConfig;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.render.FreeMarkerRender;
 import com.tan.web.controller.IndexAdminController;
 import com.tan.web.core.shiro.ShiroUser;
 import com.tan.web.handler.ActionExtentionHandler;
@@ -171,6 +170,7 @@ public class MyConfig extends JFinalConfig {
 
 	@Override
 	public void afterJFinalStart() {
+		FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
 		super.afterJFinalStart();
 	}
 
