@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Model;
+import com.tan.web.core.shiro.ShiroUser;
 
 import freemarker.core.Environment;
 import freemarker.log.Logger;
@@ -111,15 +112,18 @@ public class PrincipalTag extends SecureTag {
 //                }
 //            }
       if (principal != null) {
-        Model user = (Model) principal;
-        if (user.get(property) != null) {
-          return String.valueOf(user.get(property));
-        }
+//        Model user = (Model) principal;
+//        if (user.get(property) != null) {
+//          return String.valueOf(user.get(property));
+//        }
+    	  ShiroUser user = (ShiroUser) principal;
+    	  return user.getUsername();
       }
       return "";
       // property not found, throw
       //throw new TemplateModelException("Property [" + property + "] not found in principal of type [" + principal.getClass().getName() + "]");
     } catch (Exception ex) {
+    	System.err.println("PrincipalTag.java里我写死了转换类型为ShiroUser,如果报转换失败的错,请进来改一下对象");
       throw new TemplateModelException("Error reading property [" + property + "] from principal of type [" + principal.getClass().getName() + "]", ex);
     }
   }
