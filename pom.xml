@@ -143,6 +143,6 @@
 	    </dependency>
   </dependencies>
   <build>
-    <finalName>jfinalDemo</finalName>
+    <finalName>jfinalD</finalName>
   </build>
 </project>
