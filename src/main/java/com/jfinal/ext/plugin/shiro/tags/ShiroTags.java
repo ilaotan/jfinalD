@@ -5,7 +5,11 @@ import freemarker.template.SimpleHash;
 /**
 在freemarker中使用
 
-FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
+@Override
+public void afterJFinalStart() {
+	FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
+	super.afterJFinalStart();
+}
 
 已经登陆判断
 <@shiro.authenticated>
