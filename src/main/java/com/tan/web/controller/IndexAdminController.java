@@ -10,7 +10,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.plugin.ehcache.CacheInterceptor;
 import com.jfinal.plugin.ehcache.CacheName;
 import com.jfinal.plugin.ehcache.EvictInterceptor;
-import com.tan.web.model.Res;
+import com.tan.web.model.Menu;
 import com.tan.web.model.Test;
 import com.tan.web.service.TestService;
 
@@ -28,7 +28,7 @@ public class IndexAdminController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = Res.dao.getResUrl("admin");
+		List<String> val = Menu.dao.getResUrl("admin");
 		setAttr("val",val);
 		
 

@@ -1,0 +1,20 @@
+<#-- 除了layout之外的小模块都放在这里面供不同页面调用  -->
+
+<#-- bsinput -->
+<#macro bsinput type='text' title='title' name='name' value='' lg=false col=true input=true dis=false>
+	<#if input>
+		<div class="form-group">
+			<label for="id-${name}" class="control-label <#if col>col-xs-12 col-sm-2 col-md-2 col-lg-2</#if>">${title}</label>
+			<div class="<#if col>col-xs-12 col-sm-10 col-md-10 col-lg-10</#if>">
+				<input type="${type}" name="${name}" value="${value}" placeholder="${title}" class="form-control <#if lg>input-lg</#if>" <#if dis>disabled</#if> id="id-${name}">
+			</div>
+		</div>
+	<#else>
+		<div class="form-group">
+			<label class="control-label <#if col>col-xs-12 col-sm-2 col-md-2 col-lg-2</#if>">${title}</label>
+			<div class="<#if col>col-xs-12 col-sm-10 col-md-10 col-lg-10</#if>">
+				<#nested>
+			</div>
+		</div>
+	</#if>
+</#macro>
