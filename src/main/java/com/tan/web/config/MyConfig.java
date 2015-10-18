@@ -23,7 +23,6 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
-import com.tan.web.controller.IndexAdminController;
 import com.tan.web.core.shiro.ShiroUser;
 import com.tan.web.handler.ActionExtentionHandler;
 import com.tan.web.interceptor.GlobalInterceptor;
@@ -63,10 +62,6 @@ public class MyConfig extends JFinalConfig {
 //		
 //		adminRoute(me);
 	}
-	//后台路由配置
-    public void adminRoute(Routes me) {
-        me.add("/admin", IndexAdminController.class, "ftl/admin");
-    }
     
 	@Override
 	public void configPlugin(Plugins me) {

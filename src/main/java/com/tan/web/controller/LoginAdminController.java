@@ -17,13 +17,13 @@ import com.tan.web.core.shiro.CaptchaUsernamePasswordToken;
 import com.tan.web.core.shiro.IncorrectCaptchaException;
 import com.tan.web.core.shiro.LoginValidator;
 
-@ControllerBind(controllerKey="/account",viewPath="/ftl/account")
-public class LoginController extends Controller {
+@ControllerBind(controllerKey="/admin/login",viewPath="/ftl/front")
+public class LoginAdminController extends Controller {
 	
-	private static final Logger LOG = Logger.getLogger(LoginController.class);
+	private static final Logger LOG = Logger.getLogger(LoginAdminController.class);
 	private static final int DEFAULT_CAPTCHA_LEN = 4;
     
-	public void login(){
+	public void index(){
 		 Subject subject = SecurityUtils.getSubject();
 		 if(subject.isAuthenticated()){
 			 this.redirect("/admin");
@@ -79,8 +79,4 @@ public class LoginController extends Controller {
 		
 	}
 	
-	public void test(){
-		setAttr("val","这是来自/admin/test的值");
-		render("index.html");
-	}
 }

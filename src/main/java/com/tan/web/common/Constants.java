@@ -13,7 +13,7 @@ public class Constants
 	 */
 	public static boolean OPEN_REDIS = true;
 
-	public static  String LOGIN ="/account/login/";
+	public static  String LOGIN ="/admin/login/";
 	
 	public static final String ADMIN_PREFIX = "/admin";
 	

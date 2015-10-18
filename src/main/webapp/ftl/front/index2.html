@@ -1,0 +1,23 @@
+
+${val !}<br/>
+
+${val2 !}<br/>
+
+<@shiro.notAuthenticated>
+  <li><a href="/">登陆</a></li>
+</@shiro.notAuthenticated>
+
+<@shiro.authenticated>
+  <li><a href="/user/center"><@shiro.principal name="username"/></a></li>
+      |
+  <li><a href="/signout">退出</a></li>
+</@shiro.authenticated>
+
+<a href="${ctx!}/account/login">登陆</a>
+
+<a href="${ctx!}/admin/">登陆后测试</a>
+
+<a href="${ctx!}/druid/index.html">登陆后测试druid</a>
+
+
+
