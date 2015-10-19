@@ -3,16 +3,9 @@ package com.tan.web.controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.plugin.activerecord.tx.Tx;
-import com.jfinal.plugin.ehcache.CacheInterceptor;
-import com.jfinal.plugin.ehcache.CacheName;
-import com.jfinal.plugin.ehcache.EvictInterceptor;
-import com.tan.web.model.Menu;
-import com.tan.web.model.Test;
-import com.tan.web.service.TestService;
+import com.tan.web.Model.MenuModel;
 
 @ControllerBind(controllerKey="/",viewPath="/ftl/front")
 public class IndexController extends Controller {
@@ -28,15 +21,14 @@ public class IndexController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = Menu.dao.getResUrl("admin");
+		List<String> val = MenuModel.dao.getResUrl("admin");
 		setAttr("val",val);
-		
+
 
 //		TestService ts = enhance(TestService.class);
 //		ts.testInsert("小明111");
 		
 		render("index.html");
-//		renderJsp("a.jsp");
 	}
 	public void faq(){
 		render("faq.html");

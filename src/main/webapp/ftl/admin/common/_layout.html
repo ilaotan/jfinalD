@@ -1,4 +1,4 @@
-<#macro layout page_tab="">
+<#macro layout page_tab="" page_tab_aim="">
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -9,60 +9,61 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="${ctx!}/assets/css/bootstrap.css" />
-		<link rel="stylesheet" href="${ctx!}/assets/css/font-awesome.css" />
+		<link rel="stylesheet" href="${ctx!}/assets/ace/css/bootstrap.css" />
+		<link rel="stylesheet" href="${ctx!}/assets/ace/css/font-awesome.css" />
 		
 		<!-- page specific plugin styles -->
 
 		<!-- text fonts -->
-		<link rel="stylesheet" href="${ctx!}/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-fonts.css" />
 
 		<!-- ace styles -->
-		<link rel="stylesheet" href="${ctx!}/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+		<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 
 		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="${ctx!}/assets/css/ace-part2.css" class="ace-main-stylesheet" />
+			<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-part2.css" class="ace-main-stylesheet" />
 		<![endif]-->
 
 		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="${ctx!}/assets/css/ace-ie.css" />
+		  <link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-ie.css" />
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
 
 		<!-- ace settings handler -->
-		<script src="${ctx!}/assets/js/ace-extra.js"></script>
+		<script src="${ctx!}/assets/ace/js/ace-extra.js"></script>
 
 		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
 		<!--[if lte IE 8]>
-		<script src="${ctx!}/assets/js/html5shiv.js"></script>
-		<script src="${ctx!}/assets/js/respond.js"></script>
+		<script src="${ctx!}/assets/ace/js/html5shiv.js"></script>
+		<script src="${ctx!}/assets/ace/js/respond.js"></script>
 		<![endif]-->
 		
 		<!--[if !IE]> -->
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='${ctx!}/assets/js/jquery.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='${ctx!}/assets/ace/js/jquery.js'>"+"<"+"/script>");
 		</script>
 
 		<!-- <![endif]-->
 
 		<!--[if IE]>
 		<script type="text/javascript">
-		 window.jQuery || document.write("<script src='${ctx!}/assets/js/jquery1x.js'>"+"<"+"/script>");
+		 window.jQuery || document.write("<script src='${ctx!}/assets/ace/js/jquery1x.js'>"+"<"+"/script>");
 		</script>
 		<![endif]-->
 		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='${ctx!}/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+			var baseUrl = "${ctx!}";
+			if('ontouchstart' in document.documentElement) document.write("<script src='${ctx!}/assets/ace/js/jquery.mobile.custom.js'>"+"<"+"/script>");
 		</script>
 		
-		<script src="${ctx!}/assets/js/bootstrap.js"></script>
+		<script src="${ctx!}/assets/ace/js/bootstrap.js"></script>
 
 		<!-- page specific plugin scripts -->
 
 		<!-- ace scripts -->
-		<script src="${ctx!}/assets/js/ace-elements.js"></script>
-		<script src="${ctx!}/assets/js/ace.js"></script>
+		<script src="${ctx!}/assets/ace/js/ace-elements.js"></script>
+		<script src="${ctx!}/assets/ace/js/ace.js"></script>
 		
 		
 	</head>
@@ -197,7 +198,7 @@
 									<ul class="dropdown-menu dropdown-navbar">
 										<li>
 											<a href="#" class="clearfix">
-												<img src="${ctx!}/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+												<img src="${ctx!}/assets/ace/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Alex:</span>
@@ -226,7 +227,7 @@
 						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${ctx!}/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="${ctx!}/assets/ace/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>欢迎,</small>
 									老谭
@@ -280,7 +281,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="">
+					<li <#if page_tab="system"> class="active open" </#if> >
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text"> 系统设置 </span>
@@ -291,6 +292,7 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
+						
 							<li class="">
 								<a href="elements.html">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -300,10 +302,10 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
-								<a href="buttons.html">
+							<li <#if page_tab_aim="system_menu"> class="active" </#if> >
+								<a href="${ctx!}/admin/menu">
 									<i class="menu-icon fa fa-caret-right"></i>
-									资源管理
+									菜单管理
 								</a>
 
 								<b class="arrow"></b>

@@ -17,9 +17,9 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import com.jfinal.kit.StrKit;
-import com.tan.web.model.Menu;
-import com.tan.web.model.Role;
-import com.tan.web.model.User;
+import com.tan.web.Model.MenuModel;
+import com.tan.web.Model.RoleModel;
+import com.tan.web.Model.UserModel;
 
 public class ShiroDbRealm extends AuthorizingRealm {
     
@@ -69,7 +69,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (!isRight) {
             throw new IncorrectCaptchaException("验证码错误!");
         }
-        User user = User.dao.findByUsername(accountName);
+        UserModel user = UserModel.dao.findByUsername(accountName);
         if (null == user) {
             throw new AuthenticationException("用户名或者密码错误");
         }
@@ -94,10 +94,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
         	return info;
         }
         //role角色默认只有一个??? 还是多个角色
-        info.addRoles(Role.dao.findRoleByUserId(simpleUser.getId()));
+        info.addRoles(RoleModel.dao.findRoleByUserId(simpleUser.getId()));
         //根据刚才塞进去的role 拿所有的url权限
         for (String role : info.getRoles()){
-			info.addStringPermissions(Menu.dao.getResUrl(role));
+			info.addStringPermissions(MenuModel.dao.getResUrl(role));
 		}
         return info;
     }

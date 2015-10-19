@@ -1,4 +1,4 @@
-package com.tan.web.model;
+package com.tan.web.Model;
 
 import java.sql.SQLException;
 
@@ -6,11 +6,11 @@ import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
 
 @TableBind(tableName = "test",configName = "db2")
-public class Test extends Model<Test> {
+public class TestModel extends Model<TestModel> {
 	
-	public static final Test dao = new Test();
+	public static final TestModel dao = new TestModel();
 	
-	public Test findByUsername(String username){
+	public TestModel findByUsername(String username){
 		
 		return super.findFirst("select * from test where name=?",username);
 	}

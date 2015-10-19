@@ -18,3 +18,16 @@
 		</div>
 	</#if>
 </#macro>
+
+<#-- 
+bsradios 
+	like this:
+	<@bsradios name='row.pro_type' ck='${(row.pro_type)!"020101"}' list=types/>
+-->
+<#macro bsradios list name ck>
+	<#list list as item>
+		<label class="radio-inline">
+			<input type="radio" name="${name}" value="${item.value}" <#if item.value == ck>checked</#if>>${item.text}
+		</label>
+	</#list>
+</#macro>

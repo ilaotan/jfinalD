@@ -96,7 +96,7 @@ public class MyConfig extends JFinalConfig {
 //		arpTwo.addMapping("test", Test.class);
 //////////////////////////////
 
-		// 多数据源 只有别名是main的源支持事务回滚
+		// 多数据源 
 		DruidPlugin dp = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 		WallFilter wall = new WallFilter();
 		wall.setDbType("mysql");
