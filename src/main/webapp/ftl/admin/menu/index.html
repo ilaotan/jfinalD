@@ -1,0 +1,85 @@
+<#include "/ftl/admin/common/_layout.html"/>
+ <@layout page_tab="system" page_tab_aim="system_menu">
+
+		
+<#include "/ftl/admin/common/inc.html"/>
+<@bstree t=tree edit=true/>
+
+
+
+<!-- 基于bootstrap3的dialog优化 -->
+		
+		<script type="text/javascript" src="${ctx!}/assets/ace/js/bootbox.js"></script>
+		<script type="text/javascript" src="${ctx!}/assets/js/my.js"></script>
+		
+<script type="text/javascript">
+/**
+ * 将表单转为js对象 直接用于ajax发送
+ */
+$.fn.qser = function(){
+	var obj = {};
+	
+	var objs = $(this).serializeArray();
+	if(objs.length != 0){
+		for(var i=0; i<objs.length; i++){
+			obj[objs[i].name] = objs[i].value;
+		}
+	}
+	return obj;
+};
+
+$.fn.qdata = function(){
+	var res = {};
+	
+	var data = $(this).attr('data');
+	if(data){
+		var options = data.split(';');
+		for(var i=0; i<options.length; i++){
+			if(options[i]){
+				var opt = options[i].split(':');
+				res[opt[0]] = opt[1];
+			}
+		}
+	}
+	
+	return res;
+};
+
+	$(function(){
+		$(".label").css("position","initial");
+		
+		//var html = '<form class="form-horizontal" role="form"><input type="hidden" name="row.ucenter_menu_parent_id" value="23"><div class="form-group"><label for="id-row.ucenter_menu_title" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单名称</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_title" value="" placeholder="菜单名称" class="form-control" id="id-row.ucenter_menu_title"></div></div><div class="form-group"><label for="id-row.ucenter_menu_url" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单地址</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_url" value="" placeholder="菜单地址" class="form-control" id="id-row.ucenter_menu_url"></div></div><div class="form-group"><label for="id-row.ucenter_menu_sn" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单序号</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_sn" value="" placeholder="菜单序号" class="form-control" id="id-row.ucenter_menu_sn"></div></div><div class="form-group"><label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">后台菜单</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><label class="radio-inline"><input type="radio" name="row.ucenter_menu_type" value="000101" checked>是</label><label class="radio-inline"><input type="radio" name="row.ucenter_menu_type" value="000102">否</label></div></div></form>';
+		var html = ajax({
+			url: "/admin/menu/add/1",
+			dataType: 'html'
+		});
+		bootbox.confirm({
+		    message: html,
+		    className:"menuAdd",
+		    callback: function(result){ 
+		    	var objs = $(".menuAdd").find("form").serializeArray();
+		    	//window.location.reload();
+		    	console.info(objs);
+		    }
+		});
+		
+		/* on的用法参考 http://stackoverflow.com/questions/14354040/jquery-1-9-live-is-not-a-function */
+		$("#treeul").on("click",".glyphicon-minus",function(){
+			 if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('hide');
+	            $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+	        }
+			
+		});
+		
+		$("#treeul").on("click",".glyphicon-plus",function(){
+			if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('show');
+	            $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+	        }
+		});
+		
+	});	
+</script>
+
+</@layout>
