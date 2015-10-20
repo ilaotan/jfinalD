@@ -1,0 +1,41 @@
+<#include "/ftl/admin/common/_layout.html"/>
+ <@layout page_tab="system" page_tab_aim="system_user">
+
+<#include "/ftl/admin/common/inc.html"/>
+<@bstable page=userPage pagestr=pageStr />
+
+
+<form class="form-inline"  action="${ctx}/admin/user" id ="fenyeForm" method="post">
+	<div class="control-group">
+		<div class="controls">
+			<input id="pageNo" name="pageNo" type="hidden" value="${userPage.pageNumber!}"/>
+			<input id="pageSize" name="pageSize" type="hidden" value="${userPage.pageSize!}"/>
+		</div>
+	</div>
+</form>
+
+<!-- 基于bootstrap3的dialog优化 -->
+	<script type="text/javascript" src="${ctx!}/assets/ace/js/bootbox.js"></script>
+	<script type="text/javascript" src="${ctx!}/assets/js/my.js"></script>
+		
+<script type="text/javascript">
+
+	$(function(){
+		
+		
+	});	
+	//翻页
+	function page(n,s){
+		$("#pageNo").val(n);
+		$("#pageSize").val(s);
+		$("#fenyeForm input,select").each(function(index, domEle){
+			if (domEle.placeholder == domEle.value) {
+				domEle.disabled = true;
+			}
+		});
+		$("#fenyeForm").submit();
+		return false;
+	 }
+</script>
+
+</@layout>

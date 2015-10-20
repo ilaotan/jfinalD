@@ -1,4 +1,4 @@
-<ehcache name="shiro">
+<ehcache name="jfinal">
     <diskStore path="java.io.tmpdir/jfinal-ehcache"/>
 
     <defaultCache
