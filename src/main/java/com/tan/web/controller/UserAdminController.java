@@ -21,7 +21,7 @@ public class UserAdminController extends Controller {
 		
 		TablePage tp = new TablePage(pageNo,pageSize,userPage.getTotalRow(),userPage.getTotalPage(),userPage.getList());
 		
-		setAttr("userPage", userPage);
+		setAttr("page", userPage);
 		setAttr("pageStr",tp.toString());
 		
 		render("index.html");

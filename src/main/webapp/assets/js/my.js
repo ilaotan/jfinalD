@@ -129,3 +129,17 @@ function msg(options){
 		});
 	},opt.time);
 };
+
+////////////////////////
+//翻页
+function page(n,s){
+	$("#pageNo").val(n);
+	$("#pageSize").val(s);
+	$("#fenyeForm input,select").each(function(index, domEle){
+		if (domEle.placeholder == domEle.value) {
+			domEle.disabled = true;
+		}
+	});
+	$("#fenyeForm").submit();
+	return false;
+ }

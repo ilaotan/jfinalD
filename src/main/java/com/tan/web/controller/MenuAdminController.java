@@ -16,7 +16,7 @@ public class MenuAdminController extends Controller {
 	private static final Logger LOG = Logger.getLogger(MenuAdminController.class);
     
 	public void index(){
-		setAttr("tree", new MenuTree(0, "/", "根菜单", null));
+		setAttr("tree", new MenuTree(0, "/", "根菜单", null,null));
 		
 		render("index.html");
 	}

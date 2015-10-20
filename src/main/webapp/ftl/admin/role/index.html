@@ -1,11 +1,11 @@
 <#include "/ftl/admin/common/_layout.html"/>
- <@layout page_tab="system" page_tab_aim="system_user">
+ <@layout page_tab="system" page_tab_aim="system_role">
 
-<#include "/ftl/admin/common/usertable.html"/>
+<#include "/ftl/admin/common/roletable.html"/>
 <@bstable page=page pagestr=pageStr />
 
 
-<form class="form-inline"  action="${ctx}/admin/user" id ="fenyeForm" method="post">
+<form class="form-inline"  action="${ctx}/admin/role" id ="fenyeForm" method="post">
 	<div class="control-group">
 		<div class="controls">
 			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNumber!}"/>
@@ -24,6 +24,7 @@
 		
 		
 	});	
+	
 </script>
 
 </@layout>

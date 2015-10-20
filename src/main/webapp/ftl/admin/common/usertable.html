@@ -1,0 +1,45 @@
+<#-- dataTables -->
+<#macro bstable page="" pagestr="" >
+	<div class="row">
+		<div class="col-xs-12">
+			<table id="simple-table" class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>用户名</th>
+						<th>用户类型</th>
+						<th>账号状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.list?if_exists as row>
+						<tr data="id:${row.id};">
+							<td>${row.username}</td>
+							<td>${row.user_type}</td>
+							<td>${row.is_locked?c}</td>
+							<td>
+								<div class="hidden-sm hidden-xs btn-group">
+			
+									<button class="btn btn-xs btn-info">
+										<i class="ace-icon fa fa-pencil bigger-120"></i>
+									</button>
+			
+									<button class="btn btn-xs btn-danger">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									</button>
+			
+								</div>
+							</td>
+						</tr>
+					</#list>
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+				${pagestr}
+				</div>
+			</div>
+		</div><!-- /.span -->
+	</div><!-- /.row -->
+
+</#macro>

@@ -14,25 +14,27 @@ public class MenuTree {
 	private int id;
 	private String url;
 	private String text;
+	private boolean checked = false;
 	private List<MenuTree> children;
 
 	public MenuTree() {
 		super();
 	}
-	public MenuTree(int id, String url, String text, String tableName) {
+	public MenuTree(int id, String url, String text, String tableName,MenuTreeCheck check) {
 		super();
 		this.id = id;
 		this.url = url;
 		this.text = text;
-		this.children = findChildrenByTableAndCheck(id, tableName);
+		if(check != null) this.checked = check.isCheck(id);	
+		this.children = findChildrenByTableAndCheck(id, tableName,check);
 	}
-	private List<MenuTree> findChildrenByTableAndCheck(int id, String tableName){
+	private List<MenuTree> findChildrenByTableAndCheck(int id, String tableName,MenuTreeCheck check){
 		List<MenuTree> list = new ArrayList<MenuTree>();
 		
 		if(StrKit.isBlank(tableName)) tableName = "system_menu";
 		List<Record> menus = Db.find("select * from " + tableName + " where menu_parent_id=? order by menu_sn", id);
 		for(Record menu : menus){
-			list.add(new MenuTree(menu.getInt("id"), menu.getStr("menu_url"), menu.getStr("menu_name"), tableName));
+			list.add(new MenuTree(menu.getInt("id"), menu.getStr("menu_url"), menu.getStr("menu_name"), tableName,check));
 		}
 		
 		return list;
@@ -61,5 +63,11 @@ public class MenuTree {
 	}
 	public void setChildren(List<MenuTree> children) {
 		this.children = children;
+	}
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 }
