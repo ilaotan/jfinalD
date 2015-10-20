@@ -1,4 +1,4 @@
-package com.tan.web.Model;
+package com.tan.web.model;
 
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;

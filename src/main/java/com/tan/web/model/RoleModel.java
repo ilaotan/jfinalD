@@ -1,4 +1,4 @@
-package com.tan.web.Model;
+package com.tan.web.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,7 +15,7 @@
 <script type="text/javascript">
 /**
  * 将表单转为js对象 直接用于ajax发送
- */
+
 $.fn.qser = function(){
 	var obj = {};
 	
@@ -26,7 +26,7 @@ $.fn.qser = function(){
 		}
 	}
 	return obj;
-};
+}; */
 
 $.fn.qdata = function(){
 	var res = {};
@@ -46,21 +46,86 @@ $.fn.qdata = function(){
 };
 
 	$(function(){
+		//列表适配到本ace框架
 		$(".label").css("position","initial");
 		
 		//var html = '<form class="form-horizontal" role="form"><input type="hidden" name="row.ucenter_menu_parent_id" value="23"><div class="form-group"><label for="id-row.ucenter_menu_title" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单名称</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_title" value="" placeholder="菜单名称" class="form-control" id="id-row.ucenter_menu_title"></div></div><div class="form-group"><label for="id-row.ucenter_menu_url" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单地址</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_url" value="" placeholder="菜单地址" class="form-control" id="id-row.ucenter_menu_url"></div></div><div class="form-group"><label for="id-row.ucenter_menu_sn" class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">菜单序号</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><input type="text" name="row.ucenter_menu_sn" value="" placeholder="菜单序号" class="form-control" id="id-row.ucenter_menu_sn"></div></div><div class="form-group"><label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2">后台菜单</label><div class="col-xs-12 col-sm-10 col-md-10 col-lg-10"><label class="radio-inline"><input type="radio" name="row.ucenter_menu_type" value="000101" checked>是</label><label class="radio-inline"><input type="radio" name="row.ucenter_menu_type" value="000102">否</label></div></div></form>';
-		var html = ajax({
-			url: "/admin/menu/add/1",
-			dataType: 'html'
+		//添加
+		$(document).on("click",".bstreeadd",function(){
+			var html = ajax({
+				url: "/admin/menu/add/"+$(this).parent().qdata().id,
+				dataType: 'html'
+			});
+			bootbox.confirm({
+			    message: html,
+			    title:"添加子菜单",
+			    className:"menuAdd",
+			    callback: function(result){ 
+			    	if(result==true){
+			    		var objs = $(".menuAdd").find("form").serializeArray();
+				    	console.info(objs);	
+				    	var result = ajax({
+				    		url: "/admin/menu/save",
+				    		data:objs
+				    	});
+				    	if(result){
+				    		window.location.reload();
+				    	}
+			    	}else{
+			    		console.info("false");
+			    	}
+			    }
+			});
 		});
-		bootbox.confirm({
-		    message: html,
-		    className:"menuAdd",
-		    callback: function(result){ 
-		    	var objs = $(".menuAdd").find("form").serializeArray();
-		    	//window.location.reload();
-		    	console.info(objs);
-		    }
+		
+		//修改
+		$(document).on("click",".bstreeedit",function(){
+			var id = $(this).parent().qdata().id;
+			var html = ajax({
+				url: "/admin/menu/update/"+id,
+				dataType: 'html'
+			});
+			bootbox.confirm({
+			    message: html,
+			    title:"编辑子菜单",
+			    className:"menuUpdate",
+			    callback: function(result){ 
+			    	if(result==true){
+			    		var objs = $(".menuUpdate").find("form").serializeArray();
+				    	var result = ajax({
+				    		url: "/admin/menu/updatePost",
+				    		data:objs
+				    	});
+				    	if(result){
+				    		window.location.reload();
+				    	}
+			    	}else{
+			    		console.info("false");
+			    	}
+			    }
+			});
+			
+			
+		});
+		//删除
+		$(document).on("click",".bstreedel",function(){
+			var id = $(this).parent().qdata().id;
+			console.info(id);
+			bootbox.confirm({
+			    message: "如果有子菜单,会一并删除",
+			    title:"删除菜单",
+			    className:"menuDel",
+			    callback: function(result){ 
+			    	if(result==true){
+			    		 ajax({
+			 				url: "/admin/menu/delete/"+id
+			 			});
+				    	window.location.reload();
+			    	}else{
+			    		console.info("false");
+			    	}
+			    }
+			});
 		});
 		
 		/* on的用法参考 http://stackoverflow.com/questions/14354040/jquery-1-9-live-is-not-a-function */

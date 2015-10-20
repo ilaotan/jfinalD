@@ -8,6 +8,7 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
 import com.tan.web.entity.MenuTree;
 import com.tan.web.entity.ValueItem;
+import com.tan.web.model.MenuModel;
 
 @ControllerBind(controllerKey="/admin/menu",viewPath="/ftl/admin/menu")
 public class MenuAdminController extends Controller {
@@ -29,8 +30,48 @@ public class MenuAdminController extends Controller {
 		list.add(new ValueItem("1","yes"));
 		list.add(new ValueItem("2","no"));
 		setAttr("yesnos", list);
-		setAttr("ucenter_menu_parent_id", getParaToInt(0));
+		setAttr("menu_parent_id", getParaToInt(0));
 		render("add.html");
 	}
 	
+	public void save(){
+		boolean b = new MenuModel()
+			.set("menu_name",getPara("row.menu_name"))
+			.set("menu_url", getPara("row.menu_url"))
+			.set("menu_sn", getParaToInt("row.menu_sn"))
+			.set("menu_type", getPara("row.menu_type"))
+			.set("menu_parent_id", getParaToInt("row.menu_parent_id"))
+			//TODO:修改者的信息
+			.save();
+				
+		renderJson(b);
+	}
+	public void update(){
+		
+		List list = new ArrayList();
+		list.add(new ValueItem("1","yes"));
+		list.add(new ValueItem("2","no"));
+		setAttr("yesnos", list);
+		setAttr("menu_parent_id", getParaToInt(0));
+		MenuModel mm = MenuModel.dao.findById(getParaToInt(0));
+		this.setAttr("row", mm);
+		render("add.html");
+	}
+	
+	public void updatePost(){
+		//update  
+		 boolean b = MenuModel.dao.findById(getParaToInt("row.menu_parent_id"))
+		 	.set("menu_name",getPara("row.menu_name"))
+			.set("menu_url", getPara("row.menu_url"))
+			.set("menu_sn", getParaToInt("row.menu_sn"))
+			.set("menu_type", getPara("row.menu_type"))
+			//TODO:修改者的信息
+		 	.update();
+		 renderJson(b);
+	}
+	
+	public void delete(){
+		 boolean b = MenuModel.dao.deleteAllById(getParaToInt(0));
+		 renderJson(b);
+	}
 }
