@@ -17,9 +17,9 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import com.jfinal.kit.StrKit;
-import com.tan.web.Model.MenuModel;
-import com.tan.web.Model.RoleModel;
-import com.tan.web.Model.UserModel;
+import com.tan.web.model.MenuModel;
+import com.tan.web.model.RoleModel;
+import com.tan.web.model.UserModel;
 
 public class ShiroDbRealm extends AuthorizingRealm {
     
@@ -97,7 +97,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         info.addRoles(RoleModel.dao.findRoleByUserId(simpleUser.getId()));
         //根据刚才塞进去的role 拿所有的url权限
         for (String role : info.getRoles()){
-			info.addStringPermissions(MenuModel.dao.getResUrl(role));
+			info.addStringPermissions(MenuModel.dao.getMenuUrl(role));
 		}
         return info;
     }

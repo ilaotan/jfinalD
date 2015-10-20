@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.tan.web.Model.MenuModel;
+import com.tan.web.model.MenuModel;
 
 @ControllerBind(controllerKey="/admin",viewPath="/ftl/admin")
 public class IndexAdminController extends Controller {
@@ -21,7 +21,7 @@ public class IndexAdminController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = MenuModel.dao.getResUrl("admin");
+		List<String> val = MenuModel.dao.getMenuUrl("admin");
 		setAttr("val",val);
 		
 
