@@ -3,7 +3,10 @@ package com.tan.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.interceptor.GET;
+import com.jfinal.ext.interceptor.POST;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
 import com.tan.web.entity.MenuTree;
@@ -46,6 +49,7 @@ public class MenuAdminController extends Controller {
 				
 		renderJson(b);
 	}
+	@Before(GET.class)
 	public void update(){
 		
 		List list = new ArrayList();
@@ -58,6 +62,7 @@ public class MenuAdminController extends Controller {
 		render("add.html");
 	}
 	
+	@Before(POST.class)
 	public void updatePost(){
 		//update  
 		 boolean b = MenuModel.dao.findById(getParaToInt("row.menu_parent_id"))

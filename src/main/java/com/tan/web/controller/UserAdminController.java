@@ -19,7 +19,7 @@ public class UserAdminController extends Controller {
 		
 		Page<UserModel> userPage = UserModel.dao.paginate(pageNo, pageSize, "select *", "from system_user");
 		
-		TablePage tp = new TablePage(pageNo,pageSize,userPage.getTotalRow(),userPage.getTotalPage(),userPage.getList());
+		TablePage tp = new TablePage(pageNo,pageSize,userPage.getTotalRow(),userPage.getTotalPage());
 		
 		setAttr("page", userPage);
 		setAttr("pageStr",tp.toString());
