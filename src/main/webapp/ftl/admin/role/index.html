@@ -21,9 +21,43 @@
 <script type="text/javascript">
 
 	$(function(){
+	
+		$("div.btn-group").on("click",".btn-info",function(){
+			
+			var html = ajax({
+				url: "/admin/role/menu/"+$(this).parents('tr').qdata().id,
+				dataType: 'html'
+			});
 		
+			bootbox.confirm({
+			    message: html,
+			    title:"编辑权限",
+			    className:"roleUpdate",
+			    callback: function(result){ 
+			    	
+			    }
+			});
+			
+		});
+	
+		$("#treeul").on("click",".glyphicon-minus",function(){
+			 if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('hide');
+	            $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+	        }
+			
+		});
 		
-	});	
+		$("#treeul").on("click",".glyphicon-plus",function(){
+			if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('show');
+	            $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+	        }
+		});	
+		
+			
+	});
+	
 	
 </script>
 

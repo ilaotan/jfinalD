@@ -14,23 +14,6 @@
 		
 <script type="text/javascript">
 
-$.fn.qdata = function(){
-	var res = {};
-	
-	var data = $(this).attr('data');
-	if(data){
-		var options = data.split(';');
-		for(var i=0; i<options.length; i++){
-			if(options[i]){
-				var opt = options[i].split(':');
-				res[opt[0]] = opt[1];
-			}
-		}
-	}
-	
-	return res;
-};
-
 	$(function(){
 		//列表适配到本ace框架
 		$(".label").css("position","initial");

@@ -143,3 +143,19 @@ function page(n,s){
 	$("#fenyeForm").submit();
 	return false;
  }
+
+//////////////////////
+$.fn.qdata = function(){
+	var res = {};
+	var data = $(this).attr('data');
+	if(data){
+		var options = data.split(';');
+		for(var i=0; i<options.length; i++){
+			if(options[i]){
+				var opt = options[i].split(':');
+				res[opt[0]] = opt[1];
+			}
+		}
+	}
+	return res;
+};
