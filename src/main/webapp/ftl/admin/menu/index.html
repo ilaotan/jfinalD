@@ -2,7 +2,7 @@
  <@layout page_tab="system" page_tab_aim="system_menu">
 
 		
-<#include "/ftl/admin/common/inc.html"/>
+<#include "/ftl/admin/menu/_tree.html"/>
 <@bstree t=tree edit=true/>
 
 
@@ -69,7 +69,8 @@ $.fn.qdata = function(){
 			var id = $(this).parent().qdata().id;
 			var html = ajax({
 				url: "/admin/menu/update/"+id,
-				dataType: 'html'
+				dataType: 'html',
+				type:'get'
 			});
 			bootbox.confirm({
 			    message: html,

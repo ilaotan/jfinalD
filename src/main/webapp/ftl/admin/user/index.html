@@ -1,18 +1,20 @@
 <#include "/ftl/admin/common/_layout.html"/>
  <@layout page_tab="system" page_tab_aim="system_user">
 
-<#include "/ftl/admin/common/usertable.html"/>
-<@bstable page=page pagestr=pageStr />
-
 
 <form class="form-inline"  action="${ctx}/admin/user" id ="fenyeForm" method="post">
 	<div class="control-group">
 		<div class="controls">
-			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNumber!}"/>
-			<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize!}"/>
+			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNumber!1}"/>
+			<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize!10}"/>
 		</div>
 	</div>
 </form>
+
+<#include "/ftl/admin/user/_list.html"/>
+<@bstable page=page pagestr=pageStr />
+
+
 
 <!-- 基于bootstrap3的dialog优化 -->
 	<script type="text/javascript" src="${ctx!}/assets/ace/js/bootbox.js"></script>

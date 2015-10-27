@@ -1,0 +1,44 @@
+<#-- bstree -->
+<#macro bstree t ck=false edit=false showurl=true editurl='' height='600'>
+<#if t??>
+	<div class="panel panel-info">
+		<div class="panel-body" style="height:${height}px;overflow-y:auto;">
+			<ul class="nav nav-list sidenav" id="treeul" data="url:${editurl};">
+				<@bssubtree tree=t ck=ck edit=edit showurl=showurl/>
+			</ul>
+		</div>
+	</div>
+</#if>
+</#macro>
+
+<#-- bssubtree -->
+<#macro bssubtree tree open=true ck=false edit=false showurl=true>
+<#if tree??>
+	<li>
+		<a href="javascript:void(0);" data="id:${tree.id};url:${tree.url};">
+			<@bsicon icon='minus'/>
+			<#if ck><input type="checkbox" class="treecheckbox" <#if tree.checked>checked</#if>/></#if>
+			${tree.text}<#if showurl>(${tree.url})</#if>
+			<#if edit>
+				<span class="label label-primary bstreeadd">添加子菜单</span>
+				<span class="label label-primary bstreeedit">修改</span>
+				<span class="label label-danger	 bstreedel">删除</span>
+			</#if>
+		</a>
+		<#if tree.children?? && tree.children?size gt 0>
+			<ul style="padding-left:20px;" id="treeid_${tree.id}" class="nav collapse <#if open>in</#if>">
+				<#list tree.children as subtree>
+					<@bssubtree tree=subtree ck=ck edit=edit showurl=showurl/>
+				</#list>
+			</ul>
+		</#if>
+	</li>
+</#if>
+</#macro>
+
+<#-- bsicon -->
+<#macro bsicon icon=''>
+	<#if icon != ''>
+		<span class="glyphicon glyphicon-${icon}"></span>
+	</#if>
+</#macro>
