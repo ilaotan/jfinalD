@@ -13,6 +13,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.core.JFinal;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.ext.plugin.shiro.tags.ShiroTags;
@@ -179,5 +180,14 @@ public class MyConfig extends JFinalConfig {
 		String osName = System.getProperty("os.name");
 		return osName.indexOf("Windows") != -1;
 	}
+	
+	/**
+	 * 建议使用 JFinal 手册推荐的方式启动项目
+	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
+	 */
+	public static void main(String[] args) {
+		JFinal.start("src/main/webapp", 8082, "/", 5);
+	}
+	
 
 }

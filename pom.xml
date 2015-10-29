@@ -9,6 +9,8 @@
   <url>http://maven.apache.org</url>
   <properties>
   	<org.apache.shiro.version>1.2.4</org.apache.shiro.version>
+  	<jdk.version>1.7</jdk.version>
+  	<jetty.version>9.2.13.v20150730</jetty.version>
   </properties>
    <repositories>
         <repository>
@@ -115,34 +117,83 @@
 			<version>18.0</version>
 		</dependency>
 		
-	<!-- servler 环境  -->
+     	<!-- jetty相关 -->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>8.1.8</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-		    <groupId>javax.servlet.jsp</groupId>
-		    <artifactId>jsp-api</artifactId>
-		    <version>2.1</version>
-		    <scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-			<type>jar</type>
-		</dependency>
-	 <!-- servler 环境结束  --> 
-    	<dependency>
-	      <groupId>junit</groupId>
-	      <artifactId>junit</artifactId>
-	      <version>4.9</version>
-	      <scope>test</scope>
-	    </dependency>
+
+
   </dependencies>
   <build>
-    <finalName>jfinalD</finalName>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+    	<!-- Compiler 插件, 设定JDK版本 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.5.1</version>
+			<configuration>
+				<source>${jdk.version}</source>
+				<target>${jdk.version}</target>
+				<showWarnings>true</showWarnings>
+				<encoding>UTF-8</encoding>  
+			</configuration>
+		</plugin>
+		<!-- war打包插件,排除某些文件  绕了很多弯路,记录要点如下:
+			简单一句话说明:
+			warSourceExcludes是在编译周期进行完成后从src/main/webapp目录复制文件时忽略，
+			而packagingExcludes是在复制webapp目录完成后打包时忽略target/ibaby文件夹的文件
+		-->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.4</version>
+			<configuration>
+				<warName>${project.artifactId}</warName>
+				<packagingExcludes>WEB-INF/classes/portable/**,WEB-INF/classes/_*.*</packagingExcludes>
+			</configuration>
+		</plugin>
+          <!-- 
+	      	有时候，比如mybatis的mapper.xml文件
+	      	我们习惯把它和Mapper.java放一起，都在src/main/java下面
+	      	这样利用maven打包时，就需要修改pom.xml文件
+	      	来把mapper.xml文件一起打包进jar或者war里了
+	      	否则，这些文件不会被打包的。（maven认为src/main/java只是java的源代码路径） 
+      	-->
+		 <plugin>  
+		      <artifactId>maven-resources-plugin</artifactId>  
+		      <version>2.5</version>  
+		      <executions>  
+		          <execution>  
+		              <id>copy-xmls</id>  
+		              <phase>process-sources</phase>  
+		              <goals>  
+		                  <goal>copy-resources</goal>  
+		              </goals>  
+		              <configuration>  
+		                  <outputDirectory>${basedir}/target/classes</outputDirectory>  
+		                  <resources>  
+		                      <resource>  
+		                          <directory>${basedir}/src/main/java</directory>  
+		                          <includes>  
+		                              <include>**/*.xml</include>  
+		                          </includes>  
+		                      </resource>  
+		                  </resources>  
+		              </configuration>  
+		          </execution>  
+		      </executions>  
+        	</plugin>  
+    </plugins>
+    
   </build>
 </project>
