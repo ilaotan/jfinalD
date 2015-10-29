@@ -6,6 +6,9 @@ import java.util.List;
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @TableBind(tableName = "system_menu",configName = "main")
 public class MenuModel extends Model<MenuModel>{
 	private static final long serialVersionUID = -5747359745192545106L;

@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jfinal.handler.Handler;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 public class ActionExtentionHandler extends Handler {
     
 	public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {

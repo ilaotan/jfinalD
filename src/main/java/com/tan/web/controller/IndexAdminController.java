@@ -7,6 +7,9 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.tan.web.model.MenuModel;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @ControllerBind(controllerKey="/admin",viewPath="/ftl/admin")
 public class IndexAdminController extends Controller {
 	

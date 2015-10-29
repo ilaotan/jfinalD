@@ -28,6 +28,9 @@ import com.tan.web.core.shiro.ShiroUser;
 import com.tan.web.handler.ActionExtentionHandler;
 import com.tan.web.interceptor.GlobalInterceptor;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 public class MyConfig extends JFinalConfig {
 	
 	/**

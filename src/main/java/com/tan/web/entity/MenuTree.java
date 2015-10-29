@@ -7,8 +7,8 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
-/**
- * tree
+/** 
+ * Create by tanliansheng on 2015年10月29日
  */
 public class MenuTree {
 	private int id;

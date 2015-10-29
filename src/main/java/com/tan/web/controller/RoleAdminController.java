@@ -10,6 +10,9 @@ import com.tan.web.entity.MenuTreeCheck;
 import com.tan.web.entity.TablePage;
 import com.tan.web.model.RoleModel;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @ControllerBind(controllerKey="/admin/role",viewPath="/ftl/admin/role")
 public class RoleAdminController extends Controller {
 	

@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @TableBind(tableName = "test",configName = "db2")
 public class TestModel extends Model<TestModel> {
 	

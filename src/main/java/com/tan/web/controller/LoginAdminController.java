@@ -17,6 +17,9 @@ import com.tan.web.core.shiro.CaptchaUsernamePasswordToken;
 import com.tan.web.core.shiro.IncorrectCaptchaException;
 import com.tan.web.core.shiro.LoginValidator;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @ControllerBind(controllerKey="/admin/login",viewPath="/ftl/front")
 public class LoginAdminController extends Controller {
 	

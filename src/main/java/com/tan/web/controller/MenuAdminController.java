@@ -13,6 +13,9 @@ import com.tan.web.entity.MenuTree;
 import com.tan.web.entity.ValueItem;
 import com.tan.web.model.MenuModel;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @ControllerBind(controllerKey="/admin/menu",viewPath="/ftl/admin/menu")
 public class MenuAdminController extends Controller {
 	

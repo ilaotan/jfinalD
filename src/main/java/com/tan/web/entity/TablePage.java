@@ -1,9 +1,8 @@
 package com.tan.web.entity;
 
-/**
+/** 
  * 从spring移植过来 仅保留生成翻页代码功能
- * @author tanliansheng
- *
+ * Create by tanliansheng on 2015年10月29日
  */
 public class TablePage {
 	

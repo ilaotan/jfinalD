@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Model;
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @TableBind(tableName = "system_role",configName = "main")
 public class RoleModel extends Model<RoleModel>{
 	private static final long serialVersionUID = -5747359745192545106L;

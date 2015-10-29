@@ -7,6 +7,9 @@ import com.jfinal.plugin.activerecord.Page;
 import com.tan.web.entity.TablePage;
 import com.tan.web.model.UserModel;
 
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
 @ControllerBind(controllerKey="/admin/user",viewPath="/ftl/admin/user")
 public class UserAdminController extends Controller {
 	

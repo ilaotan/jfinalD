@@ -1,7 +1,9 @@
 package com.tan.web.common;
 
-public class Constants
-{
+/** 
+ * Create by tanliansheng on 2015年10月29日
+ */
+public class Constants{
 
 	public static final String SESSION_USER = "user";
 	
