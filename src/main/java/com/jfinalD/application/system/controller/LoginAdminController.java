@@ -10,12 +10,12 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
-import com.jfinalD.application.system.common.Constants;
-import com.jfinalD.application.system.core.shiro.CaptchaFormAuthenticationInterceptor;
-import com.jfinalD.application.system.core.shiro.CaptchaRender;
-import com.jfinalD.application.system.core.shiro.CaptchaUsernamePasswordToken;
-import com.jfinalD.application.system.core.shiro.IncorrectCaptchaException;
-import com.jfinalD.application.system.core.shiro.LoginValidator;
+import com.jfinalD.framework.config.Constants;
+import com.jfinalD.framework.shiro.CaptchaFormAuthenticationInterceptor;
+import com.jfinalD.framework.shiro.CaptchaRender;
+import com.jfinalD.framework.shiro.CaptchaUsernamePasswordToken;
+import com.jfinalD.framework.shiro.IncorrectCaptchaException;
+import com.jfinalD.framework.shiro.LoginValidator;
 
 /** 
  * Create by tanliansheng on 2015年10月29日

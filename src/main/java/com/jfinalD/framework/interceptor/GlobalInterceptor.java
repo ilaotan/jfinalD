@@ -1,10 +1,10 @@
-package com.jfinalD.application.system.interceptor;
+package com.jfinalD.framework.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
-import com.jfinalD.application.system.common.Constants;
+import com.jfinalD.framework.config.Constants;
 
 /** 
  * Create by tanliansheng on 2015年10月29日

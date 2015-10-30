@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.core.shiro;
+package com.jfinalD.framework.shiro;
 
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;

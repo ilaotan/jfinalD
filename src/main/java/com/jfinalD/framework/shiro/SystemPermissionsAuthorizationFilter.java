@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.core.shiro;
+package com.jfinalD.framework.shiro;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jfinalD.application.system.common.Constants;
+import com.jfinalD.framework.config.Constants;
 
 public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizationFilter {
 	

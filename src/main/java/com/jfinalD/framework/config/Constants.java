@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.common;
+package com.jfinalD.framework.config;
 
 /** 
  * Create by tanliansheng on 2015年10月29日

@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.config;
+package com.jfinalD.framework.config;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,9 +24,9 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
-import com.jfinalD.application.system.core.shiro.ShiroUser;
-import com.jfinalD.application.system.handler.ActionExtentionHandler;
-import com.jfinalD.application.system.interceptor.GlobalInterceptor;
+import com.jfinalD.framework.handler.ActionExtentionHandler;
+import com.jfinalD.framework.interceptor.GlobalInterceptor;
+import com.jfinalD.framework.shiro.ShiroUser;
 
 /** 
  * Create by tanliansheng on 2015年10月29日

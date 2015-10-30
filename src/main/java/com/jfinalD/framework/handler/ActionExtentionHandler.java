@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.handler;
+package com.jfinalD.framework.handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

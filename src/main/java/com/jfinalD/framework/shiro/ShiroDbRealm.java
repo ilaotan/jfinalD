@@ -1,4 +1,4 @@
-package com.jfinalD.application.system.core.shiro;
+package com.jfinalD.framework.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
