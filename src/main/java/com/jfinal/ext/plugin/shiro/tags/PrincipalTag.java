@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Model;
-import com.tan.web.core.shiro.ShiroUser;
+import com.jfinalD.application.system.core.shiro.ShiroUser;
 
 import freemarker.core.Environment;
 import freemarker.log.Logger;
