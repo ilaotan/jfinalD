@@ -14,6 +14,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.ext.plugin.shiro.tags.ShiroTags;
@@ -23,10 +24,12 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.render.FreeMarkerRender;
 import com.jfinalD.framework.handler.ActionExtentionHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
 import com.jfinalD.framework.shiro.ShiroUser;
+import com.jfinalD.framework.utils.MyStringKits;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -132,8 +135,9 @@ public class MyConfig extends JFinalConfig {
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
 		me.add(new EhCachePlugin());
+		//加载Redis插件
+		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"ilaotan123456qwer",0));
 
-		
 	}
 
 	@Override
@@ -164,12 +168,13 @@ public class MyConfig extends JFinalConfig {
 		me.add(new ShiroInterceptor());
 		me.add(new GlobalInterceptor());
 		
-//		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
+		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
 	}
 
 	@Override
 	public void afterJFinalStart() {
 		FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
+//		FreeMarkerRender.getConfiguration().setSharedVariable("myKit", new ShiroTags());
 		super.afterJFinalStart();
 	}
 
