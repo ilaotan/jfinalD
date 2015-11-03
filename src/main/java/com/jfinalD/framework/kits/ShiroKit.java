@@ -1,4 +1,4 @@
-package com.jfinalD.framework.shiro;
+package com.jfinalD.framework.kits;
 
 
 import java.beans.BeanInfo;
@@ -15,7 +15,7 @@ import org.apache.shiro.subject.Subject;
 
 
 */
-public class ShiroExt {
+public class ShiroKit {
 	
 	
 	public static <T>T getSessionAttr(String key){

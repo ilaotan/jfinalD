@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
  * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  *
  */
-public class MyStringKits extends org.apache.commons.lang3.StringUtils{
+public class MyStringKit extends org.apache.commons.lang3.StringUtils{
 
 	public static String lowerFirst(String str){
 		if(org.apache.commons.lang3.StringUtils.isBlank(str)) {

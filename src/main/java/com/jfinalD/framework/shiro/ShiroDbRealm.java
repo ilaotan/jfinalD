@@ -39,12 +39,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
 //	 * 父类默认方法会拿null。覆盖一下父类方法 使用role的code当缓存的key
 //	 * @see org.apache.shiro.realm.AuthorizingRealm#getAuthorizationCacheKey(org.apache.shiro.subject.PrincipalCollection)
 //	 */
-//	@Override
-//	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
-//		// TODO Auto-generated method stub
-//		SimpleUser user = (SimpleUser) principals.getPrimaryPrincipal();
-//		return "autz-"+user.getRoleName();
-//	}
+	@Override
+	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
+		// TODO Auto-generated method stub
+		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
+		return "autz-"+user.getRoleName();
+	}
     
     /**
      * 认证回调函数,登录时调用.
@@ -77,7 +77,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             throw new LockedAccountException("该用户已被锁定");
         }
         ShiroUser principal = 
-        		new ShiroUser(user.getLong("id"),user.getStr("username"),user.getStr("description"), user.getStr("type"));
+        		new ShiroUser(user.getLong("id"),user.getStr("username"),user.getStr("description"), user.getStr("rolename"));
         AuthenticationInfo authinfo = 
         		new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
         return  authinfo;

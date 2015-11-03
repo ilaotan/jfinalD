@@ -16,7 +16,7 @@ public class Role extends Model<Role>{
 	
 	
 	public List<String> findRoleByUserId(Long id){
-		List<Role> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r where ur.user_id=?",id);
+		List<Role> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r on ur.role_id = r.id where ur.user_id=?",id);
 		List<String> list = new ArrayList<String>();
 		for(Role role : roleList){
 			list.add(role.getStr("name"));

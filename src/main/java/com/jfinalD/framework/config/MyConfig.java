@@ -145,7 +145,7 @@ public class MyConfig extends JFinalConfig {
 		//无cookie时,会在url上添加;sessionId 这里做下判断,去除
         me.add(new SessionIdHandler());
 		
-        me.add(new XssHandler("/admin1")); // `/admin*`为排除的目录
+        me.add(new XssHandler("/admin")); // `/admin*`为排除的目录
 
 		//访问路径是/druid/index.html
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
