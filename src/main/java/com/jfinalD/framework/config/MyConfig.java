@@ -26,7 +26,6 @@ import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.render.FreeMarkerRender;
-import com.jfinalD.framework.handler.ActionExtentionHandler;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
@@ -146,7 +145,8 @@ public class MyConfig extends JFinalConfig {
 		//无cookie时,会在url上添加;sessionId 这里做下判断,去除
         me.add(new SessionIdHandler());
 		
-        
+        me.add(new XssHandler("/admin1")); // `/admin*`为排除的目录
+
 		//访问路径是/druid/index.html
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
 			
@@ -159,10 +159,6 @@ public class MyConfig extends JFinalConfig {
 			}
 		});
 		me.add(dvh);
-		
-		me.add(new ActionExtentionHandler());
-		
-        me.add(new XssHandler("/admin")); // `/admin*`为排除的目录
 	}
 
 	/* 
@@ -172,6 +168,7 @@ public class MyConfig extends JFinalConfig {
 	public void configInterceptor(Interceptors me) {
 		//添加shiro的全局变量
 		me.add(new ShiroInterceptor());
+		
 		me.add(new GlobalInterceptor());
 		
 		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}

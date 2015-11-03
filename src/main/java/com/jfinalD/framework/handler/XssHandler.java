@@ -3,16 +3,16 @@ package com.jfinalD.framework.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
+
 import com.jfinal.handler.Handler;
 import com.jfinal.kit.StrKit;
-import com.jfinalD.framework.servlet.HttpServletRequestWrapper;
+import com.jfinalD.framework.servlet.MyHttpServletRequestWrapper;
 
 /**
  * 统一XSS处理
- * @author L.cm
- * email: 596392912@qq.com
- * site:  http://www.dreamlu.net
- * @date 2014-5-5 上午9:11:10
+ * 适配shiro的httprequet 用来防xss注入
+ * Create by tanliansheng on 2015年11月3日
  */
 public class XssHandler extends Handler {
 	
@@ -28,7 +28,8 @@ public class XssHandler extends Handler {
 			HttpServletResponse response, boolean[] isHandled) {
 		// 对于非静态文件，和非指定排除的url实现过滤
 		if (target.indexOf('.') == -1 && StrKit.notBlank(exclude) && !target.startsWith(exclude)){
-			request = new HttpServletRequestWrapper(request);
+			ShiroHttpServletRequest ssr = (ShiroHttpServletRequest)request;
+			request = new MyHttpServletRequestWrapper(ssr, ssr.getServletContext(), ssr.isHttpSessions());
 		}
 		nextHandler.handle(target, request, response, isHandled);
 	}

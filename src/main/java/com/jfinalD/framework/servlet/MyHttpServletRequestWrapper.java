@@ -4,20 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 对HttpServletRequestWrapper重写，为了统一XSS处理加上懒写成这样了
- * @author L.cm
- * email: 596392912@qq.com
- * site:  http://www.dreamlu.net
- * @date 2014-5-5 上午9:10:18
- */
-public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletRequestWrapper{
+import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 
-	public HttpServletRequestWrapper(HttpServletRequest request) {
-		super(request);
+/** 
+ * 适配shiro的httprequet 用来防xss注入
+ * Create by tanliansheng on 2015年11月3日
+ */
+public class MyHttpServletRequestWrapper extends ShiroHttpServletRequest{
+
+
+	public MyHttpServletRequestWrapper(HttpServletRequest wrapped, ServletContext servletContext,
+			boolean httpSessions) {
+		super(wrapped, servletContext, httpSessions);
 	}
+
 
 	/**
 	 * 重写并过滤getParameter方法
