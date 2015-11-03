@@ -9,7 +9,7 @@ import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
 import com.jfinal.plugin.redis.Cache;
 import com.jfinal.plugin.redis.Redis;
-import com.jfinalD.application.system.model.MenuModel;
+import com.jfinalD.application.system.model.Menu;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -28,7 +28,7 @@ public class IndexController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = MenuModel.dao.getMenuUrl("admin");
+		List<String> val = Menu.dao.getMenuUrl("admin");
 		setAttr("val",val);
 
 		Cache redisCache = Redis.use("myRedis");

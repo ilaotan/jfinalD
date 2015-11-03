@@ -10,19 +10,19 @@ import com.jfinal.plugin.activerecord.Model;
  * Create by tanliansheng on 2015年10月29日
  */
 @TableBind(tableName = "system_menu",configName = "main")
-public class MenuModel extends Model<MenuModel>{
+public class Menu extends Model<Menu>{
 	private static final long serialVersionUID = -5747359745192545106L;
 	
-	public static MenuModel dao = new MenuModel();
+	public static Menu dao = new Menu();
 	
 	public List<String> getMenuUrl(String roleName){
 		
 		String sql = "select sm.menu_url from system_role_menu rm " +
 				"INNER JOIN system_role r on r.id = rm.role_id and r.name=? " +
 				"INNER JOIN system_menu sm on sm.id = rm.menu_id";
-		List<MenuModel> resList = find(sql,roleName);
+		List<Menu> resList = find(sql,roleName);
 		List<String> list = new ArrayList<String>();
-		for(MenuModel res : resList){
+		for(Menu res : resList){
 			list.add(res.getStr("url"));
 		}
 		return list;
@@ -33,13 +33,13 @@ public class MenuModel extends Model<MenuModel>{
 	 */
 	public boolean deleteAllById(int id){
 		
-		List<MenuModel> menuChild = dao.find("select * from system_menu where menu_parent_id = ?",id);
+		List<Menu> menuChild = dao.find("select * from system_menu where menu_parent_id = ?",id);
 		if(menuChild!=null && !menuChild.isEmpty()){
 			int i = Db.update("delete from system_menu where menu_parent_id = ?",id);
 			if(i>0){
 				String ids =id+",";
 				String sql = "delete from system_role_menu where menu_id in ";
-				for(MenuModel menu:menuChild){
+				for(Menu menu:menuChild){
 					ids +=menu.get("id")+",";
 				}
 				ids = ids.substring(0,ids.length()-1);

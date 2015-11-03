@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinalD.application.system.model.MenuModel;
+import com.jfinalD.application.system.model.Menu;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -24,7 +24,7 @@ public class IndexAdminController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = MenuModel.dao.getMenuUrl("admin");
+		List<String> val = Menu.dao.getMenuUrl("admin");
 		setAttr("val",val);
 		
 

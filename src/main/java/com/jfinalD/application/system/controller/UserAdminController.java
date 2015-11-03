@@ -5,7 +5,7 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinalD.application.system.entity.TablePage;
-import com.jfinalD.application.system.model.UserModel;
+import com.jfinalD.application.system.model.User;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -20,7 +20,7 @@ public class UserAdminController extends Controller {
 		int pageNo = getParaToInt("pageNo", 1);
 		int pageSize =getParaToInt("pageSize", 10);
 		
-		Page<UserModel> userPage = UserModel.dao.paginate(pageNo, pageSize, "select *", "from system_user");
+		Page<User> userPage = User.dao.paginate(pageNo, pageSize, "select *", "from system_user");
 		
 		TablePage tp = new TablePage(pageNo,pageSize,userPage.getTotalRow(),userPage.getTotalPage());
 		

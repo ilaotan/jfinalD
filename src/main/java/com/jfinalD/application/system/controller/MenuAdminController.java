@@ -11,7 +11,7 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
 import com.jfinalD.application.system.entity.MenuTree;
 import com.jfinalD.application.system.entity.ValueItem;
-import com.jfinalD.application.system.model.MenuModel;
+import com.jfinalD.application.system.model.Menu;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -41,7 +41,7 @@ public class MenuAdminController extends Controller {
 	}
 	
 	public void save(){
-		boolean b = new MenuModel()
+		boolean b = new Menu()
 			.set("menu_name",getPara("row.menu_name"))
 			.set("menu_url", getPara("row.menu_url"))
 			.set("menu_sn", getParaToInt("row.menu_sn"))
@@ -60,7 +60,7 @@ public class MenuAdminController extends Controller {
 		list.add(new ValueItem("2","no"));
 		setAttr("yesnos", list);
 		setAttr("menu_parent_id", getParaToInt(0));
-		MenuModel mm = MenuModel.dao.findById(getParaToInt(0));
+		Menu mm = Menu.dao.findById(getParaToInt(0));
 		this.setAttr("row", mm);
 		render("add.html");
 	}
@@ -68,7 +68,7 @@ public class MenuAdminController extends Controller {
 	@Before(POST.class)
 	public void updatePost(){
 		//update  
-		 boolean b = MenuModel.dao.findById(getParaToInt("row.menu_parent_id"))
+		 boolean b = Menu.dao.findById(getParaToInt("row.menu_parent_id"))
 		 	.set("menu_name",getPara("row.menu_name"))
 			.set("menu_url", getPara("row.menu_url"))
 			.set("menu_sn", getParaToInt("row.menu_sn"))
@@ -79,7 +79,7 @@ public class MenuAdminController extends Controller {
 	}
 	
 	public void delete(){
-		 boolean b = MenuModel.dao.deleteAllById(getParaToInt(0));
+		 boolean b = Menu.dao.deleteAllById(getParaToInt(0));
 		 renderJson(b);
 	}
 }

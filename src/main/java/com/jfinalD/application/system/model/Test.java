@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.Model;
  * Create by tanliansheng on 2015年10月29日
  */
 @TableBind(tableName = "test",configName = "db2")
-public class TestModel extends Model<TestModel> {
+public class Test extends Model<Test> {
 	
-	public static final TestModel dao = new TestModel();
+	public static final Test dao = new Test();
 	
-	public TestModel findByUsername(String username){
+	public Test findByUsername(String username){
 		
 		return super.findFirst("select * from test where name=?",username);
 	}

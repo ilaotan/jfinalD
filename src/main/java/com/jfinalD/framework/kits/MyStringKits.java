@@ -1,4 +1,4 @@
-package com.jfinalD.framework.utils;
+package com.jfinalD.framework.kits;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;

@@ -9,16 +9,16 @@ import com.jfinal.plugin.activerecord.Model;
  * Create by tanliansheng on 2015年10月29日
  */
 @TableBind(tableName = "system_role",configName = "main")
-public class RoleModel extends Model<RoleModel>{
+public class Role extends Model<Role>{
 	private static final long serialVersionUID = -5747359745192545106L;
 	
-	public static RoleModel dao = new RoleModel();
+	public static Role dao = new Role();
 	
 	
 	public List<String> findRoleByUserId(Long id){
-		List<RoleModel> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r where ur.user_id=?",id);
+		List<Role> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r where ur.user_id=?",id);
 		List<String> list = new ArrayList<String>();
-		for(RoleModel role : roleList){
+		for(Role role : roleList){
 			list.add(role.getStr("name"));
 		}
 		return list;

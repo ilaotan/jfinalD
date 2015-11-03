@@ -8,7 +8,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.jfinalD.application.system.entity.MenuTree;
 import com.jfinalD.application.system.entity.MenuTreeCheck;
 import com.jfinalD.application.system.entity.TablePage;
-import com.jfinalD.application.system.model.RoleModel;
+import com.jfinalD.application.system.model.Role;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -23,7 +23,7 @@ public class RoleAdminController extends Controller {
 		int pageNo = getParaToInt("pageNo", 1);
 		int pageSize =getParaToInt("pageSize", 10);
 		
-		Page<RoleModel> rolePage = RoleModel.dao.paginate(pageNo, pageSize, "select *", "from system_role where id<?",2);
+		Page<Role> rolePage = Role.dao.paginate(pageNo, pageSize, "select *", "from system_role where id<?",2);
 		
 		TablePage tp = new TablePage(pageNo,pageSize,rolePage.getTotalRow(),rolePage.getTotalPage());
 		

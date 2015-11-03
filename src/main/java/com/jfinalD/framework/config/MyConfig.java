@@ -27,9 +27,9 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.render.FreeMarkerRender;
 import com.jfinalD.framework.handler.ActionExtentionHandler;
+import com.jfinalD.framework.handler.SessionIdHandler;
+import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
-import com.jfinalD.framework.shiro.ShiroUser;
-import com.jfinalD.framework.utils.MyStringKits;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -142,21 +142,27 @@ public class MyConfig extends JFinalConfig {
 
 	@Override
 	public void configHandler(Handlers me) {
+		
+		//无cookie时,会在url上添加;sessionId 这里做下判断,去除
+        me.add(new SessionIdHandler());
+		
+        
 		//访问路径是/druid/index.html
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
 			
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
-				ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 				Subject subject = SecurityUtils.getSubject();
 				 if(subject.isAuthenticated()){
-					 
+					 return true;
 				 }
-				return true;
+				 return false;
 			}
 		});
 		me.add(dvh);
 		
 		me.add(new ActionExtentionHandler());
+		
+        me.add(new XssHandler("/admin")); // `/admin*`为排除的目录
 	}
 
 	/* 
