@@ -9,6 +9,7 @@ import org.apache.shiro.web.util.WebUtils;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
+import com.jfinalD.framework.config.Constants;
 
 public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilter implements Interceptor {
 
@@ -23,6 +24,8 @@ public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilt
     }
 
     protected AuthenticationToken createToken(HttpServletRequest request) {
+    	setUsernameParam(Constants.USERNAME);
+    	setPasswordParam(Constants.PASSWORD);
         String username = getUsername(request);
         String password = getPassword(request);
         String captcha = getCaptcha(request);

@@ -11,6 +11,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Logger;
 import com.jfinalD.application.system.Validator.LoginValidator;
+import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;
 import com.jfinalD.framework.shiro.CaptchaFormAuthenticationInterceptor;
 import com.jfinalD.framework.shiro.CaptchaRender;
@@ -47,6 +48,10 @@ public class LoginAdminController extends Controller {
 		try {
             CaptchaUsernamePasswordToken token = this.getAttr("shiroToken");
 			
+            //可以将值映射到model里
+            User user = getModel(User.class);
+            setAttr("user",user);
+            
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
             //进行用用户名和密码验证

@@ -28,5 +28,8 @@ public class Constants{
         public static final String GET = "get";
         public static final String POST = "post";
     }
+    //shiro使用的用来获得登录界面传来的username和password
+    public static final String USERNAME = "user.username";
+    public static final String PASSWORD = "user.password";
 
 }
