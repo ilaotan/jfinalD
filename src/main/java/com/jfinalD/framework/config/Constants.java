@@ -31,5 +31,5 @@ public class Constants{
     //shiro使用的用来获得登录界面传来的username和password
     public static final String USERNAME = "user.username";
     public static final String PASSWORD = "user.password";
-
+    public static final String PRIVATESALT = "qw65";
 }

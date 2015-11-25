@@ -1,5 +1,6 @@
 package com.jfinalD.framework.shiro;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -20,6 +21,7 @@ import com.jfinal.kit.StrKit;
 import com.jfinalD.application.system.model.Menu;
 import com.jfinalD.application.system.model.Role;
 import com.jfinalD.application.system.model.User;
+import com.jfinalD.framework.config.Constants;
 
 public class ShiroDbRealm extends AuthorizingRealm {
     
@@ -76,6 +78,13 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (user.getBoolean("is_locked")) {
             throw new LockedAccountException("该用户已被锁定");
         }
+        //从获得的用户信息里拿到salt
+        String salt = user.getStr("salt");
+        String passwd = String.valueOf(authcToken.getPassword());
+        //将前端用户输入的密码多次md5
+        passwd = DigestUtils.md5Hex(salt+DigestUtils.md5Hex(Constants.PRIVATESALT+passwd));
+        authcToken.setPassword(passwd.toCharArray());
+        
         ShiroUser principal = 
         		new ShiroUser(user.getLong("id"),user.getStr("username"),user.getStr("description"), user.getStr("rolename"));
         AuthenticationInfo authinfo = 
