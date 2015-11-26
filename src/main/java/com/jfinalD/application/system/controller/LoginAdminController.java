@@ -89,9 +89,8 @@ public class LoginAdminController extends Controller {
 	}
 	public void logout(){
 		Subject subject = SecurityUtils.getSubject();
-        if (subject != null) {           
+        if (subject != null) {
             subject.logout();
         }
-        render("login.html");
 	}
 }

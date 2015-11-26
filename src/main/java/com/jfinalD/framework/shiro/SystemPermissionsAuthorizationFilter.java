@@ -72,7 +72,7 @@ public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizati
 //			
 //		}
 //		loginUrl = getLoginUrl();
-		loginUrl = Constants.LOGIN;
+		loginUrl = Constants.ADMIN_LOGIN;
 		WebUtils.issueRedirect(request, response, loginUrl);
 	}	
 	
