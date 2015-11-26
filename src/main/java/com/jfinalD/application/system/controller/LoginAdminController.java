@@ -1,5 +1,7 @@
 package com.jfinalD.application.system.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -50,7 +52,6 @@ public class LoginAdminController extends Controller {
 			
             //可以将值映射到model里
             User user = getModel(User.class);
-            setAttr("user",user);
             
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
@@ -86,5 +87,11 @@ public class LoginAdminController extends Controller {
         }
 		
 	}
-	
+	public void logout(){
+		Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {           
+            subject.logout();
+        }
+        render("login.html");
+	}
 }

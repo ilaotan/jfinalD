@@ -15,15 +15,20 @@ public class Menu extends Model<Menu>{
 	
 	public static Menu dao = new Menu();
 	
-	public List<String> getMenuUrl(String roleName){
+	public List<String> getMenuUrlByRoleId(int roleId){
 		
 		String sql = "select sm.menu_url from system_role_menu rm " +
-				"INNER JOIN system_role r on r.id = rm.role_id and r.name=? " +
-				"INNER JOIN system_menu sm on sm.id = rm.menu_id";
-		List<Menu> resList = find(sql,roleName);
+				"INNER JOIN system_menu sm on sm.id = rm.menu_id " + 
+				"where rm.role_id= ?";
+		List<Menu> resList = find(sql,roleId);
 		List<String> list = new ArrayList<String>();
 		for(Menu res : resList){
-			list.add(res.getStr("url"));
+			String url = res.getStr("menu_url");
+			// 一般不会出现这种情况
+			if("--".equals(url)){
+				continue;
+			}
+			list.add(url);
 		}
 		return list;
 	}

@@ -84,9 +84,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
         //将前端用户输入的密码多次md5
         passwd = DigestUtils.md5Hex(salt+DigestUtils.md5Hex(Constants.PRIVATESALT+passwd));
         authcToken.setPassword(passwd.toCharArray());
-        
-        ShiroUser principal = 
-        		new ShiroUser(user.getLong("id"),user.getStr("username"),user.getStr("description"), user.getStr("rolename"));
+        ShiroUser principal = new ShiroUser(
+        			user.getInt("id"),user.getStr("username"),user.getStr("description"),
+        			user.getInt("roleId"),user.getStr("rolename"));
         AuthenticationInfo authinfo = 
         		new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
         return  authinfo;
@@ -96,18 +96,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
      * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        //User user = (User) principals.fromRealm(getName()).iterator().next();
     	ShiroUser simpleUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         if( null == simpleUser){
         	return info;
         }
-        //role角色默认只有一个??? 还是多个角色
-        info.addRoles(Role.dao.findRoleByUserId(simpleUser.getId()));
-        //根据刚才塞进去的role 拿所有的url权限
-        for (String role : info.getRoles()){
-			info.addStringPermissions(Menu.dao.getMenuUrl(role));
-		}
+        //role角色默认只有一个
+        info.addRole(simpleUser.getRoleName());
+        info.addStringPermissions(Menu.dao.getMenuUrlByRoleId(simpleUser.getRoleId()));
         return info;
     }
 

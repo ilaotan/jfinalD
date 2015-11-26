@@ -12,7 +12,7 @@ public class User extends Model<User> {
 	
 	public User findByUsername(String username){
 		
-		return super.findFirst("select username,password,salt,is_locked,r.description,r.name as rolename from system_user u " +
+		return super.findFirst("select u.id,r.id as roleId,username,password,salt,is_locked,r.description,r.name as rolename from system_user u " +
 				"INNER JOIN system_user_role ur on u.id = ur.user_id " +
 				"INNER JOIN system_role r on ur.role_id = r.id " +
 				"where username=?",username);

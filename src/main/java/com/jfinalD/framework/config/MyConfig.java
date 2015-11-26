@@ -135,8 +135,8 @@ public class MyConfig extends JFinalConfig {
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
 		me.add(new EhCachePlugin());
-		//加载Redis插件
-		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"ilaotan123456qwer",0));
+//		//加载Redis插件
+//		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"ilaotan123456qwer",0));
 
 	}
 

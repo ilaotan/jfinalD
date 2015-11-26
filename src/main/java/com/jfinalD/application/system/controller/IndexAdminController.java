@@ -24,8 +24,8 @@ public class IndexAdminController extends Controller {
 		
 //		User val = User.dao.findByUsername("tanlsh");
 //		List<String> val = Role.dao.findRoleByUserId(1L);
-		List<String> val = Menu.dao.getMenuUrl("admin");
-		setAttr("val",val);
+//		List<String> val = Menu.dao.getMenuUrlByRoleId(1);
+//		setAttr("val",val);
 		
 
 //		TestService ts = enhance(TestService.class);
