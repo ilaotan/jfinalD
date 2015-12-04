@@ -82,7 +82,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         String salt = user.getStr("salt");
         String passwd = String.valueOf(authcToken.getPassword());
         //将前端用户输入的密码多次md5
-        passwd = DigestUtils.md5Hex(salt+DigestUtils.md5Hex(Constants.PRIVATESALT+passwd));
+        passwd = DigestUtils.md5Hex(salt+DigestUtils.md5Hex(Constants.PRIVATE_SALT+passwd));
         authcToken.setPassword(passwd.toCharArray());
         ShiroUser principal = new ShiroUser(
         			user.getInt("id"),user.getStr("username"),user.getStr("description"),
