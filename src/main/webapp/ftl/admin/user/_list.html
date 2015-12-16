@@ -5,8 +5,10 @@
 			<table id="simple-table" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>用户名</th>
 						<th>用户类型</th>
+						<th>类型描述</th>
 						<th>账号状态</th>
 						<th>操作</th>
 					</tr>
@@ -14,9 +16,11 @@
 				<tbody>
 					<#list page.list?if_exists as row>
 						<tr data="id:${row.id};">
+							<td>${row.id}</td>
 							<td>${row.username}</td>
-							<td>${row.user_type}</td>
-							<td>${row.is_locked?c}</td>
+							<td>${row.name}</td>
+							<td>${row.description}</td>
+							<td>${row.is_locked?string("失效","正常")}</td>
 							<td>
 								<div class="hidden-sm hidden-xs btn-group">
 			

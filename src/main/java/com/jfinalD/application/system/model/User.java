@@ -15,7 +15,11 @@ public class User extends Model<User> {
 		return super.findFirst("select u.id,r.id as roleId,username,password,salt,is_locked,r.description,r.name as rolename from system_user u " +
 				"INNER JOIN system_user_role ur on u.id = ur.user_id " +
 				"INNER JOIN system_role r on ur.role_id = r.id " +
-				"where username=?",username);
+				"where username=? and is_locked=0",username);
+	}
+	
+	public User findByUserId(int id){
+		return super.findFirst("select u.id,u.username,u.password,u.salt,u.is_locked from system_user u where u.id=?",id);
 	}
 	
 }

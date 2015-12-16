@@ -16,8 +16,10 @@
 <#if tree??>
 	<li>
 		<a href="javascript:void(0);" data="id:${tree.id};url:${tree.url};">
-			<@bsicon icon='minus'/>
-			<#if ck><input type="checkbox" class="treecheckbox" <#if tree.checked>checked</#if>/></#if>
+			<span class="glyphicon glyphicon-minus"></span>
+			<#if ck>
+				<input type="checkbox" class="treecheckbox" <#if tree.checked>checked</#if> />
+			</#if>
 			${tree.text}<#if showurl>(${tree.url})</#if>
 			<#if edit>
 				<span class="label label-primary bstreeadd">添加子菜单</span>
@@ -34,11 +36,4 @@
 		</#if>
 	</li>
 </#if>
-</#macro>
-
-<#-- bsicon -->
-<#macro bsicon icon=''>
-	<#if icon != ''>
-		<span class="glyphicon glyphicon-${icon}"></span>
-	</#if>
 </#macro>

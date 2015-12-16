@@ -19,7 +19,7 @@ public class IndexController extends Controller {
 	
 	//@Before({Tx.class,CacheInterceptor.class})//EvictInterceptor.class 清除缓存
 	//@CacheName("myCache")
-	public void index() throws SQLException{
+	public void index(){
 		
 		
 	

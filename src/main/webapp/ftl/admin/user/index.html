@@ -24,6 +24,21 @@
 
 	$(function(){
 		
+		$(document).on("click",".btn-info",function(){
+			console.info();
+			var html = ajax({
+				url: "/admin/menu/add/"+$(this).parent().parent().parent().qdata().id,
+				dataType: 'html'
+			});
+			bootbox.confirm({
+			    message: "/admin/menu/add/2",
+			    title:"添加子菜单",
+			    className:"menuAdd",
+			    callback: function(result){
+			    	
+			    }
+			});
+		});
 		
 	});	
 </script>

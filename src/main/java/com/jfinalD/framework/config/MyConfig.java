@@ -116,21 +116,21 @@ public class MyConfig extends JFinalConfig {
 		atbp.autoScan(false);
 		me.add(atbp);
 		
-		/*
-		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
-		 * or 使用Db.use(dsName).tx(...)-
-		 * */
-		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
-		WallFilter wall2 = new WallFilter();
-		wall2.setDbType("mysql");
-		dp2.addFilter(wall2);
-		dp2.addFilter(new StatFilter());
-		me.add(dp2);
-		AutoTableBindPlugin atbp2 = new AutoTableBindPlugin("db2",dp2);
-		if (isDevMode()) atbp2.setShowSql(true);
-		atbp2.autoScan(false);
-		me.add(atbp2);
-		
+//		/*
+//		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
+//		 * or 使用Db.use(dsName).tx(...)-
+//		 * */
+//		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+//		WallFilter wall2 = new WallFilter();
+//		wall2.setDbType("mysql");
+//		dp2.addFilter(wall2);
+//		dp2.addFilter(new StatFilter());
+//		me.add(dp2);
+//		AutoTableBindPlugin atbp2 = new AutoTableBindPlugin("db2",dp2);
+//		if (isDevMode()) atbp2.setShowSql(true);
+//		atbp2.autoScan(false);
+//		me.add(atbp2);
+//		
 		//加载Shiro插件
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
@@ -198,7 +198,7 @@ public class MyConfig extends JFinalConfig {
 	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
 	 */
 	public static void main(String[] args) {
-		JFinal.start("src/main/webapp", 8082, "/", 5);
+		JFinal.start("src/main/webapp", 8081, "/", 5);
 	}
 	
 
