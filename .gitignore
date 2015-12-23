@@ -4,3 +4,6 @@
 .project
 .settings/
 target/
+/jfinalD.iml
+.idea
+/.idea
