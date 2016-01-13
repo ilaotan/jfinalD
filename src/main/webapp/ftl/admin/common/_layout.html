@@ -1,362 +1,110 @@
 <#macro layout page_tab="" page_tab_aim="">
-<!DOCTYPE html>
-<html lang="en">
+
+	<!doctype html>
+	<html class="no-js">
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>Empty Page - Ace Admin</title>
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="${ctx!}/assets/ace/css/bootstrap.css" />
-		<link rel="stylesheet" href="${ctx!}/assets/ace/css/font-awesome.css" />
-		
-		<!-- page specific plugin styles -->
-
-		<!-- text fonts -->
-		<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-fonts.css" />
-
-		<!-- ace styles -->
-		<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
-
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-part2.css" class="ace-main-stylesheet" />
-		<![endif]-->
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="${ctx!}/assets/ace/css/ace-ie.css" />
-		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
-		<script src="${ctx!}/assets/ace/js/ace-extra.js"></script>
-
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-		<!--[if lte IE 8]>
-		<script src="${ctx!}/assets/ace/js/html5shiv.js"></script>
-		<script src="${ctx!}/assets/ace/js/respond.js"></script>
-		<![endif]-->
-		
-		<!--[if !IE]> -->
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='${ctx!}/assets/ace/js/jquery.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-		<script type="text/javascript">
-		 window.jQuery || document.write("<script src='${ctx!}/assets/ace/js/jquery1x.js'>"+"<"+"/script>");
-		</script>
-		<![endif]-->
-		<script type="text/javascript">
-			var baseUrl = "${ctx!}";
-			if('ontouchstart' in document.documentElement) document.write("<script src='${ctx!}/assets/ace/js/jquery.mobile.custom.js'>"+"<"+"/script>");
-		</script>
-		
-		<script src="${ctx!}/assets/ace/js/bootstrap.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<!-- ace scripts -->
-		<script src="${ctx!}/assets/ace/js/ace-elements.js"></script>
-		<script src="${ctx!}/assets/ace/js/ace.js"></script>
-		
-		
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Amaze UI Admin index Examples</title>
+		<meta name="description" content="这是一个 index 页面">
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="stylesheet" href="${ctx!}/assets/amaze/css/amazeui.min.css"/>
+		<link rel="stylesheet" href="${ctx!}/assets/amaze/css/admin.css">
 	</head>
+	<body>
+	<!--[if lte IE 9]>
+	<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+		以获得更好的体验！</p>
+	<![endif]-->
 
-	<body class="no-skin">
-		<!-- #section:basics/navbar.layout -->
-		<div id="navbar" class="navbar navbar-default">
-			<script type="text/javascript">
-				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-			</script>
-
-			<div class="navbar-container" id="navbar-container">
-				<!-- #section:basics/sidebar.mobile.toggle -->
-				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-					<span class="sr-only">Toggle sidebar</span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-				</button>
-
-				<!-- /section:basics/sidebar.mobile.toggle -->
-				<div class="navbar-header pull-left">
-					<!-- #section:basics/navbar.layout.brand -->
-					<a href="#" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
-							Ace Admin
-						</small>
-					</a>
-
-					<!-- /section:basics/navbar.layout.brand -->
-
-					<!-- #section:basics/navbar.toggle -->
-
-					<!-- /section:basics/navbar.toggle -->
-				</div>
-
-				<!-- #section:basics/navbar.dropdown -->
-				<div class="navbar-buttons navbar-header pull-right" role="navigation">
-					<ul class="nav ace-nav">
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
-
-							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-check"></i>
-									4 Tasks to complete
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar">
-										<li>
-											<a href="#">
-												<div class="clearfix">
-													<span class="pull-left">Task Name</span>
-													<span class="pull-right">65%</span>
-												</div>
-
-												<div class="progress progress-mini">
-													<div style="width:65%" class="progress-bar"></div>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">
-										See tasks with details
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-exclamation-triangle"></i>
-									8 Notifications
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar navbar-pink">
-										<li>
-											<a href="#">
-												<div class="clearfix">
-													<span class="pull-left">
-														<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
-														New Comments
-													</span>
-													<span class="pull-right badge badge-info">+12</span>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">
-										See all notifications
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-envelope-o"></i>
-									5 Messages
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar">
-										<li>
-											<a href="#" class="clearfix">
-												<img src="${ctx!}/assets/ace/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Alex:</span>
-														Message Summary
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>Message Time</span>
-													</span>
-												</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="inbox.html">
-										See all messages
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<!-- #section:basics/navbar.user_menu -->
-						<li class="light-blue">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${ctx!}/assets/ace/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
-									<small>欢迎,</small>
-									老谭
-								</span>
-
-								<i class="ace-icon fa fa-caret-down"></i>
-							</a>
-
-							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								<li>
-									<a href="#">
-										<i class="ace-icon fa fa-cog"></i>
-										设置
-									</a>
-								</li>
-
-								<li class="divider"></li>
-
-								<li>
-									<a href="${ctx!}/admin/login/logout">
-										<i class="ace-icon fa fa-power-off"></i>
-										登出
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<!-- /section:basics/navbar.user_menu -->
-					</ul>
-				</div>
-
-				<!-- /section:basics/navbar.dropdown -->
-			</div><!-- /.navbar-container -->
+	<header class="am-topbar admin-header">
+		<div class="am-topbar-brand">
+			<strong>Amaze UI</strong> <small>后台管理模板</small>
 		</div>
 
-		<!-- /section:basics/navbar.layout -->
-		<div class="main-container" id="main-container">
-			<!-- #section:basics/sidebar -->
-			<div id="sidebar" class="sidebar                  responsive">
-				<script type="text/javascript">
-					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-				</script>
-				
+		<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
-				<ul class="nav nav-list">
-					<li class="">
-						<a href="${ctx!}/">
-							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> 首页 </span>
-						</a>
-						<b class="arrow"></b>
-					</li>
+		<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
-					<li <#if page_tab="system"> class="active open" </#if> >
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text"> 系统设置 </span>
+			<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+				<li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+				<li class="am-dropdown" data-am-dropdown>
+					<a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+						<span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+					</a>
+					<ul class="am-dropdown-content">
+						<li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+						<li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+						<li><a href="${ctx!}/admin/login/logout"><span class="am-icon-power-off"></span> 退出</a></li>
+					</ul>
+				</li>
+				<li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+			</ul>
+		</div>
+	</header>
 
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-						
-							<li  <#if page_tab_aim="system_user"> class="active" </#if> >
-								<a href="${ctx!}/admin/user">
-									<i class="menu-icon fa fa-caret-right"></i>
-									用户管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-
-							<li <#if page_tab_aim="system_menu"> class="active" </#if> >
-								<a href="${ctx!}/admin/menu">
-									<i class="menu-icon fa fa-caret-right"></i>
-									菜单管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							<li <#if page_tab_aim="system_role"> class="active" </#if> >
-								<a href="${ctx!}/admin/role">
-									<i class="menu-icon fa fa-caret-right"></i>
-									角色管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
+	<div class="am-cf admin-main">
+		<!-- sidebar start -->
+		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+			<div class="am-offcanvas-bar admin-offcanvas-bar">
+				<ul class="am-list admin-sidebar-list">
+					<li class="am-active"><a href="${ctx!}/admin"><span class="am-icon-home"></span> 首页</a></li>
+					<li class="admin-parent">
+						<a class="am-cf" data-am-collapse="{target: '#collapse-nav-system'}"><span class="am-icon-file"></span> 系统设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+						<ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-system">
+							<li><a href="${ctx!}/admin/user"><span class="am-icon-puzzle-piece"></span>用户管理</a></li>
+							<li><a href="${ctx!}/admin/menu"><span class="am-icon-puzzle-piece"></span>菜单管理</a></li>
+							<li><a href="${ctx!}/admin/role"><span class="am-icon-puzzle-piece"></span>角色管理</a></li>
 						</ul>
 					</li>
-				</ul><!-- /.nav-list -->
+				</ul>
 
-				<!-- #section:basics/sidebar.layout.minimize -->
-				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				<div class="am-panel am-panel-default admin-sidebar-panel">
+					<div class="am-panel-bd">
+						<p><span class="am-icon-bookmark"></span> 公告</p>
+						<p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+					</div>
 				</div>
-
-				<!-- /section:basics/sidebar.layout.minimize -->
-				<script type="text/javascript">
-					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-				</script>
 			</div>
+		</div>
+		<!-- sidebar end -->
 
-			<!-- /section:basics/sidebar -->
-			<div class="main-content">
-				<div class="page-content">
-					<div class="row">
-						<div class="col-xs-12">
-							<!-- PAGE CONTENT BEGINS -->
-								<#nested>
-							<!-- PAGE CONTENT ENDS -->
-						</div><!-- /.col -->
-					</div><!-- /.row -->
-				</div><!-- /.page-content -->
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
+		<!-- content start -->
+		<div class="admin-content">
+			<#nested>
 
-		<!-- basic scripts -->
 
-		<!-- inline scripts related to this page -->
-		 <script type="text/javascript">
-		     //If page has any inline scripts, it goes here
-		     jQuery(function($) {
-		       //alert('hello!');
-		     });
-		  </script>
-		
+		</div>
+		<!-- content end -->
+
+	</div>
+
+	<a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+		<span class="am-icon-btn am-icon-th-list"></span>
+	</a>
+
+	<footer>
+		<hr>
+		<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+	</footer>
+
+	<!--[if lt IE 9]>
+	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+	<script src="${ctx!}/assets/amaze/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="${ctx!}/assets/amaze/js/jquery.min.js"></script>
+	<!--<![endif]-->
+	<script src="${ctx!}/assets/amaze/js/amazeui.min.js"></script>
+	<script src="${ctx!}/assets/amaze/js/app.js"></script>
 	</body>
-</html>
+	</html>
+
+
 </#macro>
