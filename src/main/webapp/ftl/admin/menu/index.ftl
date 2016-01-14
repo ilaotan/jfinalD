@@ -1,4 +1,4 @@
-<#include "/ftl/admin/common/_layout.html"/>
+<#include "/ftl/admin/common/_layout.ftl"/>
  <@layout page_tab="system" page_tab_aim="system">
 
 		

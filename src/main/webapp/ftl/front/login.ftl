@@ -52,7 +52,7 @@
             <br>
             <label for="captcha">验证码:</label>
             <input type="password" name="captcha" id="captcha" value="${(user.password)!}">
-            <img src="${ctx!}/admin/login/img/" onclick="this.src='${ctx!}/admin/login/img/'" width="100" height="35" alt="点击更换验证码" title="点击更换验证码" class="captcha-img">
+            <img src="${ctx!}/admin/login/img/login.ftl" onclick="this.src='${ctx!}/admin/login/img/'" width="100" height="35" alt="点击更换验证码" title="点击更换验证码" class="captcha-img">
             <br>
             <label for="remember-me">
                 <input id="remember-me" type="checkbox">

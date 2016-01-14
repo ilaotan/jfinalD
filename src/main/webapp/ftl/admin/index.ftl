@@ -1,4 +1,4 @@
-<#include "/ftl/admin/common/_layout.html"/>
+<#include "/ftl/admin/common/_layout.ftl"/>
 <@layout page_tab="system" >
 <div class="am-cf am-padding">
     <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>Personal information</small></div>

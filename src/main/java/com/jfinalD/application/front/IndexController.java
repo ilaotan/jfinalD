@@ -23,7 +23,7 @@ public class IndexController extends Controller {
 		
 		
 	
-		render("index.html");
+		render("index.ftl");
 	}
 	public void faq(){
 		render("faq.html");

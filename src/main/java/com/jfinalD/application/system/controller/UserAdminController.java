@@ -29,7 +29,7 @@ public class UserAdminController extends Controller {
 		setAttr("page", userPage);
 		setAttr("pageStr",tp.toString());
 		
-		render("index.html");
+		render("index.ftl");
 	}
 	
 	public void update(){

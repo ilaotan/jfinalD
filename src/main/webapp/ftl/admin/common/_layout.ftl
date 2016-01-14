@@ -14,6 +14,18 @@
 		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
 		<link rel="stylesheet" href="${ctx!}/assets/amaze/css/amazeui.min.css"/>
 		<link rel="stylesheet" href="${ctx!}/assets/amaze/css/admin.css">
+
+		<!--[if lt IE 9]>
+		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="${ctx!}/assets/amaze/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="${ctx!}/assets/amaze/js/jquery.min.js"></script>
+		<!--<![endif]-->
+		<script src="${ctx!}/assets/amaze/js/amazeui.min.js"></script>
+		<script src="${ctx!}/assets/amaze/js/app.js"></script>
 	</head>
 	<body>
 	<!--[if lte IE 9]>
@@ -89,18 +101,6 @@
 		<hr>
 		<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
 	</footer>
-
-	<!--[if lt IE 9]>
-	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-	<script src="${ctx!}/assets/amaze/js/amazeui.ie8polyfill.min.js"></script>
-	<![endif]-->
-
-	<!--[if (gte IE 9)|!(IE)]><!-->
-	<script src="${ctx!}/assets/amaze/js/jquery.min.js"></script>
-	<!--<![endif]-->
-	<script src="${ctx!}/assets/amaze/js/amazeui.min.js"></script>
-	<script src="${ctx!}/assets/amaze/js/app.js"></script>
 	</body>
 	</html>
 

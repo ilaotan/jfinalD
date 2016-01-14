@@ -34,7 +34,7 @@ public class LoginAdminController extends Controller {
 		 if(subject.isAuthenticated()){
 			 this.redirect("/admin");
 		 }else{
-			 this.render("login.html");
+			 this.render("login.ftl");
 		 }
 		
 	}
@@ -71,19 +71,19 @@ public class LoginAdminController extends Controller {
         } catch (IncorrectCaptchaException e) {
         	LOG.error("验证码错误"+e.getMessage());
         	setAttr(Constants.ERROR, "验证码错误");
-            render("login.html");
+            render("login.ftl");
         } catch (LockedAccountException e) {
         	LOG.error("账号已被锁定"+e.getMessage());
         	setAttr(Constants.ERROR, "账号已被锁定");
-            render("login.html");
+            render("login.ftl");
         } catch (AuthenticationException e) {
         	LOG.error("用户名或者密码错误"+e.getMessage());
         	setAttr(Constants.ERROR, "用户名或者密码错误");
-            render("login.html");
+            render("login.ftl");
         } catch (Exception e) {
             LOG.error("系统异常"+e.getMessage());
             setAttr(Constants.ERROR, "系统异常");
-            render("login.html");
+            render("login.ftl");
         }
 		
 	}

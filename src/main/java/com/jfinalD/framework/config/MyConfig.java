@@ -145,7 +145,7 @@ public class MyConfig extends JFinalConfig {
 		
         me.add(new XssHandler("/admin")); // `/admin*`为排除的目录
 
-		//访问路径是/druid/index.html
+		//访问路径是/druid/index.ftl
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
 			
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限

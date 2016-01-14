@@ -30,7 +30,7 @@ public class RoleAdminController extends Controller {
 		setAttr("page", rolePage);
 		setAttr("pageStr",tp.toString());
 		
-		render("index.html");
+		render("index.ftl");
 	}
 	
 	public void menu(){

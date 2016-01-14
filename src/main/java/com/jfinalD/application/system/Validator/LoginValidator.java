@@ -19,7 +19,7 @@ public class LoginValidator extends Validator {
 	protected void handleError(Controller c) {
 		User user = c.getModel(User.class);
         c.setAttr("user",user);
-        c.render("/ftl/front/login.html");
+        c.render("/ftl/front/login.ftl");
 	}
 
 }

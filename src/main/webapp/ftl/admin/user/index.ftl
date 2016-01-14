@@ -1,5 +1,5 @@
-<#include "/ftl/admin/common/_layout.html"/>
- <@layout page_tab="system" page_tab_aim="system">
+<#include "/ftl/admin/common/_layout.ftl"/>
+<@layout page_tab="system" page_tab_aim="system">
 
 
 <form class="form-inline"  action="${ctx}/admin/user" id ="fenyeForm" method="post">
@@ -97,8 +97,13 @@
 			</div>
 		</form>
 	</div>
-
 </div>
 
+<script type="text/javascript">
+	$(function(){
+		alert("111");
+	});
+
+</script>
 
 </@layout>
