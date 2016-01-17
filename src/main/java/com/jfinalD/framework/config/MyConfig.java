@@ -12,7 +12,6 @@ import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
-import com.jfinal.ext.route.AutoBindRoutes;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -21,6 +20,12 @@ import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinalD.application.front.IndexController;
+import com.jfinalD.application.system.controller.IndexAdminController;
+import com.jfinalD.application.system.controller.LoginAdminController;
+import com.jfinalD.application.system.controller.MenuAdminController;
+import com.jfinalD.application.system.controller.RoleAdminController;
+import com.jfinalD.application.system.controller.UserAdminController;
 import com.jfinalD.application.system.model._MappingKit;
 import com.jfinalD.application.wx.WeixinApiController;
 import com.jfinalD.application.wx.WeixinMsgController;
@@ -69,11 +74,17 @@ public class MyConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		//给shiro用的
 		this.routes = me;
-		
-		me.add(new AutoBindRoutes());
 
 		me.add("/msg", WeixinMsgController.class);
-		me.add("/api", WeixinApiController.class, "/api");
+		me.add("/api", WeixinApiController.class, "/ftl/api");
+
+		me.add("/front", IndexController.class, "/ftl/front");
+		me.add("/admin", IndexAdminController.class, "/ftl/admin");
+		me.add("/admin/login", LoginAdminController.class, "/ftl/front");
+		me.add("/admin/menu", MenuAdminController.class, "/ftl/admin/menu");
+		me.add("/admin/role", RoleAdminController.class, "/ftl/admin/role");
+		me.add("/admin/user", UserAdminController.class, "/ftl/admin/user");
+
 		//me.add("/pay", WeixinPayController.class);
 		
 //		me.add("/",IndexController.class,"ftl");
