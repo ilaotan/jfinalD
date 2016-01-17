@@ -12,6 +12,7 @@ import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
+import com.jfinal.json.JacksonFactory;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -67,18 +68,20 @@ public class MyConfig extends JFinalConfig {
 
 		// for wx
 		ApiConfigKit.setDevMode(constant.getDevMode());
-		
+		//2.1新功能
+		constant.setJsonFactory(new JacksonFactory());
+
 	}
 
 	@Override
 	public void configRoute(Routes me) {
 		//给shiro用的
 		this.routes = me;
+		me.add("/", IndexController.class, "/ftl/front");
 
-		me.add("/msg", WeixinMsgController.class);
-		me.add("/api", WeixinApiController.class, "/ftl/api");
+		me.add("/wx/msg", WeixinMsgController.class);
+		me.add("/wx/api", WeixinApiController.class, "/api");
 
-		me.add("/front", IndexController.class, "/ftl/front");
 		me.add("/admin", IndexAdminController.class, "/ftl/admin");
 		me.add("/admin/login", LoginAdminController.class, "/ftl/front");
 		me.add("/admin/menu", MenuAdminController.class, "/ftl/admin/menu");
