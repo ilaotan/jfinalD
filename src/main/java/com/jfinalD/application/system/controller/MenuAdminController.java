@@ -8,7 +8,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.GET;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.log.Logger;
+import com.jfinal.log.Log;
 import com.jfinalD.application.system.entity.MenuTree;
 import com.jfinalD.application.system.entity.ValueItem;
 import com.jfinalD.application.system.model.Menu;
@@ -18,8 +18,8 @@ import com.jfinalD.application.system.model.Menu;
  */
 @ControllerBind(controllerKey="/admin/menu",viewPath="/ftl/admin/menu")
 public class MenuAdminController extends Controller {
-	
-	private static final Logger LOG = Logger.getLogger(MenuAdminController.class);
+
+	static Log log = Log.getLog(MenuAdminController.class);
     
 	public void index(){
 		setAttr("tree", new MenuTree(0, "/", "根菜单", null,null));

@@ -12,13 +12,18 @@ import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
-import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
+import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinalD.application.system.model._MappingKit;
+import com.jfinalD.application.wx.WeixinApiController;
+import com.jfinalD.application.wx.WeixinMsgController;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
@@ -32,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
  * Create by tanliansheng on 2015年10月29日
  */
 public class MyConfig extends JFinalConfig {
-	
+
 	/**
      * 供Shiro插件使用。
      */
@@ -40,17 +45,23 @@ public class MyConfig extends JFinalConfig {
 	
 	@Override
 	public void configConstant(Constants constant) {
-		loadPropertyFile("config.properties");
-		constant.setDevMode(getPropertyToBoolean("devMode", true));
+		PropKit.use("config.properties");
+
+		constant.setDevMode(PropKit.getBoolean("devMode", true));
 		constant.setUrlParaSeparator("-");//设置参数分隔符
-		
+
 //		constant.setViewType(ViewType.JSP); // 设置视图类型为Jsp，否则默认为FreeMarker
 		constant.setError404View("/WEB-INF/pages/404.html");
 		constant.setError500View("/WEB-INF/pages/500.html");
 		// for shiro
 		constant.setError401View("/WEB-INF/pages/401.html");//没有身份验证时
 		constant.setError403View("/WEB-INF/pages/403.html");//美欧权限时
-		
+
+		// 默认使用的jackson，下面示例是切换到fastJson
+//      me.setJsonFactory(new FastJsonFactory());
+
+		// for wx
+		ApiConfigKit.setDevMode(constant.getDevMode());
 		
 	}
 
@@ -60,6 +71,10 @@ public class MyConfig extends JFinalConfig {
 		this.routes = me;
 		
 		me.add(new AutoBindRoutes());
+
+		me.add("/msg", WeixinMsgController.class);
+		me.add("/api", WeixinApiController.class, "/api");
+		//me.add("/pay", WeixinPayController.class);
 		
 //		me.add("/",IndexController.class,"ftl");
 //		me.add("/account",LoginController.class,"ftl/account");
@@ -101,23 +116,19 @@ public class MyConfig extends JFinalConfig {
 //////////////////////////////
 
 		// 多数据源 
-		DruidPlugin dp = new DruidPlugin(getProperty("jdbc.url"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+		DruidPlugin dp = new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
 		WallFilter wall = new WallFilter();
 		wall.setDbType("mysql");
 		dp.addFilter(wall);
 		dp.addFilter(new StatFilter());
+
 		me.add(dp);
-		//默认的名字就是main
-		AutoTableBindPlugin atbp = new AutoTableBindPlugin("main",dp);
-		if (isDevMode()) atbp.setShowSql(true);
-		atbp.autoScan(false);
-		me.add(atbp);
-		
+
 //		/*
 //		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
 //		 * or 使用Db.use(dsName).tx(...)-
 //		 * */
-//		DruidPlugin dp2 = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
+//		DruidPlugin dp2 = new DruidPlugin(PropKit.get("jdbc.url2"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
 //		WallFilter wall2 = new WallFilter();
 //		wall2.setDbType("mysql");
 //		dp2.addFilter(wall2);
@@ -134,6 +145,13 @@ public class MyConfig extends JFinalConfig {
 		me.add(new EhCachePlugin());
 //		//加载Redis插件
 //		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"ilaotan123456qwer",0));
+
+		// 配置ActiveRecord插件
+		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+		me.add(arp);
+
+		// 所有配置在 MappingKit 中搞定
+		_MappingKit.mapping(arp);
 
 	}
 
@@ -188,6 +206,20 @@ public class MyConfig extends JFinalConfig {
 	private boolean isDevMode(){
 		String osName = System.getProperty("os.name");
 		return osName.indexOf("Windows") != -1;
+	}
+
+	/**
+	 * 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
+	 * @param pro 生产环境配置文件
+	 * @param dev 开发环境配置文件
+	 */
+	private void loadProp(String pro, String dev) {
+		try {
+			PropKit.use(pro);
+		}
+		catch (Exception e) {
+			PropKit.use(dev);
+		}
 	}
 	
 	/**

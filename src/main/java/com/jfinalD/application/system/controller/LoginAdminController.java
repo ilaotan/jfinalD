@@ -2,6 +2,7 @@ package com.jfinalD.application.system.controller;
 
 import javax.servlet.http.HttpSession;
 
+import com.jfinal.log.Log;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -11,7 +12,6 @@ import org.apache.shiro.util.ThreadContext;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.log.Logger;
 import com.jfinalD.application.system.Validator.LoginValidator;
 import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;
@@ -25,8 +25,8 @@ import com.jfinalD.framework.shiro.IncorrectCaptchaException;
  */
 @ControllerBind(controllerKey="/admin/login",viewPath="/ftl/front")
 public class LoginAdminController extends Controller {
-	
-	private static final Logger LOG = Logger.getLogger(LoginAdminController.class);
+
+	static Log LOG = Log.getLog(LoginAdminController.class);
 	private static final int DEFAULT_CAPTCHA_LEN = 4;
     
 	public void index(){
