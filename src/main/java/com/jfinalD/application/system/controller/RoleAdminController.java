@@ -1,7 +1,6 @@
 package com.jfinalD.application.system.controller;
 
 import com.jfinal.core.Controller;
-import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -13,7 +12,6 @@ import com.jfinalD.application.system.model.Role;
 /** 
  * Create by tanliansheng on 2015年10月29日
  */
-@ControllerBind(controllerKey="/admin/role",viewPath="/ftl/admin/role")
 public class RoleAdminController extends Controller {
 
 	static Log log = Log.getLog(RoleAdminController.class);

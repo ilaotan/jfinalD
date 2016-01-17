@@ -7,20 +7,19 @@ import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
 import com.jfinal.weixin.sdk.msg.in.InImageMsg;
 import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
 import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
 import com.jfinal.weixin.sdk.msg.in.InTextMsg;
 import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
 import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
-import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
-import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
+import com.jfinal.weixin.sdk.msg.out.OutImageMsg;
+import com.jfinal.weixin.sdk.msg.out.OutMusicMsg;
+import com.jfinal.weixin.sdk.msg.out.OutNewsMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
+import com.jfinal.weixin.sdk.msg.out.OutVoiceMsg;
 
 /**
  * 将此 DemoController 在YourJFinalConfig 中注册路由，
@@ -67,138 +66,115 @@ public class WeixinMsgController extends MsgControllerAdapter {
 
     protected void processInTextMsg(InTextMsg inTextMsg) {
         //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inTextMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inVoiceMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInVideoMsg(InVideoMsg inVideoMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inVideoMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inShortVideoMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInLocationMsg(InLocationMsg inLocationMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inLocationMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInLinkMsg(InLinkMsg inLinkMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inLinkMsg);
-        render(outCustomMsg);
-    }
-
-    @Override
-    protected void processInCustomEvent(InCustomEvent inCustomEvent) {
-        logger.debug("测试方法：processInCustomEvent()");
-        renderNull();
+        String msgContent = inTextMsg.getContent().trim();
+        // 帮助提示
+        if ("help".equalsIgnoreCase(msgContent)) {
+            OutTextMsg outMsg = new OutTextMsg(inTextMsg);
+            outMsg.setContent(helpStr);
+            render(outMsg);
+        }
+        // 图文消息测试
+        else if ("news".equalsIgnoreCase(msgContent)) {
+            OutNewsMsg outMsg = new OutNewsMsg(inTextMsg);
+            outMsg.addNews("图文消息title", "图文消息description", "图文消息片 url", "图文消息 url");
+            render(outMsg);
+        }
+        // 音乐消息测试
+        else if ("music".equalsIgnoreCase(msgContent)) {
+            OutMusicMsg outMsg = new OutMusicMsg(inTextMsg);
+            outMsg.setTitle("Day By Day");
+            outMsg.setDescription("建议在 WIFI 环境下流畅欣赏此音乐");
+            outMsg.setMusicUrl("http://www.jfinal.com/DayByDay-T-ara.mp3");
+            outMsg.setHqMusicUrl("http://www.jfinal.com/DayByDay-T-ara.mp3");
+            outMsg.setFuncFlag(true);
+            render(outMsg);
+        }
+        else if ("美女".equalsIgnoreCase(msgContent)) {
+            OutNewsMsg outMsg = new OutNewsMsg(inTextMsg);
+            outMsg.addNews("秀色可餐", "JFinal Weixin 极速开发就是这么爽，有木有 ^_^", "http://mmbiz.qpic.cn/mmbiz/zz3Q6WSrzq2GJLC60ECD7rE7n1cvKWRNFvOyib4KGdic3N5APUWf4ia3LLPxJrtyIYRx93aPNkDtib3ADvdaBXmZJg/0", "http://mp.weixin.qq.com/s?__biz=MjM5ODAwOTU3Mg==&mid=200987822&idx=1&sn=7eb2918275fb0fa7b520768854fb7b80#rd");
+            render(outMsg);
+        }
+        // 其它文本消息直接返回原值 + 帮助提示
+        else {
+            OutTextMsg outMsg = new OutTextMsg(inTextMsg);
+            outMsg.setContent("\t文本消息已成功接收，内容为： " + inTextMsg.getContent() + "\n\n" + helpStr);
+            render(outMsg);
+        }
     }
 
     protected void processInImageMsg(InImageMsg inImageMsg) {
-        //转发给多客服PC客户端
-
-
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inImageMsg);
-        render(outCustomMsg);
+        OutImageMsg outMsg = new OutImageMsg(inImageMsg);
+        // 将刚发过来的图片再发回去
+        outMsg.setMediaId(inImageMsg.getMediaId());
+        render(outMsg);
     }
 
-    /**
-     * 实现父类抽方法，处理关注/取消关注消息
-     */
+    protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
+        OutVoiceMsg outMsg = new OutVoiceMsg(inVoiceMsg);
+        // 将刚发过来的语音再发回去
+        outMsg.setMediaId(inVoiceMsg.getMediaId());
+        render(outMsg);
+    }
+
+    protected void processInVideoMsg(InVideoMsg inVideoMsg) {
+        /* 腾讯 api 有 bug，无法回复视频消息，暂时回复文本消息代码测试
+        OutVideoMsg outMsg = new OutVideoMsg(inVideoMsg);
+        outMsg.setTitle("OutVideoMsg 发送");
+        outMsg.setDescription("刚刚发来的视频再发回去");
+        // 将刚发过来的视频再发回去，经测试证明是腾讯官方的 api 有 bug，待 api bug 却除后再试
+        outMsg.setMediaId(inVideoMsg.getMediaId());
+        render(outMsg);
+        */
+        OutTextMsg outMsg = new OutTextMsg(inVideoMsg);
+        outMsg.setContent("\t视频消息已成功接收，该视频的 mediaId 为: " + inVideoMsg.getMediaId());
+        render(outMsg);
+    }
+
+    protected void processInLocationMsg(InLocationMsg inLocationMsg) {
+        OutTextMsg outMsg = new OutTextMsg(inLocationMsg);
+        outMsg.setContent("已收到地理位置消息:" +
+                "\nlocation_X = " + inLocationMsg.getLocation_X() +
+                "\nlocation_Y = " + inLocationMsg.getLocation_Y() +
+                "\nscale = " + inLocationMsg.getScale() +
+                "\nlabel = " + inLocationMsg.getLabel());
+        render(outMsg);
+    }
+
+    protected void processInLinkMsg(InLinkMsg inLinkMsg) {
+        OutNewsMsg outMsg = new OutNewsMsg(inLinkMsg);
+        outMsg.addNews("链接消息已成功接收", "链接使用图文消息的方式发回给你，还可以使用文本方式发回。点击图文消息可跳转到链接地址页面，是不是很好玩 :)" , "http://mmbiz.qpic.cn/mmbiz/zz3Q6WSrzq1ibBkhSA1BibMuMxLuHIvUfiaGsK7CC4kIzeh178IYSHbYQ5eg9tVxgEcbegAu22Qhwgl5IhZFWWXUw/0", inLinkMsg.getUrl());
+        render(outMsg);
+    }
+
     protected void processInFollowEvent(InFollowEvent inFollowEvent) {
-        if (InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE.equals(inFollowEvent.getEvent())) {
-            logger.debug("关注：" + inFollowEvent.getFromUserName());
-            OutTextMsg outMsg = new OutTextMsg(inFollowEvent);
-            outMsg.setContent("这是Jfinal-weixin测试服务</br>\r\n感谢您的关注");
-            render(outMsg);
-        }
+        OutTextMsg outMsg = new OutTextMsg(inFollowEvent);
+        outMsg.setContent("感谢关注 JFinal Weixin 极速开发，为您节约更多时间，去陪恋人、家人和朋友 :) \n\n\n " + helpStr);
         // 如果为取消关注事件，将无法接收到传回的信息
-
-
-        if (InFollowEvent.EVENT_INFOLLOW_UNSUBSCRIBE.equals(inFollowEvent.getEvent())) {
-            logger.debug("取消关注：" + inFollowEvent.getFromUserName());
-        }
+        render(outMsg);
     }
 
-    @Override
     protected void processInQrCodeEvent(InQrCodeEvent inQrCodeEvent) {
-        if (InQrCodeEvent.EVENT_INQRCODE_SUBSCRIBE.equals(inQrCodeEvent.getEvent())) {
-            logger.debug("扫码未关注：" + inQrCodeEvent.getFromUserName());
-            OutTextMsg outMsg = new OutTextMsg(inQrCodeEvent);
-            outMsg.setContent("感谢您的关注，二维码内容：" + inQrCodeEvent.getEventKey());
-            render(outMsg);
-        }
-        if (InQrCodeEvent.EVENT_INQRCODE_SCAN.equals(inQrCodeEvent.getEvent())) {
-            logger.debug("扫码已关注：" + inQrCodeEvent.getFromUserName());
-        }
+        OutTextMsg outMsg = new OutTextMsg(inQrCodeEvent);
+        outMsg.setContent("processInQrCodeEvent() 方法测试成功");
+        render(outMsg);
     }
 
-    @Override
     protected void processInLocationEvent(InLocationEvent inLocationEvent) {
-        logger.debug("发送地理位置事件：" + inLocationEvent.getFromUserName());
         OutTextMsg outMsg = new OutTextMsg(inLocationEvent);
-        outMsg.setContent("地理位置是：" + inLocationEvent.getLatitude());
+        outMsg.setContent("processInLocationEvent() 方法测试成功");
         render(outMsg);
     }
 
-    @Override
-    protected void processInMassEvent(InMassEvent inMassEvent) {
-        logger.debug("测试方法：processInMassEvent()");
-        renderNull();
-    }
-
-    /**
-     * 实现父类抽方法，处理自定义菜单事件
-     */
     protected void processInMenuEvent(InMenuEvent inMenuEvent) {
-        logger.debug("菜单事件：" + inMenuEvent.getFromUserName());
         OutTextMsg outMsg = new OutTextMsg(inMenuEvent);
-        outMsg.setContent("菜单事件内容是：" + inMenuEvent.getEventKey());
+        outMsg.setContent("processInMenuEvent() 方法测试成功");
         render(outMsg);
     }
 
-    @Override
     protected void processInSpeechRecognitionResults(InSpeechRecognitionResults inSpeechRecognitionResults) {
-        logger.debug("语音识别事件：" + inSpeechRecognitionResults.getFromUserName());
         OutTextMsg outMsg = new OutTextMsg(inSpeechRecognitionResults);
-        outMsg.setContent("语音识别内容是：" + inSpeechRecognitionResults.getRecognition());
+        outMsg.setContent("processInSpeechRecognitionResults() 方法测试成功");
         render(outMsg);
-    }
-
-    @Override
-    protected void processInTemplateMsgEvent(InTemplateMsgEvent inTemplateMsgEvent) {
-        logger.debug("测试方法：processInTemplateMsgEvent()");
-        renderNull();
     }
 }
 

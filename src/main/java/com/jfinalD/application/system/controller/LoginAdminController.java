@@ -1,17 +1,8 @@
 package com.jfinalD.application.system.controller;
 
-import javax.servlet.http.HttpSession;
-
-import com.jfinal.log.Log;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ThreadContext;
-
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.log.Log;
 import com.jfinalD.application.system.Validator.LoginValidator;
 import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;
@@ -19,11 +10,15 @@ import com.jfinalD.framework.shiro.CaptchaFormAuthenticationInterceptor;
 import com.jfinalD.framework.shiro.CaptchaRender;
 import com.jfinalD.framework.shiro.CaptchaUsernamePasswordToken;
 import com.jfinalD.framework.shiro.IncorrectCaptchaException;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ThreadContext;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
  */
-@ControllerBind(controllerKey="/admin/login",viewPath="/ftl/front")
 public class LoginAdminController extends Controller {
 
 	static Log LOG = Log.getLog(LoginAdminController.class);
