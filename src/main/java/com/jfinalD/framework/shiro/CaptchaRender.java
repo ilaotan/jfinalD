@@ -15,6 +15,8 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.render.Render;
 
 /**
+ * 废弃 改用jfinal 2.1开始自带的图片生成方式
+ *
  * 验证码Render，这个验证码Render在构造函数里就已经创建好了随机码以及md5散列后的随机码。
  * 调用方式如下：
  * CaptchaRender captchaRender = new CaptchaRender();
@@ -24,6 +26,7 @@ import com.jfinal.render.Render;
  * 基于JFinal的版本修改。
  *
  */
+@Deprecated
 public class CaptchaRender extends Render{
 
     /**
