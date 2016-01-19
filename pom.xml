@@ -191,13 +191,14 @@
 			<version>8.1.8</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- jetty-server里已经打包好servlet-api等包了 这一个jar功能上是完整的，即：支持servlet与jsp的web server
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-
+		-->
 		<!-- redis插件的依赖 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
