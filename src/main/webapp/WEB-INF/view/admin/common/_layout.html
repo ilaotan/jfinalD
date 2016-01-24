@@ -10,20 +10,11 @@
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
-	<link rel="stylesheet" href="${ctxPath}/assets/amaze/css/amazeui.min.css"/>
-	<link rel="stylesheet" href="${ctxPath}/assets/amaze/css/admin.css">
-
-	<!--[if lt IE 9]>
-	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-	<script src="${ctxPath}/assets/amaze/js/amazeui.ie8polyfill.min.js"></script>
-	<![endif]-->
-
-	<!--[if (gte IE 9)|!(IE)]><!-->
-	<script src="${ctxPath}/assets/amaze/js/jquery.min.js"></script>
-	<!--<![endif]-->
-	<script src="${ctxPath}/assets/amaze/js/amazeui.min.js"></script>
-	<script src="${ctxPath}/assets/amaze/js/app.js"></script>
+	<link rel="stylesheet" href="${ctxPath}/assets/amazeui/css/amazeui.min.css"/>
+	<link rel="stylesheet" href="${ctxPath}/assets/amazeui/css/admin.css">
+	<% for(x in cssExt!) { %>
+	<link rel="stylesheet" href="${ctxPath}${x}">
+	<% } %>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -65,7 +56,7 @@
 				<li class="am-active"><a href="${ctxPath}/admin"><span class="am-icon-home"></span> 首页</a></li>
 				<li class="admin-parent">
 					<a class="am-cf" data-am-collapse="{target: '#collapse-nav-system'}"><span class="am-icon-file"></span> 系统设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-					<ul class='am-list am-collapse admin-sidebar-sub' id="collapse-nav-system">
+					<ul class='am-list am-collapse admin-sidebar-sub ${page_tab_aim=="system"?"am-in":""}' id="collapse-nav-system">
 						<li><a href="${ctxPath}/admin/user"><span class="am-icon-puzzle-piece"></span>用户管理</a></li>
 						<li><a href="${ctxPath}/admin/menu"><span class="am-icon-puzzle-piece"></span>菜单管理</a></li>
 						<li><a href="${ctxPath}/admin/role"><span class="am-icon-puzzle-piece"></span>角色管理</a></li>
@@ -99,5 +90,27 @@
 	<hr>
 	<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
 </footer>
+
+<script type="text/javascript">
+	function getCtxPath() {
+		return "${ctxPath}";
+	}
+</script>
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="${ctxPath}/assets/amazeui/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="${ctxPath}/assets/amazeui/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="${ctxPath}/assets/amazeui/js/amazeui.min.js"></script>
+<script src="${ctxPath}/assets/amazeui/js/app.js"></script>
+<!-- layer -->
+<script src="${ctxPath}/assets/layer-2.1/layer.js"></script>
+<% for(x in jsExt!) { %>
+<script src="${ctxPath}${x}"></script>
+<% } %>
 </body>
 </html>

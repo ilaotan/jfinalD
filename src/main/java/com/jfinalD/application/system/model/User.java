@@ -18,7 +18,12 @@ public class User extends BaseUser<User> {
 	}
 
 	public User findByUserId(int id){
-		return super.findFirst("select u.id,u.username,u.password,u.salt,u.is_locked from system_user u where u.id=?",id);
+		return super.findFirst(
+				"select u.id,r.id as roleId,username,password,salt,is_locked,r.description,r.name as rolename from system_user u " +
+				"INNER JOIN system_user_role ur on u.id = ur.user_id " +
+				"INNER JOIN system_role r on ur.role_id = r.id " +
+				"where u.id=?",id);
+		//return super.findFirst("select u.id,u.username,u.password,u.salt,u.is_locked from system_user u where u.id=?",id);
 	}
 
 	public Page<User> paginate(int pageNo,int pageSize){

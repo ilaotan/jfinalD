@@ -1,5 +1,18 @@
-<% layout("../common/_layout.html",{page_tab_aim:'system'}){ %>
+<%
 
+	// 页面单独依赖的css、js
+	var cssExt = [
+	//"/assets/amazeui/datatables/amazeui.datatables.min.css"
+	];
+	var jsExt = [
+	//"/assets/amazeui/datatables/amazeui.datatables.min.js",
+	//"/assets/laytpl-1.1/laytpl.js",
+	//"/assets/admin/user.js"
+	];
+
+%>
+
+<% layout("../common/_layout.html",{page_tab_aim:'system',cssExt: cssExt, jsExt: jsExt}){ %>
 
 <form class="form-inline"  action="${ctxPath}/admin/user" id ="fenyeForm" method="post">
 	<div class="control-group">
@@ -49,7 +62,7 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form">
-			<table class="am-table am-table-striped am-table-hover table-main">
+			<table class="am-table am-table-striped am-table-hover table-main" id="userTable">
 				<thead>
 				<tr>
 					<th class="table-id">ID</th>
@@ -67,12 +80,15 @@
 						<td>${row.username}</td>
 						<td>${row.name}</td>
 						<td>${row.description}</td>
-						<td>${row.is_locked?string("失效","正常")}</td>
+						<td>${row.is_locked?"失效":"正常"}</td>
 						<td>
 							<div class="am-btn-toolbar">
 								<div class="am-btn-group am-btn-group-xs">
-									<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-									<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+									<button data-id="#tpl_edit" data-action="${ctxPath}/admin/user/update/${row.id}" type="button"
+											onclick="location.href='${ctxPath}/admin/user/update/${row.id}';"
+											class="js_edit am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>修改</button>
+									<button data-action="${ctxPath}/admin/user/delete/${row.id}" type="button"
+											class="js_del am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span>删除</button>
 								</div>
 							</div>
 						</td>
@@ -97,12 +113,4 @@
 		</form>
 	</div>
 </div>
-
-<script type="text/javascript">
-	$(function(){
-		alert("111");
-	});
-
-</script>
-
 <% } %>

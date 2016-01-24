@@ -1,6 +1,8 @@
 package com.jfinalD.application.system.controller;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.interceptor.GET;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -30,7 +32,8 @@ public class RoleAdminController extends Controller {
 		
 		render("index.html");
 	}
-	
+
+	@Before(GET.class)
 	public void menu(){
 		final int roleId = getParaToInt();
 		setAttr("roleid", roleId);

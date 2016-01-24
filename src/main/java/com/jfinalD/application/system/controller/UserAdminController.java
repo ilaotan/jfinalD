@@ -1,6 +1,9 @@
 package com.jfinalD.application.system.controller;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.interceptor.GET;
+import com.jfinal.ext.interceptor.POST;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinalD.application.system.entity.TablePage;
@@ -27,14 +30,19 @@ public class UserAdminController extends Controller {
 		
 		render("index.html");
 	}
-	
+
 	public void update(){
-		int id = getParaToInt("id",0);
+		int id = getParaToInt();
 		if(id>0){
 			setAttr("user", User.dao.findByUserId(id));
 			render("update.html");
+		}else{
+			renderJson(id);
 		}
-		
+	}
+	public void updatePOST() {
+		log.debug("已经提交一些东西了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		render("index.html");
 	}
 	
 	
