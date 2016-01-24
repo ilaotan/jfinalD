@@ -33,7 +33,7 @@ public class ShiroKit {
 	/**
 	 * 登录成功时所用的页面。
 	 */
-	private static String loginUrl = "/login.ftl";
+	private static String loginUrl = "/login";
 
 
 	/**

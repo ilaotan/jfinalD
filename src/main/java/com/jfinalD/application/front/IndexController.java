@@ -13,7 +13,7 @@ public class IndexController extends Controller {
 		
 		
 	
-		render("index.ftl");
+		render("index.html");
 	}
 	public void faq(){
 		render("faq.html");

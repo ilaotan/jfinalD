@@ -1,5 +1,6 @@
 package com.jfinalD.framework.shiro;
 
+import com.jfinal.validate.Validator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,7 +20,6 @@ import org.apache.shiro.subject.Subject;
 
 import com.jfinal.kit.StrKit;
 import com.jfinalD.application.system.model.Menu;
-import com.jfinalD.application.system.model.Role;
 import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;
 
@@ -43,7 +43,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 //	 */
 	@Override
 	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
-		// TODO Auto-generated method stub
 		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
 		return "autz-"+user.getRoleName();
 	}
@@ -61,16 +60,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (isCaptchaBlank) {
             throw new IncorrectCaptchaException("验证码不可以为空!");
         }
-        Subject subject = SecurityUtils.getSubject();
-        Session session = subject.getSession(false);
-        String md5Code = null;
-        if(session != null){
-            md5Code = (String)session.getAttribute(CaptchaRender.DEFAULT_CAPTCHA_MD5_CODE_KEY);
-        }
-        boolean isRight = CaptchaRender.validate(md5Code, authcToken.getCaptcha());
-        if (!isRight) {
-            throw new IncorrectCaptchaException("验证码错误!");
-        }
+        //Subject subject = SecurityUtils.getSubject();
+        //Session session = subject.getSession(false);
+        //String md5Code = null;
+        //if(session != null){
+        //    md5Code = (String)session.getAttribute(CaptchaRender.DEFAULT_CAPTCHA_MD5_CODE_KEY);
+        //}
+        //boolean isRight = CaptchaRender.validate(md5Code, authcToken.getCaptcha());
+        //if (!isRight) {
+        //    throw new IncorrectCaptchaException("验证码错误!");
+        //}
         User user = User.dao.findByUsername(accountName);
         if (null == user) {
             throw new AuthenticationException("用户名或者密码错误");
@@ -87,8 +86,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         ShiroUser principal = new ShiroUser(
         			user.getInt("id"),user.getStr("username"),user.getStr("description"),
         			user.getInt("roleId"),user.getStr("rolename"));
-        AuthenticationInfo authinfo = 
-        		new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
+        AuthenticationInfo authinfo = new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
         return  authinfo;
     }
 

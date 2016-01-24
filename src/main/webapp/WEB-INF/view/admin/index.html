@@ -1,5 +1,4 @@
-<#include "/ftl/admin/common/_layout.ftl"/>
-<@layout page_tab="system" >
+<% layout("admin/common/_layout.html"){ %>
 <div class="am-cf am-padding">
     <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>Personal information</small></div>
 </div>
@@ -9,4 +8,4 @@
     <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日访问<br/>80082</a></li>
     <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>在线用户<br/>3000</a></li>
 </ul>
-</@layout>
+<% } %>

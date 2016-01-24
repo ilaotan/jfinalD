@@ -27,7 +27,7 @@ public class IndexAdminController extends Controller {
 //		TestService ts = enhance(TestService.class);
 //		ts.testInsert("小明111");
 		
-		render("index.ftl");
+		render("index.html");
 //		renderJsp("a.jsp");
 	}
 

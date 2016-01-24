@@ -25,7 +25,7 @@ public class UserAdminController extends Controller {
 		setAttr("page", userPage);
 		setAttr("pageStr",tp.toString());
 		
-		render("index.ftl");
+		render("index.html");
 	}
 	
 	public void update(){

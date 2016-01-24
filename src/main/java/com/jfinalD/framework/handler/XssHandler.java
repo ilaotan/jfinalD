@@ -31,6 +31,6 @@ public class XssHandler extends Handler {
 			ShiroHttpServletRequest ssr = (ShiroHttpServletRequest)request;
 			request = new MyHttpServletRequestWrapper(ssr, ssr.getServletContext(), ssr.isHttpSessions());
 		}
-		nextHandler.handle(target, request, response, isHandled);
+		next.handle(target, request, response, isHandled);
 	}
 }

@@ -28,7 +28,7 @@ public class RoleAdminController extends Controller {
 		setAttr("page", rolePage);
 		setAttr("pageStr",tp.toString());
 		
-		render("index.ftl");
+		render("index.html");
 	}
 	
 	public void menu(){

@@ -18,14 +18,16 @@
 	  <jsoup.version>1.8.3</jsoup.version>
 	  <jackson.version>2.7.0</jackson.version>
 	  <freemarker.version>2.3.23</freemarker.version>
+	  <beetl.version>2.2.10</beetl.version>
   </properties>
    <repositories>
+	   <!--
         <repository>
             <id>maven-repo2</id>
             <name>maven-repo2</name>
             <layout>default</layout>
-             <url>http://repo2.maven.org/maven2/</url>  
-        </repository>
+             <url>http://repo2.maven.org/maven2/</url>
+        </repository>-->
         <repository>
             <id>oschina Releases</id>
             <name>oschina Releases</name>
@@ -34,17 +36,18 @@
     </repositories>
     
     <pluginRepositories>
-        <pluginRepository>
+        <!--
+		<pluginRepository>
             <id>maven2-repo</id>
             <name>maven2 Repository</name>
             <url>http://repo2.maven.org/maven2/</url>
-        </pluginRepository>
+        </pluginRepository>-->
         <pluginRepository>
             <id>oschina Releases</id>
             <name>oschina Releases</name>
             <url>http://maven.oschina.net/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories>  
+    </pluginRepositories>
   
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -147,12 +150,19 @@
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		<!-- freemarker -->
+		<!-- freemarker
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>${freemarker.version}</version>
+		</dependency>-->
+		<!--使用beetl模板引擎-->
+		<dependency>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetl</artifactId>
+			<version>${beetl.version}</version>
 		</dependency>
+
 		<!-- 加密解密相关
         <dependency>
             <groupId>org.bouncycastle</groupId>

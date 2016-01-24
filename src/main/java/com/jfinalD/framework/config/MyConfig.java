@@ -9,6 +9,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
@@ -19,7 +20,7 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.render.FreeMarkerRender;
+import com.jfinal.render.ViewType;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinalD.application.front.IndexController;
 import com.jfinalD.application.system.controller.IndexAdminController;
@@ -33,9 +34,10 @@ import com.jfinalD.application.wx.WeixinMsgController;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
-import com.jfinalD.framework.shiro.tags.ShiroTags;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.beetl.core.GroupTemplate;
+import org.beetl.ext.jfinal.BeetlRenderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,28 +50,34 @@ public class MyConfig extends JFinalConfig {
      * 供Shiro插件使用。
      */
     Routes routes;
-	
+
 	@Override
-	public void configConstant(Constants constant) {
+	public void configConstant(Constants me) {
 		PropKit.use("config.properties");
 
-		constant.setDevMode(PropKit.getBoolean("devMode", true));
-		constant.setUrlParaSeparator("-");//设置参数分隔符
+		me.setDevMode(PropKit.getBoolean("devMode", true));
+		me.setUrlParaSeparator("-");//设置参数分隔符
 
-//		constant.setViewType(ViewType.JSP); // 设置视图类型为Jsp，否则默认为FreeMarker
-		constant.setError404View("/WEB-INF/pages/404.html");
-		constant.setError500View("/WEB-INF/pages/500.html");
+		me.setBaseViewPath("/view"); //  已经在beetl的配置文件里定义好位置了
+		me.setMainRenderFactory(new BeetlRenderFactory());
+
+		// 获取GroupTemplate ,可以设置共享变量等操作
+		GroupTemplate groupTemplate = BeetlRenderFactory.groupTemplate ;
+
+
+		me.setError401View("/pages/401.html");//没有身份验证时
+		me.setError403View("/pages/403.html");//没有权限时
+		me.setError404View("/pages/404.html");
+		me.setError500View("/pages/500.html");
 		// for shiro
-		constant.setError401View("/WEB-INF/pages/401.html");//没有身份验证时
-		constant.setError403View("/WEB-INF/pages/403.html");//美欧权限时
 
 		// 默认使用的jackson，下面示例是切换到fastJson
 //      me.setJsonFactory(new FastJsonFactory());
 
 		// for wx
-		ApiConfigKit.setDevMode(constant.getDevMode());
+		ApiConfigKit.setDevMode(me.getDevMode());
 		//2.1新功能
-		constant.setJsonFactory(new JacksonFactory());
+		me.setJsonFactory(new JacksonFactory());
 
 	}
 
@@ -77,25 +85,25 @@ public class MyConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		//给shiro用的
 		this.routes = me;
-		me.add("/", IndexController.class, "/ftl/front");
+		me.add("/", IndexController.class, "/front");
 
 		me.add("/wx/msg", WeixinMsgController.class);
 		me.add("/wx/api", WeixinApiController.class, "/api");
 
-		me.add("/admin", IndexAdminController.class, "/ftl/admin");
-		me.add("/admin/login", LoginAdminController.class, "/ftl/front");
-		me.add("/admin/menu", MenuAdminController.class, "/ftl/admin/menu");
-		me.add("/admin/role", RoleAdminController.class, "/ftl/admin/role");
-		me.add("/admin/user", UserAdminController.class, "/ftl/admin/user");
+		me.add("/admin", IndexAdminController.class, "admin");
+		me.add("/admin/login", LoginAdminController.class, "front");
+		me.add("/admin/menu", MenuAdminController.class, "admin/menu");
+		me.add("/admin/role", RoleAdminController.class, "admin/role");
+		me.add("/admin/user", UserAdminController.class, "admin/user");
 
 		//me.add("/pay", WeixinPayController.class);
-		
+
 //		me.add("/",IndexController.class,"ftl");
 //		me.add("/account",LoginController.class,"ftl/account");
-//		
+//
 //		adminRoute(me);
 	}
-    
+
 	@Override
 	public void configPlugin(Plugins me) {
 
@@ -114,7 +122,7 @@ public class MyConfig extends JFinalConfig {
 //		arpOne.addMapping("system_role", Role.class);
 //		arpOne.addMapping("system_user", User.class);
 ///////////////////////////
-//		
+//
 //		DruidPlugin dpTwo = new DruidPlugin(getProperty("jdbc.url2"), getProperty("jdbc.username"), getProperty("jdbc.password"));
 //		WallFilter wallTwo = new WallFilter();
 //		wallTwo.setDbType("mysql");
@@ -129,7 +137,7 @@ public class MyConfig extends JFinalConfig {
 //		arpTwo.addMapping("test", Test.class);
 //////////////////////////////
 
-		// 多数据源 
+		// 多数据源
 		DruidPlugin dp = new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
 		WallFilter wall = new WallFilter();
 		wall.setDbType("mysql");
@@ -139,7 +147,7 @@ public class MyConfig extends JFinalConfig {
 		me.add(dp);
 
 //		/*
-//		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用 
+//		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用
 //		 * or 使用Db.use(dsName).tx(...)-
 //		 * */
 //		DruidPlugin dp2 = new DruidPlugin(PropKit.get("jdbc.url2"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
@@ -152,7 +160,7 @@ public class MyConfig extends JFinalConfig {
 //		if (isDevMode()) atbp2.setShowSql(true);
 //		atbp2.autoScan(false);
 //		me.add(atbp2);
-//		
+//
 		//加载Shiro插件
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
@@ -171,15 +179,15 @@ public class MyConfig extends JFinalConfig {
 
 	@Override
 	public void configHandler(Handlers me) {
-		
+
 		//无cookie时,会在url上添加;sessionId 这里做下判断,去除
         me.add(new SessionIdHandler());
-		
+
         me.add(new XssHandler("/admin")); // `/admin*`为排除的目录
 
 		//访问路径是/druid/index.ftl
 		DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
-			
+
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
 				Subject subject = SecurityUtils.getSubject();
 				 if(subject.isAuthenticated()){
@@ -189,24 +197,26 @@ public class MyConfig extends JFinalConfig {
 			}
 		});
 		me.add(dvh);
+
+		me.add(new UrlSkipHandler("/assets", false));
 	}
 
-	/* 
+	/*
 	 * 只有全局的拦截器在这里配置
 	 */
 	@Override
 	public void configInterceptor(Interceptors me) {
 		//添加shiro的全局变量
 		me.add(new ShiroInterceptor());
-		
+
 		me.add(new GlobalInterceptor());
-		
+
 		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
 	}
 
 	@Override
 	public void afterJFinalStart() {
-		FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
+		//FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
 //		FreeMarkerRender.getConfiguration().setSharedVariable("myKit", new ShiroTags());
 		super.afterJFinalStart();
 	}
@@ -215,7 +225,7 @@ public class MyConfig extends JFinalConfig {
 	public void beforeJFinalStop() {
 		super.beforeJFinalStop();
 	}
-	
+
 	//判断是哪种环境
 	private boolean isDevMode(){
 		String osName = System.getProperty("os.name");
@@ -235,7 +245,7 @@ public class MyConfig extends JFinalConfig {
 			PropKit.use(dev);
 		}
 	}
-	
+
 	/**
 	 * 建议使用 JFinal 手册推荐的方式启动项目
 	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
@@ -243,6 +253,6 @@ public class MyConfig extends JFinalConfig {
 	public static void main(String[] args) {
 		JFinal.start("src/main/webapp", 8081, "/", 5);
 	}
-	
+
 
 }

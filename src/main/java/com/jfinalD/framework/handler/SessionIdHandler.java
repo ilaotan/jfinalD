@@ -21,6 +21,6 @@ public class SessionIdHandler extends Handler {
         if (isFromURL) {
             target = target.substring(0, target.indexOf(';'));
         }
-        nextHandler.handle(target, request, response, isHandled);
+        next.handle(target, request, response, isHandled);
     }
 }

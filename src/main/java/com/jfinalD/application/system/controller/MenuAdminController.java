@@ -22,7 +22,7 @@ public class MenuAdminController extends Controller {
 	public void index(){
 		setAttr("tree", new MenuTree(0, "/", "根菜单", null,null));
 		
-		render("index.ftl");
+		render("index.html");
 	}
 	
 	/**

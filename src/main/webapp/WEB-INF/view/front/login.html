@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="stylesheet" href="${ctx!}/assets/amaze/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="${ctxPath}/assets/amaze/css/amazeui.min.css"/>
     <style>
         .header {
             text-align: center;
@@ -43,16 +43,16 @@
         <br>
         <br>
 
-        <form method="post" class="am-form" action="${ctx!}/admin/login/doLogin" method="post">
+        <form method="post" class="am-form" action="${ctxPath}/admin/login/doLogin" method="post">
             <label for="username">用户名:</label>
-            <input type="text" name="user.username" id="username" value="${(user.username)!}">
+            <input type="text" name="user.username" id="username" value="${user.username!}">
             <br>
             <label for="password">密码:</label>
-            <input type="password" name="user.password" id="password" value="${(user.password)!}">
+            <input type="password" name="user.password" id="password" value="${user.password!}">
             <br>
             <label for="captcha">验证码:</label>
-            <input type="password" name="captcha" id="captcha" value="${(user.password)!}">
-            <img src="${ctx!}/admin/login/img/login.ftl" onclick="this.src='${ctx!}/admin/login/img/'" width="100" height="35" alt="点击更换验证码" title="点击更换验证码" class="captcha-img">
+            <input type="password" name="captcha" id="captcha" value="">
+            <img src="${ctxPath}/admin/login/img/" onclick="this.src='${ctxPath}/admin/login/img/'" width="100" height="35" alt="点击更换验证码" title="点击更换验证码" class="captcha-img">
             <br>
             <label for="remember-me">
                 <input id="remember-me" type="checkbox">

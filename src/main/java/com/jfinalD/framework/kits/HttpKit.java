@@ -71,7 +71,7 @@ public class HttpKit {
 	
 	/**
 	 * 初始化http请求参数
-	 * @param url
+	 * @param url+
 	 * @param method
 	 * @return
 	 * @throws IOException
