@@ -41,7 +41,25 @@ public class UserAdminController extends Controller {
 		}
 	}
 	public void updatePOST() {
-		log.debug("已经提交一些东西了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+		int id = getParaToInt();
+		String roleName = getPara("user.rolename");
+
+		User oldUser = User.dao.findByUserId(id);
+
+		//Controller 之中的 getModel()需要表单域名称对应于数据表字段名，而 getBean()则依赖于
+		//setter方法，表单域名对应于setter方法去掉”set”前缀字符后剩下的字符道字母变小写
+		User user = getBean(User.class);
+
+		//先用比较笨的方法实现
+
+
+		String passwd = getPara("passwd","");
+		if(!"".equals(passwd)){
+			//TODO:  需要更新密码
+
+		}
+
 		render("index.html");
 	}
 	
