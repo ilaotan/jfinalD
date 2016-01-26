@@ -39,6 +39,7 @@ var jsExt = [
 						<option value="admin"  ${user.rolename=="admin"?"selected":""} >超级管理员</option>
 						<option value="guest"  ${user.rolename=="guest"?"selected":""} >游客</option>
 					</select>
+					<input type="hidden" name="user.rolenameOld" value="${user.rolename}" />
 					<span class="am-form-caret"></span>
 				</div>
 

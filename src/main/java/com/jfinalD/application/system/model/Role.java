@@ -1,5 +1,6 @@
 package com.jfinalD.application.system.model;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinalD.application.system.model.base.BaseRole;
 
 import java.util.ArrayList;
@@ -19,5 +20,16 @@ public class Role extends BaseRole<Role> {
 			list.add(role.getStr("name"));
 		}
 		return list;
+	}
+	public Role getOneByName(String name){
+		return super.findFirst("select id,name from system_role where name = ?",name);
+	}
+
+	/**
+	 * 更新用户和role的关联表
+	 * @return
+	 */
+	public int updateUserRoleRelation(int userId,int roleId){
+		return Db.update("update  system_user_role set role_id= ? where user_id = ?",roleId,userId);
 	}
 }

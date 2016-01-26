@@ -4,9 +4,11 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.GET;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinalD.application.system.entity.TablePage;
+import com.jfinalD.application.system.model.Role;
 import com.jfinalD.application.system.model.User;
 
 /** 
@@ -44,23 +46,31 @@ public class UserAdminController extends Controller {
 
 		int id = getParaToInt();
 		String roleName = getPara("user.rolename");
+		String roleNameOld = getPara("user.rolenameOld");
 
 		User oldUser = User.dao.findByUserId(id);
 
-		//Controller 之中的 getModel()需要表单域名称对应于数据表字段名，而 getBean()则依赖于
-		//setter方法，表单域名对应于setter方法去掉”set”前缀字符后剩下的字符道字母变小写
+		//Controller 之中的 getModel()需要表单域名称对应于数据表字段名，
+		//getBean()则依赖于setter方法，表单域名对应于setter方法去掉”set”前缀字符后剩下的字符道字母变小写
 		User user = getBean(User.class);
 
 		//先用比较笨的方法实现
+		if(!"".equals(user.getPassword())){
+			//TODO:  需要更新密码  生成密码字段 扔到user对象里
 
-
-		String passwd = getPara("passwd","");
-		if(!"".equals(passwd)){
-			//TODO:  需要更新密码
-
+			user.setSalt("12234");
+			user.setPassword("hhhhhhhh");
 		}
+		user.setId(id);
+		user.update();
 
-		render("index.html");
+		if( StrKit.notBlank(roleName) && StrKit.notBlank(roleNameOld) && roleName.equals(roleNameOld)){
+			//TODO: 更新该用户的权限
+			Role role = Role.dao.getOneByName(roleName);
+			Role.dao.updateUserRoleRelation(id,role.getId());
+		}
+		redirect("/admin/user");
+		//render("index.html");
 	}
 	
 	
