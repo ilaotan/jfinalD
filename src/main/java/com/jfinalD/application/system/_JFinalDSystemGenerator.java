@@ -1,4 +1,4 @@
-package com.jfinalD.application;
+package com.jfinalD.application.system;
 
 import javax.sql.DataSource;
 

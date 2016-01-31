@@ -1,9 +1,11 @@
 package com.jfinalD.application.wx;
 
+import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.*;
 import com.jfinal.weixin.sdk.jfinal.ApiController;
 
+@ControllerBind(controllerKey="/wx/api",viewPath="/api")
 public class WeixinApiController extends ApiController {
 
     /**

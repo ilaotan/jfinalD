@@ -4,6 +4,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.GET;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Page;
@@ -14,6 +15,7 @@ import com.jfinalD.application.system.model.User;
 /** 
  * Create by tanliansheng on 2015年10月29日
  */
+@ControllerBind(controllerKey="/admin/user",viewPath="admin/user")
 public class UserAdminController extends Controller {
 
 	static Log log = Log.getLog(UserAdminController.class);
@@ -42,13 +44,12 @@ public class UserAdminController extends Controller {
 			renderJson(id);
 		}
 	}
+
 	public void updatePOST() {
 
 		int id = getParaToInt();
 		String roleName = getPara("user.rolename");
 		String roleNameOld = getPara("user.rolenameOld");
-
-		User oldUser = User.dao.findByUserId(id);
 
 		//Controller 之中的 getModel()需要表单域名称对应于数据表字段名，
 		//getBean()则依赖于setter方法，表单域名对应于setter方法去掉”set”前缀字符后剩下的字符道字母变小写

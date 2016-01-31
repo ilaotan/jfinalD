@@ -11,6 +11,7 @@ import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.ext.plugin.route.AutoBindRoutes;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.json.JacksonFactory;
@@ -20,7 +21,6 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.render.ViewType;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinalD.application.front.IndexController;
 import com.jfinalD.application.system.controller.IndexAdminController;
@@ -85,23 +85,19 @@ public class MyConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		//给shiro用的
 		this.routes = me;
-		me.add("/", IndexController.class, "/front");
 
-		me.add("/wx/msg", WeixinMsgController.class);
-		me.add("/wx/api", WeixinApiController.class, "/api");
+		me.add(new AutoBindRoutes());
 
-		me.add("/admin", IndexAdminController.class, "admin");
-		me.add("/admin/login", LoginAdminController.class, "front");
-		me.add("/admin/menu", MenuAdminController.class, "admin/menu");
-		me.add("/admin/role", RoleAdminController.class, "admin/role");
-		me.add("/admin/user", UserAdminController.class, "admin/user");
 
-		//me.add("/pay", WeixinPayController.class);
+		//me.add("/", IndexController.class, "/front");
+		//me.add("/wx/msg", WeixinMsgController.class);
+		//me.add("/wx/api", WeixinApiController.class, "/api");
+		//me.add("/admin", IndexAdminController.class, "admin");
+		//me.add("/admin/login", LoginAdminController.class, "front");
+		//me.add("/admin/menu", MenuAdminController.class, "admin/menu");
+		//me.add("/admin/role", RoleAdminController.class, "admin/role");
+		//me.add("/admin/user", UserAdminController.class, "admin/user");
 
-//		me.add("/",IndexController.class,"ftl");
-//		me.add("/account",LoginController.class,"ftl/account");
-//
-//		adminRoute(me);
 	}
 
 	@Override
@@ -190,9 +186,12 @@ public class MyConfig extends JFinalConfig {
 
 			public boolean isPermitted(HttpServletRequest request) {//获得查看权限
 				Subject subject = SecurityUtils.getSubject();
-				 if(subject.isAuthenticated()){
+				 if(subject.isPermitted("druid:*")){
 					 return true;
 				 }
+				 //if(subject.isAuthenticated()){
+					// return true;
+				 //}
 				 return false;
 			}
 		});

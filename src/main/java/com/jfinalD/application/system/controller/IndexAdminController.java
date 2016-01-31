@@ -3,10 +3,12 @@ package com.jfinalD.application.system.controller;
 import java.sql.SQLException;
 
 import com.jfinal.core.Controller;
+import com.jfinal.ext.plugin.route.ControllerBind;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
  */
+@ControllerBind(controllerKey="/admin",viewPath="admin")
 public class IndexAdminController extends Controller {
 	
 	//@Before({Tx.class,CacheInterceptor.class})//EvictInterceptor.class 清除缓存

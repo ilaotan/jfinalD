@@ -2,6 +2,7 @@ package com.jfinalD.application.system.controller;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.log.Log;
 import com.jfinal.render.CaptchaRender;
 import com.jfinalD.application.system.Validator.LoginValidator;
@@ -19,6 +20,7 @@ import org.apache.shiro.util.ThreadContext;
 /** 
  * Create by tanliansheng on 2015年10月29日
  */
+@ControllerBind(controllerKey="/admin/login",viewPath="front")
 public class LoginAdminController extends Controller {
 
 	static Log LOG = Log.getLog(LoginAdminController.class);

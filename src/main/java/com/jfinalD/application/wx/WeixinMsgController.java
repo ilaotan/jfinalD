@@ -1,5 +1,6 @@
 package com.jfinalD.application.wx;
 
+import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfig;
@@ -30,6 +31,7 @@ import com.jfinal.weixin.sdk.msg.out.OutVoiceMsg;
  * <p/>
  * 方法即可直接运行看效果，在此基础之上修改相关的方法即可进行实际项目开发
  */
+@ControllerBind(controllerKey="/wx/msg",viewPath="")
 public class WeixinMsgController extends MsgControllerAdapter {
 
     static Log logger = Log.getLog(WeixinMsgController.class);
