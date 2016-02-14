@@ -22,15 +22,7 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinalD.application.front.IndexController;
-import com.jfinalD.application.system.controller.IndexAdminController;
-import com.jfinalD.application.system.controller.LoginAdminController;
-import com.jfinalD.application.system.controller.MenuAdminController;
-import com.jfinalD.application.system.controller.RoleAdminController;
-import com.jfinalD.application.system.controller.UserAdminController;
 import com.jfinalD.application.system.model._MappingKit;
-import com.jfinalD.application.wx.WeixinApiController;
-import com.jfinalD.application.wx.WeixinMsgController;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
@@ -65,10 +57,10 @@ public class MyConfig extends JFinalConfig {
 		GroupTemplate groupTemplate = BeetlRenderFactory.groupTemplate ;
 
 
-		me.setError401View("/pages/401.html");//没有身份验证时
-		me.setError403View("/pages/403.html");//没有权限时
-		me.setError404View("/pages/404.html");
-		me.setError500View("/pages/500.html");
+		me.setError401View("/view/error/401.html");//没有身份验证时
+		me.setError403View("/view/error/403.html");//没有权限时
+		me.setError404View("/view/error/404.html");
+		me.setError500View("/view/error/500.html");
 		// for shiro
 
 		// 默认使用的jackson，下面示例是切换到fastJson
