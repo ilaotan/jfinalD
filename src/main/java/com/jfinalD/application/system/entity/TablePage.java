@@ -30,7 +30,6 @@ public class TablePage {
 	 * @param pageNo 当前页码
 	 * @param pageSize 分页大小
 	 * @param count 数据条数
-	 * @param list 本页数据对象列表
 	 */
 	public TablePage(int pageNo, int pageSize, long count, int totalNo) {
 		this.setCount(count);

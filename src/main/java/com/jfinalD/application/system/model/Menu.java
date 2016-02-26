@@ -1,8 +1,10 @@
 package com.jfinalD.application.system.model;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinalD.application.system.model.base.BaseMenu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,12 @@ public class Menu extends BaseMenu<Menu> {
 	public static final Menu dao = new Menu();
 
 	public List<String> getMenuUrlByRoleId(int roleId){
-
+		//Db.use("数据库2").tx(new IAtom() {
+		//	@Override
+		//	public boolean run() throws SQLException {
+		//		return false;
+		//	}
+		//});
 		String sql = "select sm.menu_url from system_role_menu rm " +
 				"INNER JOIN system_menu sm on sm.id = rm.menu_id " +
 				"where rm.role_id= ?";
@@ -52,5 +59,9 @@ public class Menu extends BaseMenu<Menu> {
 			}
 		}
 		return dao.deleteById(id);
+	}
+
+	public void test(){
+
 	}
 }

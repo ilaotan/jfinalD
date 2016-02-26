@@ -124,6 +124,12 @@
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal-weixin</artifactId>
 			<version>${jfinal.weixin.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>freemarker</artifactId>
+					<groupId>org.freemarker</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
