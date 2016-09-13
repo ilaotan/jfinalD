@@ -25,7 +25,7 @@ public class Menu extends BaseMenu<Menu> {
 		String sql = "select sm.menu_url from system_role_menu rm " +
 				"INNER JOIN system_menu sm on sm.id = rm.menu_id " +
 				"where rm.role_id= ?";
-		List<Menu> resList = find(sql,roleId);
+		List<Menu> resList = dao.find(sql,roleId);
 		List<String> list = new ArrayList<String>();
 		for(Menu res : resList){
 			String url = res.getStr("menu_url");

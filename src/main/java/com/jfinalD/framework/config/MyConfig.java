@@ -22,6 +22,7 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinalD.application.system.model._MappingKit;
 import com.jfinalD.framework.handler.SessionIdHandler;
