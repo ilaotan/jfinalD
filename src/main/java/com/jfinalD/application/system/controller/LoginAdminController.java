@@ -4,7 +4,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.log.Log;
-import com.jfinal.render.CaptchaRender;
 import com.jfinalD.application.system.Validator.LoginValidator;
 import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;

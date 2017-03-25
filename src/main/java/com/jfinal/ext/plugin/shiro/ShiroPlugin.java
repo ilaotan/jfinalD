@@ -1,18 +1,4 @@
-/**
- * Copyright (c) 2011-2013, dafei 李飞 (myaniu AT gmail DOT com)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.jfinal.ext.plugin.shiro;
 
 import java.lang.annotation.Annotation;
@@ -98,11 +84,10 @@ public class ShiroPlugin implements IPlugin {
 		ConcurrentMap<String, AuthzHandler> authzMaps = new ConcurrentHashMap<String, AuthzHandler>();
 		//逐个访问所有注册的Controller，解析Controller及action上的所有Shiro注解。
 		//并依据这些注解，actionKey提前构建好权限检查处理器。
-		for (Entry<String, Class<? extends Controller>> entry : routes
-				.getEntrySet()) {
-			Class<? extends Controller> controllerClass = entry.getValue();
+		for (Routes.Route entry : routes.getRouteItemList()) {
+			Class<? extends Controller> controllerClass = entry.getControllerClass();
 
-			String controllerKey = entry.getKey();
+			String controllerKey = entry.getControllerKey();
 
 			// 获取Controller的所有Shiro注解。
 			List<Annotation> controllerAnnotations = getAuthzAnnotations(controllerClass);

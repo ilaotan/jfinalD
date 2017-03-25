@@ -3,11 +3,7 @@ package com.jfinalD.framework.config;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
-import com.jfinal.config.Handlers;
-import com.jfinal.config.Interceptors;
-import com.jfinal.config.JFinalConfig;
-import com.jfinal.config.Plugins;
-import com.jfinal.config.Routes;
+import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
@@ -15,14 +11,13 @@ import com.jfinal.ext.plugin.route.AutoBindRoutes;
 import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.json.FastJsonFactory;
-import com.jfinal.json.JacksonFactory;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.plugin.redis.RedisPlugin;
+import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinalD.application.system.model._MappingKit;
 import com.jfinalD.framework.handler.SessionIdHandler;
@@ -31,7 +26,7 @@ import com.jfinalD.framework.interceptor.GlobalInterceptor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.beetl.core.GroupTemplate;
-import org.beetl.ext.jfinal.BeetlRenderFactory;
+import org.beetl.ext.jfinal3.JFinal3BeetlRenderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,11 +47,13 @@ public class MyConfig extends JFinalConfig {
 		me.setDevMode(PropKit.getBoolean("devMode", true));
 		me.setUrlParaSeparator("-");//设置参数分隔符
 
-		me.setBaseViewPath("/view"); //  已经在beetl的配置文件里定义好位置了
-		me.setMainRenderFactory(new BeetlRenderFactory());
+//		me.setBaseViewPath("/view"); //  已经在beetl的配置文件里定义好位置了
+		JFinal3BeetlRenderFactory rf = new JFinal3BeetlRenderFactory();
+		rf.config();
+		me.setRenderFactory(rf);
 
-		// 获取GroupTemplate ,可以设置共享变量等操作
-		GroupTemplate groupTemplate = BeetlRenderFactory.groupTemplate ;
+		GroupTemplate gt = rf.groupTemplate;
+		//根据gt可以添加扩展函数，格式化函数，共享变量等，
 
 
 		me.setError401View("/view/error/401.html");//没有身份验证时
@@ -79,6 +76,7 @@ public class MyConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		//给shiro用的
 		this.routes = me;
+//		me.setBaseViewPath("/view");
 
 		me.add(new AutoBindRoutes());
 
@@ -91,6 +89,11 @@ public class MyConfig extends JFinalConfig {
 		//me.add("/admin/menu", MenuAdminController.class, "admin/menu");
 		//me.add("/admin/role", RoleAdminController.class, "admin/role");
 		//me.add("/admin/user", UserAdminController.class, "admin/user");
+
+	}
+
+	@Override
+	public void configEngine(Engine engine) {
 
 	}
 
