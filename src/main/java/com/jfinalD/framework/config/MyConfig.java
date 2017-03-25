@@ -60,15 +60,16 @@ public class MyConfig extends JFinalConfig {
 		me.setError403View("/view/error/403.html");//没有权限时
 		me.setError404View("/view/error/404.html");
 		me.setError500View("/view/error/500.html");
-		// for shiro
 
+
+		me.setViewExtension(".html");
 
 		// for wx
 		ApiConfigKit.setDevMode(me.getDevMode());
 		//2.1新功能
 		//me.setJsonFactory(new JacksonFactory());
 		// 默认使用的jackson，下面示例是切换到fastJson
-      me.setJsonFactory(new FastJsonFactory());
+      	me.setJsonFactory(new FastJsonFactory());
 
 	}
 
@@ -247,7 +248,10 @@ public class MyConfig extends JFinalConfig {
 	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
 	 */
 	public static void main(String[] args) {
-		JFinal.start("src/main/webapp", 8081, "/", 5);
+
+		//JFinal.start("src/main/webapp", 8081, "/", 5);
+		// IDEA下启动要去掉最后一个参数 否则不支持热加载
+		JFinal.start("src/main/webapp", 8081, "/");
 	}
 
 
