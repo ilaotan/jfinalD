@@ -21,5 +21,9 @@ public class IndexController extends Controller {
         render("faq.html");
     }
 
+    public void jsonTest(){
+        renderJson("hhhhhhhhhhhhhhhhhhhhh");
+    }
+
 
 }
