@@ -1,56 +1,47 @@
 package com.jfinalD.framework.shiro;
 
-import com.jfinal.validate.Validator;
+import com.jfinal.kit.StrKit;
+import com.jfinalD.application.system.model.Menu;
+import com.jfinalD.application.system.model.User;
+import com.jfinalD.framework.config.Constants;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.Subject;
-
-import com.jfinal.kit.StrKit;
-import com.jfinalD.application.system.model.Menu;
-import com.jfinalD.application.system.model.User;
-import com.jfinalD.framework.config.Constants;
 
 public class ShiroDbRealm extends AuthorizingRealm {
-    
-    public ShiroDbRealm(){
+
+    public ShiroDbRealm() {
         setAuthenticationTokenClass(CaptchaUsernamePasswordToken.class);
     }
 
-	@Override
-	public void setCacheManager(CacheManager cacheManager){
-		super.setCacheManager(cacheManager);
-		ShiroCache.setCacheManager(cacheManager);
-	}
-    
-//    /* 
+    @Override
+    public void setCacheManager(CacheManager cacheManager) {
+        super.setCacheManager(cacheManager);
+        ShiroCache.setCacheManager(cacheManager);
+    }
+
+    //    /*
 //	 * tanliansheng
 //	 * 2015年1月15日09:04:34
 //	 * 父类默认方法会拿null。覆盖一下父类方法 使用role的code当缓存的key
 //	 * @see org.apache.shiro.realm.AuthorizingRealm#getAuthorizationCacheKey(org.apache.shiro.subject.PrincipalCollection)
 //	 */
-	@Override
-	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
-		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
-		return "autz-"+user.getRoleName();
-	}
-    
+    @Override
+    protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
+        ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
+        return "autz-" + user.getRoleName();
+    }
+
     /**
      * 认证回调函数,登录时调用.
-     */    
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token){
+     */
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) {
         CaptchaUsernamePasswordToken authcToken = (CaptchaUsernamePasswordToken) token;
         String accountName = authcToken.getUsername();
         if (StrKit.isBlank(accountName)) {
@@ -81,23 +72,23 @@ public class ShiroDbRealm extends AuthorizingRealm {
         String salt = user.getStr("salt");
         String passwd = String.valueOf(authcToken.getPassword());
         //将前端用户输入的密码多次md5
-        passwd = DigestUtils.md5Hex(salt+DigestUtils.md5Hex(Constants.PRIVATE_SALT+passwd));
+        passwd = DigestUtils.md5Hex(salt + DigestUtils.md5Hex(Constants.PRIVATE_SALT + passwd));
         authcToken.setPassword(passwd.toCharArray());
         ShiroUser principal = new ShiroUser(
-        			user.getInt("id"),user.getStr("username"),user.getStr("description"),
-        			user.getInt("roleId"),user.getStr("rolename"));
-        AuthenticationInfo authinfo = new SimpleAuthenticationInfo(principal,user.getStr("password"), getName());
-        return  authinfo;
+                user.getInt("id"), user.getStr("username"), user.getStr("description"),
+                user.getInt("roleId"), user.getStr("rolename"));
+        AuthenticationInfo authinfo = new SimpleAuthenticationInfo(principal, user.getStr("password"), getName());
+        return authinfo;
     }
 
     /**
      * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-    	ShiroUser simpleUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
+        ShiroUser simpleUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        if( null == simpleUser){
-        	return info;
+        if (null == simpleUser) {
+            return info;
         }
         //role角色默认只有一个
         info.addRole(simpleUser.getRoleName());

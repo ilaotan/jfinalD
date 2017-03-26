@@ -1,54 +1,47 @@
 package com.jfinalD.framework.shiro;
 
-import java.io.Serializable;
-
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 
-public class ShiroCache
-{
+import java.io.Serializable;
 
-	private static CacheManager cacheManager;
+public class ShiroCache {
 
-	/**
-	 * 清除用户的授权信息
-	 * 
-	 * @param username
-	 */
-	public static void clearAuthorizationInfo(String username)
-	{
-		Cache<Object, Object> cache = cacheManager.getCache("myRealm.authorizationCache");
-		cache.remove(username);
-		
-	}
+    private static CacheManager cacheManager;
 
-	public static void clearAuthorizationInfoAll()
-	{
-		Cache<Object, Object> cache = cacheManager.getCache("myRealm.authorizationCache");
-		cache.clear();
+    /**
+     * 清除用户的授权信息
+     *
+     * @param username
+     */
+    public static void clearAuthorizationInfo(String username) {
+        Cache<Object, Object> cache = cacheManager.getCache("myRealm.authorizationCache");
+        cache.remove(username);
 
-	}
+    }
 
-	/**
-	 * 清除session(认证信息)
-	 * 
-	 * @param JSESSIONID
-	 */
-	public static void clearSession(Serializable JSESSIONID)
-	{
-		Cache<Object, Object> cache = cacheManager.getCache("shiro-activeSessionCache");
-		cache.remove(JSESSIONID);
-	}
+    public static void clearAuthorizationInfoAll() {
+        Cache<Object, Object> cache = cacheManager.getCache("myRealm.authorizationCache");
+        cache.clear();
 
-	public static CacheManager getCacheManager()
-	{
-		return cacheManager;
-	}
+    }
 
-	public static void setCacheManager(CacheManager cacheManager)
-	{
-		ShiroCache.cacheManager = cacheManager;
-	}
+    /**
+     * 清除session(认证信息)
+     *
+     * @param JSESSIONID
+     */
+    public static void clearSession(Serializable JSESSIONID) {
+        Cache<Object, Object> cache = cacheManager.getCache("shiro-activeSessionCache");
+        cache.remove(JSESSIONID);
+    }
+
+    public static CacheManager getCacheManager() {
+        return cacheManager;
+    }
+
+    public static void setCacheManager(CacheManager cacheManager) {
+        ShiroCache.cacheManager = cacheManager;
+    }
 
 }
