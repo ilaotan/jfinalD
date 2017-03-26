@@ -22,7 +22,7 @@ public class IndexController extends Controller {
     }
 
     public void jsonTest(){
-        renderJson("hhhhhhhhhhhhhhhhhhhhh");
+        renderJson("heheheheh");
     }
 
 
