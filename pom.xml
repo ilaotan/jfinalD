@@ -21,34 +21,6 @@
 	  <fastjson.version>1.2.29</fastjson.version>
 	  <beetl.version>2.7.13</beetl.version>
   </properties>
-   <repositories>
-	   <!--
-        <repository>
-            <id>maven-repo2</id>
-            <name>maven-repo2</name>
-            <layout>default</layout>
-             <url>http://repo2.maven.org/maven2/</url>
-        </repository>-->
-        <repository>
-            <id>oschina Releases</id>
-            <name>oschina Releases</name>
-            <url>http://maven.oschina.net/content/groups/public</url>
-        </repository>
-    </repositories>
-    
-    <pluginRepositories>
-        <!--
-		<pluginRepository>
-            <id>maven2-repo</id>
-            <name>maven2 Repository</name>
-            <url>http://repo2.maven.org/maven2/</url>
-        </pluginRepository>-->
-        <pluginRepository>
-            <id>oschina Releases</id>
-            <name>oschina Releases</name>
-            <url>http://maven.oschina.net/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
   
   <build>
     <finalName>${project.artifactId}</finalName>
