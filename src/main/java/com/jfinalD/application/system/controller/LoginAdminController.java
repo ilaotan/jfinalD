@@ -39,6 +39,7 @@ public class LoginAdminController extends Controller {
 		//this.setSessionAttr(CaptchaRender.DEFAULT_CAPTCHA_MD5_CODE_KEY, img.getMd5RandonCode());
 		//render(img);
 		renderCaptcha();
+//		renderQrCode("hhhhhhhhhhhhhhhhhhh",100,100);
 	}
 	
 	@Before({LoginValidator.class,CaptchaFormAuthenticationInterceptor.class})

@@ -73,7 +73,7 @@ public class AutoBindRoutes extends Routes {
     public void config() {
 
 //        setBaseViewPath("");
-        setBaseViewPath("/view");
+//        setBaseViewPath("/view");
 
         List<Class<? extends Controller>> controllerClasses = ClassSearcher.of(Controller.class)
                 .includeAllJarsInLib(includeAllJarsInLib).injars(includeJars).search();
