@@ -10,14 +10,14 @@ public class IsTrueFun implements Function {
 		}
 		Object para = paras[0];
 		if (para == null) {
-			return Boolean.valueOf(false);
+			return Boolean.FALSE;
 		}
 		if (para.toString().equalsIgnoreCase("true")) {
-			return Boolean.valueOf(true);
+			return Boolean.TRUE;
 		}
 		if (para.toString().equals("1")) {
-			return Boolean.valueOf(true);
+			return Boolean.TRUE;
 		}
-		return Boolean.valueOf(false);
+		return Boolean.FALSE;
 	}
 }

@@ -18,6 +18,9 @@ public class IndexController extends Controller {
     }
 
     public void faq() {
+
+        setAttr("gggg","123456");
+
         render("faq.html");
     }
 

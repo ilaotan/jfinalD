@@ -4,7 +4,6 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
 import com.jfinal.config.*;
-import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.ext.plugin.route.AutoBindRoutes;
@@ -17,6 +16,7 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinalD.application.system.model._MappingKit;
@@ -29,6 +29,8 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.ext.jfinal3.JFinal3BeetlRenderFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /** 
  * Create by tanliansheng on 2015年10月29日
@@ -39,6 +41,8 @@ public class MyConfig extends JFinalConfig {
      * 供Shiro插件使用。
      */
     Routes routes;
+
+	GroupTemplate gt;
 
 	@Override
 	public void configConstant(Constants me) {
@@ -52,8 +56,19 @@ public class MyConfig extends JFinalConfig {
 		rf.config();
 		me.setRenderFactory(rf);
 
-		GroupTemplate gt = rf.groupTemplate;
+		gt = rf.groupTemplate;
 		//根据gt可以添加扩展函数，格式化函数，共享变量等，
+		Map<String,Object> shared = new HashMap<>();
+		shared.put("name", "beetl");
+		gt.setSharedVars(shared);
+
+		// test
+//		Template t = gt.getTemplate("/org/beetl/sample/s0208/t1.txt");
+//		String str = t.render();
+//		System.out.println(str);
+//		t = gt.getTemplate("/org/beetl/sample/s0208/t2.txt");
+//		str = t.render();
+//		System.out.println(str);
 
 
 		me.setError401View("/view/error/401.html");//没有身份验证时
@@ -159,8 +174,8 @@ public class MyConfig extends JFinalConfig {
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
 		me.add(new EhCachePlugin());
-//		//加载Redis插件
-//		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"ilaotan123456qwer",0));
+		//加载Redis插件
+		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"notblank",0));
 
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
@@ -226,7 +241,7 @@ public class MyConfig extends JFinalConfig {
 	//判断是哪种环境
 	private boolean isDevMode(){
 		String osName = System.getProperty("os.name");
-		return osName.indexOf("Windows") != -1;
+		return osName.contains("Windows");
 	}
 
 	/**
@@ -242,17 +257,5 @@ public class MyConfig extends JFinalConfig {
 			PropKit.use(dev);
 		}
 	}
-
-	/**
-	 * 建议使用 JFinal 手册推荐的方式启动项目
-	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
-	 */
-	public static void main(String[] args) {
-
-		//JFinal.start("src/main/webapp", 8081, "/", 5);
-		// IDEA下启动要去掉最后一个参数 否则不支持热加载
-		JFinal.start("src/main/webapp", 8081, "/");
-	}
-
 
 }
