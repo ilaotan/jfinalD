@@ -23,6 +23,7 @@ import com.jfinal.weixin.sdk.cache.RedisAccessTokenCache;
 import com.jfinalD.application.system.model._MappingKit;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
+import com.jfinalD.framework.interceptor.ExceptionIntoLogInterceptor;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -228,11 +229,13 @@ public class MyConfig extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors me) {
 		//添加shiro的全局变量
-		me.add(new ShiroInterceptor());
+		me.addGlobalActionInterceptor(new ShiroInterceptor());
 
-		me.add(new GlobalInterceptor());
+		me.addGlobalActionInterceptor(new GlobalInterceptor());
 
-		me.add(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
+		me.addGlobalActionInterceptor(new ExceptionIntoLogInterceptor());
+
+		me.addGlobalActionInterceptor(new SessionInViewInterceptor());//解决session在freemarker中不能取得的问题 获取方法：${session["manager"].username}
 	}
 
 	@Override
