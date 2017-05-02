@@ -1,0 +1,11 @@
+<#include "/ftl/admin/menu/_input.html"/>
+
+<form class="form-horizontal" role="form">
+	<input type="hidden" name="row.menu_parent_id" value="${(menu_parent_id)!}"/>
+	<@bsinput title='菜单名称' name='row.menu_name' value='${(row.menu_name)!}'/>
+	<@bsinput title='菜单地址' name='row.menu_url'  value='${(row.menu_url)!}'/>
+	<@bsinput title='菜单序号' name='row.menu_sn'   value='${(row.menu_sn)!}'/>
+	<@bsinput title='后台菜单' input=false>
+		<@bsradios name='row.menu_type' ck='${(row.menu_type)!"1"}' list=yesnos/>
+	</@bsinput>
+</form>

@@ -1,0 +1,64 @@
+<#include "/ftl/admin/common/_layout.html"/>
+ <@layout page_tab="system" page_tab_aim="system">
+
+<#include "/ftl/admin/role/_list.html"/>
+<@bstable page=page pagestr=pageStr />
+
+
+<form class="form-inline"  action="${ctx}/admin/role" id ="fenyeForm" method="post">
+	<div class="control-group">
+		<div class="controls">
+			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNumber!}"/>
+			<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize!}"/>
+		</div>
+	</div>
+</form>
+
+<!-- 基于bootstrap3的dialog优化 -->
+	<script type="text/javascript" src="${ctxPath}/assets/ace/js/bootbox.js"></script>
+	<script type="text/javascript" src="${ctxPath}/assets/js/my.js"></script>
+		
+<script type="text/javascript">
+
+	$(function(){
+	
+		$("div.btn-group").on("click",".btn-info",function(){
+			
+			var html = ajax({
+				url: "/admin/role/menu/"+$(this).parents('tr').qdata().id,
+				dataType: 'html'
+			});
+		
+			bootbox.confirm({
+			    message: html,
+			    title:"编辑权限",
+			    className:"roleUpdate",
+			    callback: function(result){ 
+			    	
+			    }
+			});
+			
+		});
+	
+		$("#treeul").on("click",".glyphicon-minus",function(){
+			 if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('hide');
+	            $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+	        }
+			
+		});
+		
+		$("#treeul").on("click",".glyphicon-plus",function(){
+			if($(this).parent().next().length > 0){
+	            $('#treeid_' + $(this).parents('a').qdata().id).collapse('show');
+	            $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+	        }
+		});	
+		
+			
+	});
+	
+	
+</script>
+
+</@layout>
