@@ -1,12 +1,10 @@
 package com.jfinalD.framework.kits;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.net.ssl.*;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -18,15 +16,6 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * https 请求 微信为https的请求

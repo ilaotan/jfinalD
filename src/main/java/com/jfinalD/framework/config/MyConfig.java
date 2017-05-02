@@ -15,7 +15,6 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
-import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
@@ -173,7 +172,7 @@ public class MyConfig extends JFinalConfig {
 		//加载Shiro插件
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
-		me.add(new EhCachePlugin());
+//		me.add(new EhCachePlugin());
 		//加载Redis插件
 		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"notblank",0));
 
