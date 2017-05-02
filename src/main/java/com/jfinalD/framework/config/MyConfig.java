@@ -15,9 +15,11 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
+import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.plugin.redis.RedisPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.cache.RedisAccessTokenCache;
 import com.jfinalD.application.system.model._MappingKit;
 import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
@@ -172,12 +174,20 @@ public class MyConfig extends JFinalConfig {
 		//加载Shiro插件
 		me.add(new ShiroPlugin(this.routes));
 		//加载Ecache插件
-//		me.add(new EhCachePlugin());
+		me.add(new EhCachePlugin());
 		//加载Redis插件
-		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"notblank",0));
+		RedisPlugin redisPlugin = new RedisPlugin("myRedis","127.0.0.1", 6379,0);
+		// todo 需要自定义 序列化方式
+//		redisPlugin.setSerializer(new FstSerializer());
+		me.add(redisPlugin);
+//		me.add(new RedisPlugin("myRedis","127.0.0.1", 6379,0,"notblank",0));
 
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+		// todo 注意Reids的实现是Jfianl自己撸的一套 保存时都转成字节了 导致用软件查看时部分文字看不清
+		// todo 默认如果不指定缓存接口 是使用ehcache的
+//		arp.setCache(new RCache());
+		ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache("wuyuwechat"));
 		me.add(arp);
 
 		// 所有配置在 MappingKit 中搞定

@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Integer id) {
+	public void setId(java.lang.Long id) {
 		set("id", id);
 	}
 
-	public java.lang.Integer getId() {
+	public java.lang.Long getId() {
 		return get("id");
 	}
 
@@ -25,20 +25,52 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 		return get("name");
 	}
 
-	public void setDescription(java.lang.String description) {
-		set("description", description);
+	public void setValue(java.lang.String value) {
+		set("value", value);
 	}
 
-	public java.lang.String getDescription() {
-		return get("description");
+	public java.lang.String getValue() {
+		return get("value");
 	}
 
-	public void setStatus(java.lang.Integer status) {
-		set("status", status);
+	public void setIntro(java.lang.String intro) {
+		set("intro", intro);
 	}
 
-	public java.lang.Integer getStatus() {
-		return get("status");
+	public java.lang.String getIntro() {
+		return get("intro");
+	}
+
+	public void setPid(java.lang.Long pid) {
+		set("pid", pid);
+	}
+
+	public java.lang.Long getPid() {
+		return get("pid");
+	}
+
+	public void setCreatedAt(java.util.Date createdAt) {
+		set("created_at", createdAt);
+	}
+
+	public java.util.Date getCreatedAt() {
+		return get("created_at");
+	}
+
+	public void setUpdatedAt(java.util.Date updatedAt) {
+		set("updated_at", updatedAt);
+	}
+
+	public java.util.Date getUpdatedAt() {
+		return get("updated_at");
+	}
+
+	public void setDeletedAt(java.util.Date deletedAt) {
+		set("deleted_at", deletedAt);
+	}
+
+	public java.util.Date getDeletedAt() {
+		return get("deleted_at");
 	}
 
 }

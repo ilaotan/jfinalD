@@ -17,7 +17,7 @@ public class User extends BaseUser<User> {
 				"where username=? and is_locked=0",username);
 	}
 
-	public User findByUserId(int id){
+	public User findByUserId(long id){
 		return super.findFirst(
 				"select u.id,r.id as roleId,username,password,salt,is_locked,r.description,r.name as rolename from system_user u " +
 				"INNER JOIN system_user_role ur on u.id = ur.user_id " +

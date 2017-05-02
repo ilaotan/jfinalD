@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Integer id) {
+	public void setId(java.lang.Long id) {
 		set("id", id);
 	}
 
-	public java.lang.Integer getId() {
+	public java.lang.Long getId() {
 		return get("id");
 	}
 
@@ -25,12 +25,44 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("username");
 	}
 
+	public void setProvidername(java.lang.String providername) {
+		set("providername", providername);
+	}
+
+	public java.lang.String getProvidername() {
+		return get("providername");
+	}
+
+	public void setEmail(java.lang.String email) {
+		set("email", email);
+	}
+
+	public java.lang.String getEmail() {
+		return get("email");
+	}
+
+	public void setPhone(java.lang.String phone) {
+		set("phone", phone);
+	}
+
+	public java.lang.String getPhone() {
+		return get("phone");
+	}
+
 	public void setPassword(java.lang.String password) {
 		set("password", password);
 	}
 
 	public java.lang.String getPassword() {
 		return get("password");
+	}
+
+	public void setHasher(java.lang.String hasher) {
+		set("hasher", hasher);
+	}
+
+	public java.lang.String getHasher() {
+		return get("hasher");
 	}
 
 	public void setSalt(java.lang.String salt) {
@@ -41,12 +73,60 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("salt");
 	}
 
-	public void setIsLocked(java.lang.Boolean isLocked) {
-		set("is_locked", isLocked);
+	public void setAvatarUrl(java.lang.String avatarUrl) {
+		set("avatar_url", avatarUrl);
 	}
 
-	public java.lang.Boolean getIsLocked() {
-		return get("is_locked");
+	public java.lang.String getAvatarUrl() {
+		return get("avatar_url");
+	}
+
+	public void setFirstName(java.lang.String firstName) {
+		set("first_name", firstName);
+	}
+
+	public java.lang.String getFirstName() {
+		return get("first_name");
+	}
+
+	public void setLastName(java.lang.String lastName) {
+		set("last_name", lastName);
+	}
+
+	public java.lang.String getLastName() {
+		return get("last_name");
+	}
+
+	public void setFullName(java.lang.String fullName) {
+		set("full_name", fullName);
+	}
+
+	public java.lang.String getFullName() {
+		return get("full_name");
+	}
+
+	public void setCreatedAt(java.util.Date createdAt) {
+		set("created_at", createdAt);
+	}
+
+	public java.util.Date getCreatedAt() {
+		return get("created_at");
+	}
+
+	public void setUpdatedAt(java.util.Date updatedAt) {
+		set("updated_at", updatedAt);
+	}
+
+	public java.util.Date getUpdatedAt() {
+		return get("updated_at");
+	}
+
+	public void setDeletedAt(java.util.Date deletedAt) {
+		set("deleted_at", deletedAt);
+	}
+
+	public java.util.Date getDeletedAt() {
+		return get("deleted_at");
 	}
 
 }

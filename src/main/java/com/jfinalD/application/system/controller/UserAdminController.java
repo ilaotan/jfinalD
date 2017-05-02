@@ -1,9 +1,6 @@
 package com.jfinalD.application.system.controller;
 
-import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.jfinal.ext.interceptor.GET;
-import com.jfinal.ext.interceptor.POST;
 import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
@@ -47,7 +44,7 @@ public class UserAdminController extends Controller {
 
 	public void updatePOST() {
 
-		int id = getParaToInt();
+		long id = getParaToLong();
 		String roleName = getPara("user.rolename");
 		String roleNameOld = getPara("user.rolenameOld");
 

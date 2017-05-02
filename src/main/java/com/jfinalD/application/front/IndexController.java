@@ -1,7 +1,11 @@
 package com.jfinalD.application.front;
 
+import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.plugin.route.ControllerBind;
+import com.jfinalD.application.system.model.Role;
+
+import java.util.List;
 
 /**
  * Create by tanliansheng on 2015年10月29日
@@ -13,13 +17,15 @@ public class IndexController extends Controller {
     //@CacheName("myCache")
     public void index() {
 
-
         render("index.html");
     }
 
     public void faq() {
 
-        setAttr("gggg","123456");
+        List<Role> roleList = Role.dao.findByCache("myCache","userALl","select * from sec_role");
+
+
+        setAttr("gggg", JSON.toJSONString(roleList));
 
         render("faq.html");
     }

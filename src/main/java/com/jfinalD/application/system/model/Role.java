@@ -29,7 +29,7 @@ public class Role extends BaseRole<Role> {
 	 * 更新用户和role的关联表
 	 * @return
 	 */
-	public int updateUserRoleRelation(int userId,int roleId){
+	public int updateUserRoleRelation(long userId,long roleId){
 		return Db.update("update  system_user_role set role_id= ? where user_id = ?",roleId,userId);
 	}
 }
