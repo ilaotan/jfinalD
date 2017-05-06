@@ -6,3 +6,4 @@ package com.jfinalD.application.system.entity;
 public interface MenuTreeCheck {
 	public boolean isCheck(int menuId);
 }
+                                                  
