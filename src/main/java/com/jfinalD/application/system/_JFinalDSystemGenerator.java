@@ -1,9 +1,9 @@
 package com.jfinalD.application.system;
 
 import com.jfinal.kit.PathKit;
-import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.generator.Generator;
 import com.jfinal.plugin.druid.DruidPlugin;
+import com.jfinalD.framework.config.MyConfig;
 
 import javax.sql.DataSource;
 
@@ -13,10 +13,15 @@ import javax.sql.DataSource;
 public class _JFinalDSystemGenerator {
 	
 	public static DataSource getDataSource() {
-		PropKit.use("config.properties");
-		DruidPlugin dp = new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
-		dp.start();
-		return dp.getDataSource();
+//		PropKit.use("config.properties");
+//		DruidPlugin dp = new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
+//		dp.start();
+//		return dp.getDataSource();
+
+		DruidPlugin druidPlugin = MyConfig.getDruidPlugin();
+		druidPlugin.start();
+		return druidPlugin.getDataSource();
+
 	}
 	
 	public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package com.jfinalD.framework.shiro;
 
 import com.jfinal.kit.StrKit;
-import com.jfinalD.application.system.model.Menu;
+import com.jfinalD.application.system.model.Permission;
 import com.jfinalD.application.system.model.User;
 import com.jfinalD.framework.config.Constants;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -92,7 +92,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         }
         //role角色默认只有一个
         info.addRole(simpleUser.getRoleName());
-        info.addStringPermissions(Menu.dao.getMenuUrlByRoleId(simpleUser.getRoleId()));
+        info.addStringPermissions(Permission.dao.getUrlByRoleId(simpleUser.getRoleId()));
         return info;
     }
 

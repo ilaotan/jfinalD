@@ -6,6 +6,10 @@ import com.jfinal.plugin.redis.Redis;
 
 /**
  * 	redis Cache  用来给查询做缓存的
+ *
+ * 		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+ //		arp.setCache(new RCache());
+ *
  */
 public class RCache implements ICache {
 

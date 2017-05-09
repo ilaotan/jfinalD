@@ -42,9 +42,11 @@ public class MyConfig extends JFinalConfig {
 	/**
      * 供Shiro插件使用。
      */
-    Routes routes;
+    private Routes routes;
 
-	GroupTemplate gt;
+	private GroupTemplate gt;
+
+	private WallFilter wallFilter;
 
 	@Override
 	public void configConstant(Constants me) {
@@ -115,6 +117,10 @@ public class MyConfig extends JFinalConfig {
 
 	}
 
+	public static DruidPlugin getDruidPlugin(){
+		return new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
+	}
+
 	@Override
 	public void configPlugin(Plugins me) {
 
@@ -149,10 +155,10 @@ public class MyConfig extends JFinalConfig {
 //////////////////////////////
 
 		// 多数据源
-		DruidPlugin dp = new DruidPlugin(PropKit.get("jdbc.url"), PropKit.get("jdbc.username"), PropKit.get("jdbc.password"));
-		WallFilter wall = new WallFilter();
-		wall.setDbType("mysql");
-		dp.addFilter(wall);
+		DruidPlugin dp = getDruidPlugin();
+		wallFilter = new WallFilter();
+		wallFilter.setDbType("mysql");
+		dp.addFilter(wallFilter);
 		dp.addFilter(new StatFilter());
 
 		me.add(dp);
@@ -188,6 +194,7 @@ public class MyConfig extends JFinalConfig {
 		// todo 注意Reids的实现是Jfianl自己撸的一套 保存时都转成字节了 导致用软件查看时部分文字看不清
 		// todo 默认如果不指定缓存接口 是使用ehcache的
 //		arp.setCache(new RCache());
+		arp.setShowSql(true);
 		ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache("wuyuwechat"));
 		me.add(arp);
 
@@ -242,7 +249,10 @@ public class MyConfig extends JFinalConfig {
 	public void afterJFinalStart() {
 		//FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
 //		FreeMarkerRender.getConfiguration().setSharedVariable("myKit", new ShiroTags());
-		super.afterJFinalStart();
+//		super.afterJFinalStart();
+		// 让 druid 允许在 sql 中使用 union
+		// https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE-wallfilter
+		wallFilter.getConfig().setSelectUnionCheck(false);
 	}
 
 	@Override
