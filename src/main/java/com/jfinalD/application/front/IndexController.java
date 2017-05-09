@@ -29,6 +29,7 @@ public class IndexController extends Controller {
 
         List<Role> roleList = Role.dao.findByCache("myCache", "userALl", "select * from sec_role");
 
+        LOG.error("哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
 
         setAttr("gggg", JSON.toJSONString(roleList));
 
