@@ -1,4 +1,4 @@
-package com.jfinalD.framework.config;
+package com.jfinalD.framework.log;
 
 import com.jfinal.log.ILogFactory;
 import com.jfinal.log.Log;

@@ -25,6 +25,7 @@ import com.jfinalD.framework.handler.SessionIdHandler;
 import com.jfinalD.framework.handler.XssHandler;
 import com.jfinalD.framework.interceptor.ExceptionIntoLogInterceptor;
 import com.jfinalD.framework.interceptor.GlobalInterceptor;
+import com.jfinalD.framework.log.LogBackLogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.beetl.core.GroupTemplate;
