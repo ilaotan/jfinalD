@@ -2,7 +2,6 @@ package com.jfinalD.framework.config;
 
 import com.jfinal.log.ILogFactory;
 import com.jfinal.log.Log;
-import com.jfinal.log.Log4jLog;
 
 /**
  * Created by tan on 2017/5/9.
