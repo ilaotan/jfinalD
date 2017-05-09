@@ -7,5 +7,5 @@ import com.jfinalD.application.system.model.base.BaseRolePermission;
  */
 @SuppressWarnings("serial")
 public class RolePermission extends BaseRolePermission<RolePermission> {
-	public static final RolePermission dao = new RolePermission().dao();
+    public static final RolePermission dao = new RolePermission().dao();
 }

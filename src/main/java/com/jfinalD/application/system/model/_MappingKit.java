@@ -15,13 +15,13 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
  */
 public class _MappingKit {
 
-	public static void mapping(ActiveRecordPlugin arp) {
-		arp.addMapping("sec_permission", "id", Permission.class);
-		arp.addMapping("sec_role", "id", Role.class);
-		arp.addMapping("sec_role_permission", "id", RolePermission.class);
-		arp.addMapping("sec_user", "id", User.class);
-		arp.addMapping("sec_user_info", "id", UserInfo.class);
-		arp.addMapping("sec_user_role", "id", UserRole.class);
-	}
+    public static void mapping(ActiveRecordPlugin arp) {
+        arp.addMapping("sec_permission", "id", Permission.class);
+        arp.addMapping("sec_role", "id", Role.class);
+        arp.addMapping("sec_role_permission", "id", RolePermission.class);
+        arp.addMapping("sec_user", "id", User.class);
+        arp.addMapping("sec_user_info", "id", UserInfo.class);
+        arp.addMapping("sec_user_role", "id", UserRole.class);
+    }
 }
 

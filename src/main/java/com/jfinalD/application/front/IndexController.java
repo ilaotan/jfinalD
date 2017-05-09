@@ -22,7 +22,7 @@ public class IndexController extends Controller {
 
     public void faq() {
 
-        List<Role> roleList = Role.dao.findByCache("myCache","userALl","select * from sec_role");
+        List<Role> roleList = Role.dao.findByCache("myCache", "userALl", "select * from sec_role");
 
 
         setAttr("gggg", JSON.toJSONString(roleList));
@@ -30,7 +30,7 @@ public class IndexController extends Controller {
         render("faq.html");
     }
 
-    public void jsonTest(){
+    public void jsonTest() {
         renderJson("heheheheh");
     }
 

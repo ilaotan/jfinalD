@@ -5,22 +5,13 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
-import com.jfinal.weixin.sdk.msg.out.OutImageMsg;
-import com.jfinal.weixin.sdk.msg.out.OutMusicMsg;
-import com.jfinal.weixin.sdk.msg.out.OutNewsMsg;
-import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
-import com.jfinal.weixin.sdk.msg.out.OutVoiceMsg;
+import com.jfinal.weixin.sdk.msg.out.*;
 
 /**
  * 将此 DemoController 在YourJFinalConfig 中注册路由，
@@ -31,11 +22,11 @@ import com.jfinal.weixin.sdk.msg.out.OutVoiceMsg;
  * <p/>
  * 方法即可直接运行看效果，在此基础之上修改相关的方法即可进行实际项目开发
  */
-@ControllerBind(controllerKey="/wx/msg",viewPath="")
+@ControllerBind(controllerKey = "/wx/msg", viewPath = "")
 public class WeixinMsgController extends MsgControllerAdapter {
 
-    static Log logger = Log.getLog(WeixinMsgController.class);
     private static final String helpStr = "\t发送 help 可获得帮助，发送\"视频\" 可获取视频教程，发送 \"美女\" 可看美女，发送 music 可听音乐 ，发送新闻可看JFinal新版本消息。公众号功能持续完善中";
+    static Log logger = Log.getLog(WeixinMsgController.class);
 
     /**
      * 如果要支持多公众账号，只需要在此返回各个公众号对应的  ApiConfig 对象即可
@@ -86,8 +77,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
             outMsg.setHqMusicUrl("http://www.jfinal.com/DayByDay-T-ara.mp3");
             outMsg.setFuncFlag(true);
             render(outMsg);
-        }
-        else if ("美女".equalsIgnoreCase(msgContent)) {
+        } else if ("美女".equalsIgnoreCase(msgContent)) {
             OutNewsMsg outMsg = new OutNewsMsg(inTextMsg);
             outMsg.addNews("秀色可餐", "JFinal Weixin 极速开发就是这么爽，有木有 ^_^", "http://mmbiz.qpic.cn/mmbiz/zz3Q6WSrzq2GJLC60ECD7rE7n1cvKWRNFvOyib4KGdic3N5APUWf4ia3LLPxJrtyIYRx93aPNkDtib3ADvdaBXmZJg/0", "http://mp.weixin.qq.com/s?__biz=MjM5ODAwOTU3Mg==&mid=200987822&idx=1&sn=7eb2918275fb0fa7b520768854fb7b80#rd");
             render(outMsg);
@@ -140,7 +130,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
 
     protected void processInLinkMsg(InLinkMsg inLinkMsg) {
         OutNewsMsg outMsg = new OutNewsMsg(inLinkMsg);
-        outMsg.addNews("链接消息已成功接收", "链接使用图文消息的方式发回给你，还可以使用文本方式发回。点击图文消息可跳转到链接地址页面，是不是很好玩 :)" , "http://mmbiz.qpic.cn/mmbiz/zz3Q6WSrzq1ibBkhSA1BibMuMxLuHIvUfiaGsK7CC4kIzeh178IYSHbYQ5eg9tVxgEcbegAu22Qhwgl5IhZFWWXUw/0", inLinkMsg.getUrl());
+        outMsg.addNews("链接消息已成功接收", "链接使用图文消息的方式发回给你，还可以使用文本方式发回。点击图文消息可跳转到链接地址页面，是不是很好玩 :)", "http://mmbiz.qpic.cn/mmbiz/zz3Q6WSrzq1ibBkhSA1BibMuMxLuHIvUfiaGsK7CC4kIzeh178IYSHbYQ5eg9tVxgEcbegAu22Qhwgl5IhZFWWXUw/0", inLinkMsg.getUrl());
         render(outMsg);
     }
 

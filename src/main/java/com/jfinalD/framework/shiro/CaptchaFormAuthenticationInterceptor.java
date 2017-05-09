@@ -1,15 +1,14 @@
 package com.jfinalD.framework.shiro;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-
+import com.jfinal.aop.Interceptor;
+import com.jfinal.aop.Invocation;
+import com.jfinalD.framework.config.Constants;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 
-import com.jfinal.aop.Interceptor;
-import com.jfinal.aop.Invocation;
-import com.jfinalD.framework.config.Constants;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilter implements Interceptor {
 
@@ -24,8 +23,8 @@ public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilt
     }
 
     protected AuthenticationToken createToken(HttpServletRequest request) {
-    	setUsernameParam(Constants.USERNAME);
-    	setPasswordParam(Constants.PASSWORD);
+        setUsernameParam(Constants.USERNAME);
+        setPasswordParam(Constants.PASSWORD);
         String username = getUsername(request);
         String password = getPassword(request);
         String captcha = getCaptcha(request);
@@ -33,7 +32,7 @@ public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilt
         String host = getHost(request);
         return new CaptchaUsernamePasswordToken(username, password, rememberMe, host, captcha);
     }
-    
+
     @Override
     public void intercept(Invocation ai) {
         HttpServletRequest request = ai.getController().getRequest();

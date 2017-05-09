@@ -13,19 +13,19 @@ public class ExceptionIntoLogInterceptor implements Interceptor {
     private static final Logger log = Logger.getLogger(ExceptionIntoLogInterceptor.class);
 
     @Override
-    public  void intercept(Invocation invocation){
+    public void intercept(Invocation invocation) {
         //Controller controller=invocation.getController();
         //HttpServletRequest request=controller.getRequest();
-        try{
+        try {
             invocation.invoke(); //一定要注意，把处理放在invoke之后，因为放在之前的话，是会空指针
-        }catch (Exception e){
+        } catch (Exception e) {
             //log 处理
             logWrite(invocation, e);
-        }finally {
+        } finally {
             //记录日志到数据库，暂未实现
-            try{
+            try {
 
-            }catch (Exception ee){
+            } catch (Exception ee) {
 
             }
         }
@@ -34,17 +34,17 @@ public class ExceptionIntoLogInterceptor implements Interceptor {
     }
 
 
-    private void logWrite(Invocation inv,Exception e){
+    private void logWrite(Invocation inv, Exception e) {
         //开发模式
-        if (JFinal.me().getConstants().getDevMode()){
+        if (JFinal.me().getConstants().getDevMode()) {
             e.printStackTrace();
         }
-        StringBuilder sb =new StringBuilder("\n---Exception Log Begin---\n");
+        StringBuilder sb = new StringBuilder("\n---Exception Log Begin---\n");
         sb.append("Controller:").append(inv.getController().getClass().getName()).append("\n");
         sb.append("Method:").append(inv.getMethodName()).append("\n");
         sb.append("Exception Type:").append(e.getClass().getName()).append("\n");
         sb.append("Exception Details:");
-        log.error(sb.toString(),e);
+        log.error(sb.toString(), e);
 
     }
 }

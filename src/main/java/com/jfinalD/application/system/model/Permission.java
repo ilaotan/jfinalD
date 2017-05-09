@@ -7,5 +7,5 @@ import com.jfinalD.application.system.model.base.BasePermission;
  */
 @SuppressWarnings("serial")
 public class Permission extends BasePermission<Permission> {
-	public static final Permission dao = new Permission().dao();
+    public static final Permission dao = new Permission().dao();
 }
