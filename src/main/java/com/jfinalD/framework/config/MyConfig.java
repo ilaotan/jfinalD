@@ -11,6 +11,7 @@ import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.json.FastJsonFactory;
 import com.jfinal.kit.PropKit;
+import com.jfinal.log.Log4jLogFactory;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
@@ -78,6 +79,7 @@ public class MyConfig extends JFinalConfig {
         me.setError404View("/view/error/404.html");
         me.setError500View("/view/error/500.html");
 
+        me.setLogFactory(new LogBackLogFactory());
 
         me.setViewExtension(".html");
 
@@ -156,6 +158,7 @@ public class MyConfig extends JFinalConfig {
         dp.addFilter(new StatFilter());
 
         me.add(dp);
+
 
 //		/*
 //		 * 默认的单@Before(Tx.class)只对主数据源的事务有效 如果希望这个db2也支持事务 需要使用@TxConfig("db2")指定配置 这两个一块用
