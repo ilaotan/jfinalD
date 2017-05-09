@@ -4,8 +4,10 @@
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>
+
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
+
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -27,9 +29,9 @@
     </appender>
 
     <logger name="jdbc.connection" level="OFF"/>
+    <logger name="ch.qos.logback" level="WARN"/>
     <logger name="org.apache" level="error"/>
     <logger name="com.alibaba" level="error"/>
-    <logger name="org.apache.kafka.clients.producer.ProducerConfig" level="warn"/>
     <logger name="com.jfinalD" level="debug"/>
 
     <root level="warn">
