@@ -3,14 +3,17 @@ package com.jfinalD.framework.interceptor;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.JFinal;
-import org.apache.log4j.Logger;
+import com.jfinalD.application.front.IndexController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 异常处理日志 全局拦截器
  */
 public class ExceptionIntoLogInterceptor implements Interceptor {
 
-    private static final Logger log = Logger.getLogger(ExceptionIntoLogInterceptor.class);
+//    private static final Logger log = Logger.getLogger(ExceptionIntoLogInterceptor.class);
+    public static Logger log  = LoggerFactory.getLogger(IndexController.class);
 
     @Override
     public void intercept(Invocation invocation) {

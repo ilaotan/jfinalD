@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.plugin.route.ControllerBind;
 import com.jfinalD.application.system.model.Role;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -13,10 +15,13 @@ import java.util.List;
 @ControllerBind(controllerKey = "/", viewPath = "/front")
 public class IndexController extends Controller {
 
+    public static Logger LOG  = LoggerFactory.getLogger(IndexController.class);
+
     //@Before({Tx.class,CacheInterceptor.class})//EvictInterceptor.class 清除缓存
     //@CacheName("myCache")
     public void index() {
 
+        LOG.error("哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
         render("index.html");
     }
 
