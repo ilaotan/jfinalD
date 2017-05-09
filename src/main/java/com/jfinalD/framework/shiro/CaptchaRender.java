@@ -1,22 +1,19 @@
 package com.jfinalD.framework.shiro;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import com.jfinal.kit.StrKit;
+import com.jfinal.render.Render;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-
-import com.jfinal.kit.StrKit;
-import com.jfinal.render.Render;
-
 /**
  * 废弃 改用jfinal 2.1开始自带的图片生成方式
- *
+ * <p>
  * 验证码Render，这个验证码Render在构造函数里就已经创建好了随机码以及md5散列后的随机码。
  * 调用方式如下：
  * CaptchaRender captchaRender = new CaptchaRender();
@@ -24,22 +21,18 @@ import com.jfinal.render.Render;
  * 保存md5RandonCode到session、cookie或者其他地方
  * render(captchaRender);
  * 基于JFinal的版本修改。
- *
  */
 @Deprecated
-public class CaptchaRender extends Render{
-
-    /**
-     * 随机码生成字典
-     */
-    private static final String[] STR_ARRAY = {"3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"};
-
+public class CaptchaRender extends Render {
 
     /**
      * 默认存储时使用的key,将md5散列后的随机码保存至session，cookie时使用。
      */
     public static final String DEFAULT_CAPTCHA_MD5_CODE_KEY = "_CAPTCHA_MD5_CODE_";
-
+    /**
+     * 随机码生成字典
+     */
+    private static final String[] STR_ARRAY = {"3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"};
     /**
      * 图片宽度
      */
@@ -74,13 +67,14 @@ public class CaptchaRender extends Render{
 
     /**
      * 构造函数
+     *
      * @param imgRandNumber 随机生成多少个字符,最少4个字符。
      */
     public CaptchaRender(int imgRandNumber) {
-        if(imgRandNumber < 4){
+        if (imgRandNumber < 4) {
             imgRandNumber = 4;
         }
-        this.imgWidth = 16*imgRandNumber + 12;
+        this.imgWidth = 16 * imgRandNumber + 12;
         this.imgHeight = 26;
         this.imgRandNumber = imgRandNumber;
         this.randonCode = generateRandonCode();
@@ -88,18 +82,61 @@ public class CaptchaRender extends Render{
     }
 
     /**
+     * 使用md5散列字符串
+     *
+     * @param srcStr 输入的字符串
+     * @return 加密后的字符串
+     */
+    private static final String encrypt(String srcStr) {
+        try {
+            String result = "";
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] bytes = md.digest(srcStr.getBytes("utf-8"));
+            for (byte b : bytes) {
+                String hex = Integer.toHexString(b & 0xFF).toUpperCase();
+                result += ((hex.length() == 1) ? "0" : "") + hex;
+            }
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 验证码检查
+     *
+     * @param md5RandomCode   md5散列后的验证码
+     * @param inputRandomCode 用户输入的验证码
+     * @return 若二者一致，返回true，否则返回false
+     */
+    public static boolean validate(String md5RandomCode, String inputRandomCode) {
+        if (StrKit.isBlank(md5RandomCode) || StrKit.isBlank(inputRandomCode))
+            return false;
+        try {
+            inputRandomCode = inputRandomCode.toUpperCase();
+            inputRandomCode = encrypt(inputRandomCode);
+            return inputRandomCode.equals(md5RandomCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * 获取md5散列后的验证码，调用发需妥善保存此验证码。
+     *
      * @return md5散列后的验证码
      */
-    public String getMd5RandonCode(){
+    public String getMd5RandonCode() {
         return this.md5RandonCode;
     }
 
     /**
      * 依据字典生成随即码
+     *
      * @return 随机码
      */
-    private String generateRandonCode(){
+    private String generateRandonCode() {
         // 生成随机类
         Random random = new Random();
         String sRand = "";
@@ -116,28 +153,33 @@ public class CaptchaRender extends Render{
     public void render() {
         BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
         drawGraphic(image);
-        response.setHeader("Pragma","no-cache");
-        response.setHeader("Cache-Control","no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("image/jpeg");
 
         ServletOutputStream sos = null;
         try {
             sos = response.getOutputStream();
-            ImageIO.write(image, "jpeg",sos);
+            ImageIO.write(image, "jpeg", sos);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             if (sos != null)
-                try {sos.close();} catch (IOException e) {e.printStackTrace();}
+                try {
+                    sos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
     /**
      * 绘制验证码
+     *
      * @param image BufferedImage对象
      */
-    private void drawGraphic(BufferedImage image){
+    private void drawGraphic(BufferedImage image) {
         // 获取图形上下文
         Graphics g = image.createGraphics();
         // 生成随机类
@@ -173,6 +215,7 @@ public class CaptchaRender extends Render{
 
     /**
      * 生成随机颜色
+     *
      * @param fc
      * @param bc
      * @return 颜色对象
@@ -187,45 +230,6 @@ public class CaptchaRender extends Render{
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
-    }
-
-    /**
-     * 使用md5散列字符串
-     * @param srcStr 输入的字符串
-     * @return 加密后的字符串
-     */
-    private static final String encrypt(String srcStr) {
-        try {
-            String result = "";
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] bytes = md.digest(srcStr.getBytes("utf-8"));
-            for(byte b:bytes){
-                String hex = Integer.toHexString(b&0xFF).toUpperCase();
-                result += ((hex.length() ==1 ) ? "0" : "") + hex;
-            }
-            return result;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 验证码检查
-     * @param md5RandomCode  md5散列后的验证码
-     * @param inputRandomCode 用户输入的验证码
-     * @return 若二者一致，返回true，否则返回false
-     */
-    public static boolean validate(String md5RandomCode, String inputRandomCode) {
-        if (StrKit.isBlank(md5RandomCode) || StrKit.isBlank(inputRandomCode))
-            return false;
-        try {
-            inputRandomCode = inputRandomCode.toUpperCase();
-            inputRandomCode = encrypt(inputRandomCode);
-            return inputRandomCode.equals(md5RandomCode);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
 }

@@ -7,5 +7,5 @@ import com.jfinalD.application.system.model.base.BaseUserRole;
  */
 @SuppressWarnings("serial")
 public class UserRole extends BaseUserRole<UserRole> {
-	public static final UserRole dao = new UserRole().dao();
+    public static final UserRole dao = new UserRole().dao();
 }

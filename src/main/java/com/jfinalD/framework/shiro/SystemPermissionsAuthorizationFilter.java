@@ -16,35 +16,35 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizationFilter {
-	
-	private static final Logger log = LoggerFactory.getLogger(SystemPermissionsAuthorizationFilter.class);
 
-	@Override
-	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		Subject user = SecurityUtils.getSubject();
-		ShiroUser shiroUser = (ShiroUser) user.getPrincipal();
-		
-		HttpServletRequest req = (HttpServletRequest) request;
-		Subject subject = getSubject(request, response);
-		String uri = req.getRequestURI();
-		String contextPath = req.getContextPath();
-		
-		if(uri.endsWith("/json")){// 去掉json
-			uri=uri.substring(0,uri.length()-5);
-		}
-		if(uri.endsWith(".do")){// 去掉more
-			uri=uri.substring(0,uri.length()-3);
-		}
-		int i=uri.indexOf(contextPath);
-		if(i>-1){
-			uri=uri.substring(i+contextPath.length());
-		}
-		if(StringUtils.isBlank(uri)){
-			uri="/";
-		}
+    private static final Logger log = LoggerFactory.getLogger(SystemPermissionsAuthorizationFilter.class);
+
+    @Override
+    public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
+        Subject user = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser) user.getPrincipal();
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        Subject subject = getSubject(request, response);
+        String uri = req.getRequestURI();
+        String contextPath = req.getContextPath();
+
+        if (uri.endsWith("/json")) {// 去掉json
+            uri = uri.substring(0, uri.length() - 5);
+        }
+        if (uri.endsWith(".do")) {// 去掉more
+            uri = uri.substring(0, uri.length() - 3);
+        }
+        int i = uri.indexOf(contextPath);
+        if (i > -1) {
+            uri = uri.substring(i + contextPath.length());
+        }
+        if (StringUtils.isBlank(uri)) {
+            uri = "/";
+        }
 //		System.out.println();
-		String permission = uri.replaceFirst("/", "").replaceAll("/", ":");
-		boolean permitted = false;
+        String permission = uri.replaceFirst("/", "").replaceAll("/", ":");
+        boolean permitted = false;
 //		if("/".equals(uri)){
 ////			permitted=true;
 //		}else if(null != shiroUser && null != shiroUser.getCode() && shiroUser.getCode().equals(Constants.SUPER_ADMIN_CODE)){//如果是超管角色
@@ -52,16 +52,16 @@ public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizati
 //		}else{
 //			permitted= subject.isPermitted(permission);
 //		}
-		permitted= subject.isPermitted(permission);
-		return permitted;
-	}
-	
-	//未登录重定向到登陆页
-	protected void redirectToLogin(ServletRequest req, ServletResponse resp) throws IOException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) resp;
-		String loginUrl;
-		//后台地址跳转到后台登录地址，前台需要登录的跳转到shiro配置的登录地址
+        permitted = subject.isPermitted(permission);
+        return permitted;
+    }
+
+    //未登录重定向到登陆页
+    protected void redirectToLogin(ServletRequest req, ServletResponse resp) throws IOException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+        String loginUrl;
+        //后台地址跳转到后台登录地址，前台需要登录的跳转到shiro配置的登录地址
 //		if (request.getRequestURI().startsWith(request.getContextPath() + Constants.ADMIN_PREFIX)) {
 //			loginUrl = Constants.ADMIN_LOGIN_URL;
 //		} else if (request.getRequestURI().startsWith(request.getContextPath() + Constants.CONTRACTOR_PREFIX)) {
@@ -70,8 +70,8 @@ public class SystemPermissionsAuthorizationFilter extends PermissionsAuthorizati
 //			
 //		}
 //		loginUrl = getLoginUrl();
-		loginUrl = Constants.ADMIN_LOGIN;
-		WebUtils.issueRedirect(request, response, loginUrl);
-	}	
-	
+        loginUrl = Constants.ADMIN_LOGIN;
+        WebUtils.issueRedirect(request, response, loginUrl);
+    }
+
 }

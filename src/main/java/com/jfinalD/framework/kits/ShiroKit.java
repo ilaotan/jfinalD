@@ -1,13 +1,13 @@
 package com.jfinalD.framework.kits;
 
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.Map;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 /*gt.registerFunctionPackage("so",new ShiroExt ());
 
@@ -16,14 +16,14 @@ import org.apache.shiro.subject.Subject;
 
 */
 public class ShiroKit {
-	
-	
-	public static <T>T getSessionAttr(String key){
-		
-		return  (T) SecurityUtils.getSubject().getSession().getAttribute(key);
-	}
-	
-	
+
+
+    public static <T> T getSessionAttr(String key) {
+
+        return (T) SecurityUtils.getSubject().getSession().getAttribute(key);
+    }
+
+
     /**
      * The guest tag
      *
@@ -150,8 +150,8 @@ public class ShiroKit {
      * @return
      */
     public boolean hasPermission(String p) {
-    	
-    	
+
+
         return getSubject() != null && getSubject().isPermitted(p);
     }
 

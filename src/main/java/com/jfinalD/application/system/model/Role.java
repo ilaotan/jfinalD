@@ -11,25 +11,27 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class Role extends BaseRole<Role> {
-	public static final Role dao = new Role();
+    public static final Role dao = new Role();
 
-	public List<String> findRoleByUserId(Long id){
-		List<Role> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r on ur.role_id = r.id where ur.user_id=?",id);
-		List<String> list = new ArrayList<String>();
-		for(Role role : roleList){
-			list.add(role.getStr("name"));
-		}
-		return list;
-	}
-	public Role getOneByName(String name){
-		return super.findFirst("select id,name from system_role where name = ?",name);
-	}
+    public List<String> findRoleByUserId(Long id) {
+        List<Role> roleList = super.find("select r.name from system_user_role ur INNER JOIN system_role r on ur.role_id = r.id where ur.user_id=?", id);
+        List<String> list = new ArrayList<String>();
+        for (Role role : roleList) {
+            list.add(role.getStr("name"));
+        }
+        return list;
+    }
 
-	/**
-	 * 更新用户和role的关联表
-	 * @return
-	 */
-	public int updateUserRoleRelation(long userId,long roleId){
-		return Db.update("update  system_user_role set role_id= ? where user_id = ?",roleId,userId);
-	}
+    public Role getOneByName(String name) {
+        return super.findFirst("select id,name from system_role where name = ?", name);
+    }
+
+    /**
+     * 更新用户和role的关联表
+     *
+     * @return
+     */
+    public int updateUserRoleRelation(long userId, long roleId) {
+        return Db.update("update  system_user_role set role_id= ? where user_id = ?", roleId, userId);
+    }
 }
