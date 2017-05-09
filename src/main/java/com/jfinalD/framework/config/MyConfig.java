@@ -90,6 +90,8 @@ public class MyConfig extends JFinalConfig {
 		// 默认使用的jackson，下面示例是切换到fastJson
       	me.setJsonFactory(new FastJsonFactory());
 
+		me.setLogFactory(new LogBackLogFactory());
+
 	}
 
 	@Override
