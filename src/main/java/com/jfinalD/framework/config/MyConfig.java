@@ -11,7 +11,6 @@ import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
 import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.json.FastJsonFactory;
 import com.jfinal.kit.PropKit;
-import com.jfinal.log.Log4jLogFactory;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
@@ -89,6 +88,8 @@ public class MyConfig extends JFinalConfig {
         //me.setJsonFactory(new JacksonFactory());
         // 默认使用的jackson，下面示例是切换到fastJson
         me.setJsonFactory(new FastJsonFactory());
+
+        me.setLogFactory(new LogBackLogFactory());
 
     }
 
