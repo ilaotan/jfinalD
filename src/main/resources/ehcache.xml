@@ -9,14 +9,14 @@
             overflowToDisk="false"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
-            />
+    />
 
-    <cache name="myCache" 
-           maxElementsInMemory="10000" 
-           eternal="true" 
-           diskPersistent="false" 
-           overflowToDisk="true" 
-           diskExpiryThreadIntervalSeconds="600"> 
-    </cache> 
-       
+    <cache name="myCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           diskPersistent="false"
+           overflowToDisk="true"
+           diskExpiryThreadIntervalSeconds="600">
+    </cache>
+
 </ehcache>

@@ -11,22 +11,22 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class Permission extends BasePermission<Permission> {
-	public static final Permission dao = new Permission().dao();
+    public static final Permission dao = new Permission().dao();
 
-	public Collection<String> getUrlByRoleId(Integer roleId) {
-		String sql = "select url from sec_permission sp" +
-				"INNER JOIN sec_role_permission srp on sp.id = srp.permission_id " +
-				"where srp.role_id= ?";
-		List<Permission> resList = dao.find(sql,roleId);
-		List<String> list = new ArrayList<String>();
-		for(Permission res : resList){
-			String url = res.getStr("url");
-			// 一般不会出现这种情况
-			if("--".equals(url)){
-				continue;
-			}
-			list.add(url);
-		}
-		return list;
-	}
+    public Collection<String> getUrlByRoleId(Integer roleId) {
+        String sql = "select url from sec_permission sp" +
+                "INNER JOIN sec_role_permission srp on sp.id = srp.permission_id " +
+                "where srp.role_id= ?";
+        List<Permission> resList = dao.find(sql, roleId);
+        List<String> list = new ArrayList<String>();
+        for (Permission res : resList) {
+            String url = res.getStr("url");
+            // 一般不会出现这种情况
+            if ("--".equals(url)) {
+                continue;
+            }
+            list.add(url);
+        }
+        return list;
+    }
 }

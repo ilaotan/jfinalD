@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ExceptionIntoLogInterceptor implements Interceptor {
 
-//    private static final Logger log = Logger.getLogger(ExceptionIntoLogInterceptor.class);
-    public static Logger log  = LoggerFactory.getLogger(IndexController.class);
+    //    private static final Logger log = Logger.getLogger(ExceptionIntoLogInterceptor.class);
+    public static Logger log = LoggerFactory.getLogger(IndexController.class);
 
     @Override
     public void intercept(Invocation invocation) {

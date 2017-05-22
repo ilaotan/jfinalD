@@ -15,7 +15,7 @@ import java.util.List;
 @ControllerBind(controllerKey = "/", viewPath = "/front")
 public class IndexController extends Controller {
 
-    public static Logger LOG  = LoggerFactory.getLogger(IndexController.class);
+    public static Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
     //@Before({Tx.class,CacheInterceptor.class})//EvictInterceptor.class 清除缓存
     //@CacheName("myCache")

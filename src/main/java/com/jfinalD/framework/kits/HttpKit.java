@@ -101,8 +101,8 @@ public class HttpKit {
     }
 
     /**
-     * @description 功能描述: get 请求
      * @return 返回类型:
+     * @description 功能描述: get 请求
      */
     public static String get(String url, Map<String, String> params, Map<String, String> headers) {
         StringBuffer bufferRes = null;
@@ -132,25 +132,25 @@ public class HttpKit {
     }
 
     /**
-     * @description 功能描述: get 请求
      * @return 返回类型:
+     * @description 功能描述: get 请求
      */
     public static String get(String url) {
         return get(url, null);
     }
 
     /**
+     * @return 返回类型:
      * @throws UnsupportedEncodingException
      * @description 功能描述: get 请求
-     * @return 返回类型:
      */
     public static String get(String url, Map<String, String> params) {
         return get(url, params, null);
     }
 
     /**
-     * @description 功能描述: POST 请求
      * @return 返回类型:
+     * @description 功能描述: POST 请求
      */
     public static String post(String url, String params, Map<String, String> headers) {
         StringBuffer bufferRes = null;
@@ -209,9 +209,9 @@ public class HttpKit {
     }
 
     /**
+     * @return 返回类型:
      * @throws UnsupportedEncodingException
      * @description 功能描述: 构造请求参数
-     * @return 返回类型:
      */
     public static String initParams(String url, Map<String, String> params) {
         if (null == params || params.isEmpty()) {
@@ -228,9 +228,9 @@ public class HttpKit {
     /**
      * map构造url
      *
+     * @return 返回类型:
      * @throws UnsupportedEncodingException
      * @description 功能描述:
-     * @return 返回类型:
      */
     public static String map2Url(Map<String, String> paramToMap) {
         if (null == paramToMap || paramToMap.isEmpty()) {
