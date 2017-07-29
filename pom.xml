@@ -89,6 +89,11 @@
         </dependency>
         <dependency>
             <groupId>com.jfinal</groupId>
+            <artifactId>cos</artifactId>
+            <version>2017.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfinal</groupId>
             <artifactId>jfinal-weixin</artifactId>
             <version>${jfinal.weixin.version}</version>
             <exclusions>
@@ -182,9 +187,12 @@
         <dependency>
             <groupId>com.jfinal</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>${jetty-server.version}</version>
-            <!-- 若使用tomcat 需要将下面这行注释掉的放开 -->
-            <!--<scope>provided</scope>-->
+            <version>8.1.8</version>
+            <!--
+            此处的 scope 值为 compile 仅为支持 IDEA 下启动项目
+            打 war 包时需要改成 provided，以免将一些无用的 jar 打进去
+            -->
+            <scope>compile</scope>
         </dependency>
         <!-- jetty-server里已经打包好servlet-api等包了 这一个jar功能上是完整的，即：支持servlet与jsp的web server
         <dependency>
