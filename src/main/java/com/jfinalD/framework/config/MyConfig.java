@@ -52,14 +52,15 @@ public class MyConfig extends JFinalConfig {
 
     @Override
     public void configConstant(Constants me) {
-        PropKit.use("config.properties");
+        PropKit.use("config/config.properties");
 
         me.setDevMode(PropKit.getBoolean("devMode", true));
         me.setUrlParaSeparator("-");//设置参数分隔符
 
 //		me.setBaseViewPath("/view"); //  已经在beetl的配置文件里定义好位置了
         JFinal3BeetlRenderFactory rf = new JFinal3BeetlRenderFactory();
-        rf.config();
+//        rf.config();
+        rf.config("config/beetl.properties");
         me.setRenderFactory(rf);
 
         gt = rf.groupTemplate;
