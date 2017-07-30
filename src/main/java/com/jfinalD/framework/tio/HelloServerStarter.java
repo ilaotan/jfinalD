@@ -13,12 +13,12 @@ import java.io.IOException;
 
 
 public class HelloServerStarter implements IPlugin {
-    public static ServerGroupContext<Object, HelloPacket, Object> serverGroupContext = null;
-    static AioServer<Object, HelloPacket, Object> aioServer = null; // 可以为空
-    static ServerAioHandler<Object, HelloPacket, Object> aioHandler = null;
-    static ServerAioListener<Object, HelloPacket, Object> aioListener = null;
-    static String serverIp = null;
-    static int serverPort = Constants.PORT;
+    private static ServerGroupContext<Object, HelloPacket, Object> serverGroupContext = null;
+    private static AioServer<Object, HelloPacket, Object> aioServer = null; // 可以为空
+    private static ServerAioHandler<Object, HelloPacket, Object> aioHandler = null;
+    private static ServerAioListener<Object, HelloPacket, Object> aioListener = null;
+    private static String serverIp = null;
+    private static int serverPort = Constants.PORT;
 
     public static void main(String[] args) throws IOException {
         aioHandler = new HelloServerAioHandler();
