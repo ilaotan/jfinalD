@@ -1,4 +1,4 @@
-package com.jfinalD.framework.servlet;
+package com.jfinalD.framework.handler.filter;
 
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 

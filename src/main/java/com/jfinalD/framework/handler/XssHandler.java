@@ -2,7 +2,7 @@ package com.jfinalD.framework.handler;
 
 import com.jfinal.handler.Handler;
 import com.jfinal.kit.StrKit;
-import com.jfinalD.framework.servlet.MyHttpServletRequestWrapper;
+import com.jfinalD.framework.handler.filter.MyHttpServletRequestWrapper;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
