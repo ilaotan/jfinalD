@@ -59,6 +59,7 @@ public class ShiroPlugin implements IPlugin {
     /**
      * 停止插件
      */
+    @Override
     public boolean stop() {
         return true;
     }
@@ -66,6 +67,7 @@ public class ShiroPlugin implements IPlugin {
     /**
      * 启动插件
      */
+    @Override
     public boolean start() {
         Set<String> excludedMethodName = buildExcludedMethodName();
         ConcurrentMap<String, AuthzHandler> authzMaps = new ConcurrentHashMap<String, AuthzHandler>();

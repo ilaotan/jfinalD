@@ -221,6 +221,7 @@ public class MyConfig extends JFinalConfig {
         //访问路径是/druid/index.ftl
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druid", new IDruidStatViewAuth() {
 
+            @Override
             public boolean isPermitted(HttpServletRequest request) {//获得查看权限
                 Subject subject = SecurityUtils.getSubject();
                 if (subject.isPermitted("druid:*")) {
