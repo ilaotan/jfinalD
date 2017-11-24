@@ -27,12 +27,17 @@ import java.util.List;
 
 public class AutoBindRoutes extends Routes {
 
-    protected final Log logger = Log.getLog(getClass());
-    private boolean autoScan = true;
-    private List<Class<? extends Controller>> excludeClasses = Lists.newArrayList();
+    protected final Log                               logger         = Log.getLog(getClass());
+
+    private         boolean                           autoScan       = true;
+
+    private         List<Class<? extends Controller>> excludeClasses = Lists.newArrayList();
+
     private boolean includeAllJarsInLib;
+
     private List<String> includeJars = Lists.newArrayList();
-    private String suffix = "Controller";
+
+    private String       suffix      = "Controller";
 
     public AutoBindRoutes autoScan(boolean autoScan) {
         this.autoScan = autoScan;
@@ -83,10 +88,12 @@ public class AutoBindRoutes extends Routes {
                 }
                 this.add(controllerKey(controller), controller);
                 logger.debug("routes.add(" + controllerKey(controller) + ", " + controller.getName() + ")");
-            } else if (StrKit.isBlank(controllerBind.viewPath())) {
+            }
+            else if (StrKit.isBlank(controllerBind.viewPath())) {
                 this.add(controllerBind.controllerKey(), controller);
                 logger.debug("routes.add(" + controllerBind.controllerKey() + ", " + controller.getName() + ")");
-            } else {
+            }
+            else {
                 this.add(controllerBind.controllerKey(), controller, controllerBind.viewPath());
                 logger.debug("routes.add(" + controllerBind.controllerKey() + ", " + controller + ","
                         + controllerBind.viewPath() + ")");

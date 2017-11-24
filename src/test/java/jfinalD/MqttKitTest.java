@@ -2,8 +2,8 @@ package jfinalD;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.jfinalD.framework.mqtt.MqttKit;
-import com.jfinalD.framework.mqtt.MqttPlugin;
+import com.ilaotan.framework.mqtt.MqttKit;
+import com.ilaotan.framework.mqtt.MqttPlugin;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -33,7 +33,8 @@ public class MqttKitTest {
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 String msg = new String(message.getPayload());
                 if (map.containsKey(msg)) {
-                    System.err.println("重复消息\t" + msg + "\t距离第一次收到消息的时间间隔 " + (System.currentTimeMillis() - map.get(msg)) + " 毫秒");
+                    System.err.println("重复消息\t" + msg + "\t距离第一次收到消息的时间间隔 " + (System.currentTimeMillis() - map.get
+                            (msg)) + " 毫秒");
                 }
                 else {
                     map.put(msg, System.currentTimeMillis());

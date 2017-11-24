@@ -76,20 +76,23 @@ public class ClassSearcher {
         File baseDir = new File(baseDirName);
         if (!baseDir.exists() || !baseDir.isDirectory()) {
             LOG.error("search error：" + baseDirName + "is not a dir！");
-        } else {
+        }
+        else {
             String[] files = baseDir.list();
             for (int i = 0; i < files.length; i++) {
                 File file = new File(baseDirName + File.separator + files[i]);
                 if (file.isDirectory()) {
                     classFiles.addAll(findFiles(baseDirName + File.separator + files[i], targetFileName));
-                } else {
+                }
+                else {
                     if (wildcardMatch(targetFileName, file.getName())) {
                         String fileName = file.getAbsolutePath();
                         String open = PathKit.getRootClassPath() + File.separator;
                         String close = ".class";
                         int start = fileName.indexOf(open);
                         int end = fileName.indexOf(close, start + open.length());
-                        String className = fileName.substring(start + open.length(), end).replaceAll("\\" + File.separator, ".");
+                        String className = fileName.substring(start + open.length(), end).replaceAll("\\" + File
+                                .separator, ".");
                         classFiles.add(className);
                     }
                 }
@@ -119,14 +122,16 @@ public class ClassSearcher {
                     }
                     strIndex++;
                 }
-            } else if (ch == '?') {
+            }
+            else if (ch == '?') {
                 // 通配符问号?表示匹配任意一个字符
                 strIndex++;
                 if (strIndex > strLength) {
                     // 表示str中已经没有字符匹配?了。
                     return false;
                 }
-            } else {
+            }
+            else {
                 if ((strIndex >= strLength) || (ch != fileName.charAt(strIndex))) {
                     return false;
                 }
@@ -140,9 +145,11 @@ public class ClassSearcher {
         List<String> classFileList = Lists.newArrayList();
         if (scanPackages.isEmpty()) {
             classFileList = findFiles(classpath, "*.class");
-        } else {
+        }
+        else {
             for (String scanPackage : scanPackages) {
-                classFileList = findFiles(classpath + File.separator + scanPackage.replaceAll("\\.", "\\" + File.separator), "*.class");
+                classFileList = findFiles(classpath + File.separator + scanPackage.replaceAll("\\.", "\\" + File
+                        .separator), "*.class");
             }
         }
         classFileList.addAll(findjarFiles(libDir));
@@ -157,12 +164,14 @@ public class ClassSearcher {
         File baseDir = new File(baseDirName);
         if (!baseDir.exists() || !baseDir.isDirectory()) {
             LOG.error("file search error:" + baseDirName + " is not a dir！");
-        } else {
+        }
+        else {
             File[] files = baseDir.listFiles();
             for (File file : files) {
                 if (file.isDirectory()) {
                     classFiles.addAll(findjarFiles(file.getAbsolutePath()));
-                } else {
+                }
+                else {
                     if (includeAllJarsInLib || includeJars.contains(file.getName())) {
                         JarFile localJarFile = null;
                         try {
@@ -173,27 +182,34 @@ public class ClassSearcher {
                                 String entryName = jarEntry.getName();
                                 if (scanPackages.isEmpty()) {
                                     if (!jarEntry.isDirectory() && entryName.endsWith(".class")) {
-                                        String className = entryName.replaceAll("\\" + File.separator, ".").substring(0, entryName.length() - 6);
+                                        String className = entryName.replaceAll("\\" + File.separator, ".").substring
+                                                (0, entryName.length() - 6);
                                         classFiles.add(className);
                                     }
-                                } else {
+                                }
+                                else {
                                     for (String scanPackage : scanPackages) {
                                         scanPackage = scanPackage.replaceAll("\\.", "\\" + File.separator);
-                                        if (!jarEntry.isDirectory() && entryName.endsWith(".class") && entryName.startsWith(scanPackage)) {
-                                            String className = entryName.replaceAll(File.separator, ".").substring(0, entryName.length() - 6);
+                                        if (!jarEntry.isDirectory() && entryName.endsWith(".class") && entryName
+                                                .startsWith(scanPackage)) {
+                                            String className = entryName.replaceAll(File.separator, ".").substring(0,
+                                                    entryName.length() - 6);
                                             classFiles.add(className);
                                         }
                                     }
                                 }
                             }
-                        } catch (IOException e) {
+                        }
+                        catch (IOException e) {
                             e.printStackTrace();
-                        } finally {
+                        }
+                        finally {
                             try {
                                 if (localJarFile != null) {
                                     localJarFile.close();
                                 }
-                            } catch (IOException e) {
+                            }
+                            catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }

@@ -66,7 +66,8 @@ public class Reflect {
     /**
      * The wrapped object
      */
-    private final Object object;
+    private final Object  object;
+
     /**
      * A flag indicating whether the wrapped object is a {@link Class} (for accessing static fields and methods), or any
      * other type of {@link Object} (for accessing instance fields and methods).
@@ -160,9 +161,11 @@ public class Reflect {
 
         if (length == 0) {
             return "";
-        } else if (length == 1) {
+        }
+        else if (length == 1) {
             return string.toLowerCase();
-        } else {
+        }
+        else {
             return string.substring(0, 1).toLowerCase() + string.substring(1);
         }
     }
@@ -173,7 +176,8 @@ public class Reflect {
     private static Reflect on(Constructor<?> constructor, Object... args) throws ReflectException {
         try {
             return on(accessible(constructor).newInstance(args));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ReflectException(e);
         }
     }
@@ -188,10 +192,12 @@ public class Reflect {
             if (method.getReturnType() == void.class) {
                 method.invoke(object, args);
                 return on(object);
-            } else {
+            }
+            else {
                 return on(method.invoke(object, args));
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ReflectException(e);
         }
     }
@@ -235,7 +241,8 @@ public class Reflect {
     private static Class<?> forName(String name) throws ReflectException {
         try {
             return Class.forName(name);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ReflectException(e);
         }
     }
@@ -246,24 +253,33 @@ public class Reflect {
     public static Class<?> wrapper(Class<?> type) {
         if (type == null) {
             return null;
-        } else if (type.isPrimitive()) {
+        }
+        else if (type.isPrimitive()) {
             if (boolean.class == type) {
                 return Boolean.class;
-            } else if (int.class == type) {
+            }
+            else if (int.class == type) {
                 return Integer.class;
-            } else if (long.class == type) {
+            }
+            else if (long.class == type) {
                 return Long.class;
-            } else if (short.class == type) {
+            }
+            else if (short.class == type) {
                 return Short.class;
-            } else if (byte.class == type) {
+            }
+            else if (byte.class == type) {
                 return Byte.class;
-            } else if (double.class == type) {
+            }
+            else if (double.class == type) {
                 return Double.class;
-            } else if (float.class == type) {
+            }
+            else if (float.class == type) {
                 return Float.class;
-            } else if (char.class == type) {
+            }
+            else if (char.class == type) {
                 return Character.class;
-            } else if (void.class == type) {
+            }
+            else if (void.class == type) {
                 return Void.class;
             }
         }
@@ -300,13 +316,15 @@ public class Reflect {
             Field field = type().getField(name);
             field.set(object, unwrap(value));
             return this;
-        } catch (Exception e1) {
+        }
+        catch (Exception e1) {
 
             // Try again, setting a non-public field
             try {
                 accessible(type().getDeclaredField(name)).set(object, unwrap(value));
                 return this;
-            } catch (Exception e2) {
+            }
+            catch (Exception e2) {
                 throw new ReflectException(e2);
             }
         }
@@ -344,9 +362,11 @@ public class Reflect {
         while (clazz != Object.class) {
             try {
                 field = clazz.getDeclaredField(name);
-                if (field != null)
+                if (field != null) {
                     break;
-            } catch (Exception e) {
+                }
+            }
+            catch (Exception e) {
                 clazz = clazz.getSuperclass();
             }
         }
@@ -373,12 +393,14 @@ public class Reflect {
             // Try getting a public field
             Field field = type().getField(name);
             return on(field.get(object));
-        } catch (Exception e1) {
+        }
+        catch (Exception e1) {
 
             // Try again, getting a non-public field
             try {
                 return on(accessible(getDeclaredField(type(), name)).get(object));
-            } catch (Exception e2) {
+            }
+            catch (Exception e2) {
                 throw new ReflectException(e2);
             }
         }
@@ -474,7 +496,8 @@ public class Reflect {
             try {
                 Method method = similarMethod(name, types);
                 return on(method, object, args);
-            } catch (NoSuchMethodException e1) {
+            }
+            catch (NoSuchMethodException e1) {
                 throw new ReflectException(e1);
             }
         }
@@ -635,9 +658,11 @@ public class Reflect {
 
                         if (length == 0 && name.startsWith("get")) {
                             return map.get(property(name.substring(3)));
-                        } else if (length == 0 && name.startsWith("is")) {
+                        }
+                        else if (length == 0 && name.startsWith("is")) {
                             return map.get(property(name.substring(2)));
-                        } else if (length == 1 && name.startsWith("set")) {
+                        }
+                        else if (length == 1 && name.startsWith("set")) {
                             map.put(property(name.substring(3)), args[0]);
                             return null;
                         }
@@ -663,7 +688,8 @@ public class Reflect {
             }
 
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -704,7 +730,8 @@ public class Reflect {
     public Class<?> type() {
         if (isClass) {
             return (Class<?>) object;
-        } else {
+        }
+        else {
             return object.getClass();
         }
     }
