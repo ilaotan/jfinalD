@@ -72,14 +72,14 @@ public class ShiroPlugin implements IPlugin {
     @Override
     public boolean start() {
         Set<String> excludedMethodName = buildExcludedMethodName();
-        ConcurrentMap<String, AuthzHandler> authzMaps = new ConcurrentHashMap<String, AuthzHandler>(50);
+        ConcurrentMap<String, AuthzHandler> authzMaps = new ConcurrentHashMap<String, AuthzHandler>();
         //逐个访问所有注册的Controller，解析Controller及action上的所有Shiro注解。
         //并依据这些注解，actionKey提前构建好权限检查处理器。
-        for (Routes routes : Routes.getRoutesList()) {
-            for (Routes.Route route : routes.getRouteItemList()) {
-                Class<? extends Controller> controllerClass = route.getControllerClass();
+        for(Routes _routes : getRoutesList()){
+            for (Routes.Route entry : _routes.getRouteItemList()) {
+                Class<? extends Controller> controllerClass = entry.getControllerClass();
 
-                String controllerKey = route.getControllerKey();
+                String controllerKey = entry.getControllerKey();
 
                 // 获取Controller的所有Shiro注解。
                 List<Annotation> controllerAnnotations = getAuthzAnnotations(controllerClass);
@@ -87,8 +87,7 @@ public class ShiroPlugin implements IPlugin {
                 Method[] methods = controllerClass.getMethods();
                 for (Method method : methods) {
                     //排除掉Controller基类的所有方法，并且只关注没有参数的Action方法。
-                    if (!excludedMethodName.contains(method.getName())
-                            && method.getParameterTypes().length == 0) {
+                    if (!excludedMethodName.contains(method.getName()) && method.getParameterTypes().length == 0) {
                         //若该方法上存在ClearShiro注解，则对该action不进行访问控制检查。
                         if (isClearShiroAnnotationPresent(method)) {
                             continue;
@@ -96,8 +95,7 @@ public class ShiroPlugin implements IPlugin {
                         //获取方法的所有Shiro注解。
                         List<Annotation> methodAnnotations = getAuthzAnnotations(method);
                         //依据Controller的注解和方法的注解来生成访问控制处理器。
-                        AuthzHandler authzHandler = createAuthzHandler(
-                                controllerAnnotations, methodAnnotations);
+                        AuthzHandler authzHandler = createAuthzHandler(controllerAnnotations, methodAnnotations);
                         //生成访问控制处理器成功。
                         if (authzHandler != null) {
                             //构建ActionKey，参考ActionMapping中实现
@@ -109,6 +107,7 @@ public class ShiroPlugin implements IPlugin {
                 }
             }
         }
+
         //注入到ShiroKit类中。ShiroKit类以单例模式运行。
         ShiroKit.init(authzMaps);
         /**
@@ -118,6 +117,18 @@ public class ShiroPlugin implements IPlugin {
         ShiroKit.setSuccessUrl(successUrl);
         ShiroKit.setUnauthorizedUrl(unauthorizedUrl);
         return true;
+    }
+
+    /**
+     * 获取所有配置的Route
+     * @return
+     */
+    private List<Routes> getRoutesList() {
+        List<Routes> routesList = Routes.getRoutesList();
+        List<Routes> ret = new ArrayList<Routes>(routesList.size() + 1);
+//        ret.add(routes);
+        ret.addAll(routesList);
+        return ret;
     }
 
     /**
