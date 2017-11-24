@@ -59,8 +59,8 @@ public class MyConfig extends JFinalConfig {
 
 //		me.setBaseViewPath("/view"); //  已经在beetl的配置文件里定义好位置了
         JFinal3BeetlRenderFactory rf = new JFinal3BeetlRenderFactory();
-//        rf.config();
-        rf.config("config/beetl.properties");
+        rf.config();
+//        rf.config("config/beetl.properties");
         me.setRenderFactory(rf);
 
         gt = rf.groupTemplate;
@@ -78,10 +78,10 @@ public class MyConfig extends JFinalConfig {
 //		System.out.println(str);
 
 
-        me.setError401View("/view/error/401.html");//没有身份验证时
-        me.setError403View("/view/error/403.html");//没有权限时
-        me.setError404View("/view/error/404.html");
-        me.setError500View("/view/error/500.html");
+        me.setError401View("/templates/error/401.html");//没有身份验证时
+        me.setError403View("/templates/error/403.html");//没有权限时
+        me.setError404View("/templates/error/404.html");
+        me.setError500View("/templates/error/500.html");
 
 
         me.setViewExtension(".html");
@@ -103,6 +103,7 @@ public class MyConfig extends JFinalConfig {
         this.routes = me;
 //		me.setBaseViewPath("/view");
 
+        //此处需验证一下权限是否能防得住 如果防不了,需要改一下 http://www.jfinal.com/share/224
         me.add(new AutoBindRoutes());
 
 
