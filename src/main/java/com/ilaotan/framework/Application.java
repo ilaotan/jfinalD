@@ -1,6 +1,8 @@
 package com.ilaotan.framework;
 
+import com.ilaotan.framework.config.MyConfig;
 import com.jfinal.core.JFinal;
+import com.jfinal.server.undertow.UndertowServer;
 
 /**
  * Created by tan on 2017/5/1.
@@ -13,9 +15,7 @@ public class Application {
      */
     public static void main(String[] args) {
 
-        //JFinal.start("src/main/webapp", 8081, "/", 5);
-        // IDEA下启动要去掉最后一个参数 否则不支持热加载
-        JFinal.start("src/main/webapp", 8081, "/");
+        UndertowServer.start(MyConfig.class);
     }
 
 }
